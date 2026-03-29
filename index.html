@@ -3,446 +3,2078 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="FlowerBTC - Revolutionary crypto experience with GameFi, DeFi, and AI-powered trading. Join our community and grow with us.">
-    <meta name="keywords" content="FlowerBTC, crypto, GameFi, DeFi, blockchain, trading, AI bot">
-    <meta name="author" content="FlowerBTC">
-    <meta name="theme-color" content="#0a0a0a">
-    
-    <!-- Open Graph / Social Media -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://flowerbtc.io">
-    <meta property="og:title" content="FlowerBTC - Revolutionary Crypto Experience">
-    <meta property="og:description" content="Join FlowerBTC - Where GameFi meets DeFi. Grow your sunflower, earn rewards, and trade with AI.">
-    <meta property="og:image" content="https://flowerbtc.io/assets/images/og-image.jpg">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://flowerbtc.io">
-    <meta property="twitter:title" content="FlowerBTC - Revolutionary Crypto Experience">
-    <meta property="twitter:description" content="Join FlowerBTC - Where GameFi meets DeFi. Grow your sunflower, earn rewards, and trade with AI.">
-    <meta property="twitter:image" content="https://flowerbtc.io/assets/images/og-image.jpg">
-    
-    <!-- Preconnect for performance -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-    
     <title>FlowerBTC - Revolutionary Crypto Experience</title>
-    
-    <!-- Fonts -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" as="style">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
-    
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    
-    <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/images/favicon.png">
-    <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dock-nav.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/motion@10.16.2/dist/motion.min.js"></script>
+    <script src="SplitText.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+    <style>
+        /* Silk background container */
+        #silk-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Ensure silk background is fully visible */
+        #silk-background canvas {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
+        /* Set transparent background for silk shader */
+        body {
+            margin: 0;
+            padding: 0;
+            position: relative;
+            overflow-x: hidden;
+            background-color: transparent !important;
+            background-image: none !important;
+        }
+        
+        /* Remove black background from navbar */
+        .navbar {
+            background: transparent !important;
+            backdrop-filter: blur(10px);
+        }
+        /* Remove black background from any other elements if present */
+        .section, .section.dark-theme {
+            background: transparent !important;
+        }
+        /* Remove any other black backgrounds if present */
+
+        /* Video Background Styles */
+        #video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        /* Readability Overlay - Removed for clean silk background */
+        body::after {
+            display: none !important;
+        }
+
+        /* Content Positioning */
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Mobile Fallback */
+        @media (pointer: coarse) {
+            #video-bg {
+                display: none;
+            }
+            body {
+                background: url('fallback.jpg') no-repeat center center fixed;
+                background-size: cover;
+            }
+        }
+
+        /* Keep other existing styles */
+        .section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Ensure home section is clean */
+        #home.section {
+            background: transparent !important;
+            background-image: none !important;
+            background-color: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        #home.section::before,
+        #home.section::after {
+            display: none !important;
+        }
+
+        /* Hero Title Container - Large, bold, DeepSite style */
+        .hero-title-container {
+            font-size: clamp(2rem, 8vw, 6rem);
+            font-weight: 900;
+            text-align: center;
+            color: #fff;
+            white-space: nowrap;
+            line-height: .9;
+            filter: drop-shadow(0 6px 24px rgba(0,0,0,.35));
+            margin: 0;
+            padding: 0;
+            z-index: 10;
+        }
+
+        /* Hero Subtitle Container - Smaller, bold, centered */
+        .hero-subtitle-container {
+            font-size: clamp(1rem, 3.5vw, 2rem);
+            font-weight: 700;
+            text-align: center;
+            color: #fff;
+            margin: 1.5rem 0 0 0;
+            padding: 0;
+            z-index: 10;
+            filter: drop-shadow(0 4px 16px rgba(0,0,0,.3));
+        }
+
+        /* SplitText Character Styling */
+        .hero-title-container h1,
+        .hero-subtitle-container h2 {
+            margin: 0;
+            padding: 0;
+            line-height: inherit;
+        }
+
+        .hero-title-container h1 span,
+        .hero-subtitle-container h2 span {
+            display: inline-block;
+            white-space: pre;
+            will-change: transform, opacity;
+        }
+
+
+
+        /* Perfect centering for hero content */
+        .hero {
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: center !important;
+            min-height: 100vh !important;
+            text-align: center !important;
+            position: relative !important;
+            z-index: 10 !important;
+            background: transparent !important;
+            padding: 0 !important;
+            border-radius: 0 !important;
+            border: none !important;
+            box-shadow: none !important;
+            width: 100% !important;
+            max-width: none !important;
+            margin: 0 !important;
+            overflow: visible !important;
+        }
+
+        /* Remove any background overlays or cards */
+        .hero::before,
+        .hero::after {
+            display: none !important;
+        }
+
+        /* Override any external CSS that might add backgrounds */
+        .hero {
+            background: transparent !important;
+            background-image: none !important;
+            background-color: transparent !important;
+            border: none !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            max-width: none !important;
+            width: 100% !important;
+        }
+
+
+
+        /* Hero Buttons - Clean and centered */
+        .hero-buttons {
+            display: flex !important;
+            gap: 2rem !important;
+            margin-top: 2.5rem !important;
+            margin-bottom: 0 !important;
+            flex-wrap: wrap !important;
+            justify-content: center !important;
+            align-items: center !important;
+            z-index: 10 !important;
+            position: relative !important;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Remove any background effects from buttons container */
+        .hero-buttons::before,
+        .hero-buttons::after {
+            display: none !important;
+        }
+
+        .cta-button {
+            padding: 1rem 2rem !important;
+            border-radius: 50px !important;
+            text-decoration: none !important;
+            font-weight: 600 !important;
+            font-size: 1.1rem !important;
+            transition: all 0.3s ease !important;
+            border: 2px solid transparent !important;
+            position: relative !important;
+            overflow: hidden !important;
+            background: none !important;
+            box-shadow: none !important;
+            filter: none !important;
+            transform: none !important;
+        }
+
+        .cta-button.primary {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4) !important;
+            color: white !important;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3) !important;
+        }
+
+        .cta-button.secondary {
+            background: transparent !important;
+            color: white !important;
+            border-color: rgba(255, 255, 255, 0.3) !important;
+            backdrop-filter: blur(10px) !important;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) !important;
+            box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4) !important;
+        }
+
+        .cta-button.primary:hover {
+            background: linear-gradient(135deg, #ff5252, #26a69a) !important;
+        }
+
+        .cta-button.secondary:hover {
+            border-color: rgba(255, 255, 255, 0.6) !important;
+            background: rgba(255, 255, 255, 0.1) !important;
+        }
+
+        /* Remove any unwanted button effects */
+        .cta-button::before,
+        .cta-button::after {
+            display: none !important;
+        }
+
+        .cta-button.primary::before,
+        .cta-button.primary::after,
+        .cta-button.secondary::before,
+        .cta-button.secondary::after {
+            display: none !important;
+        }
+
+        /* New Global Button Styling */
+        .button {
+            --black-700: hsla(0 0% 12% / 1);
+            --border_radius: 9999px;
+            --transtion: 0.3s ease-in-out;
+            --offset: 2px;
+
+            cursor: pointer;
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+
+            transform-origin: center;
+
+            padding: 1rem 2rem;
+            background-color: transparent;
+
+            border: none;
+            border-radius: var(--border_radius);
+            transform: scale(calc(1 + (var(--active, 0) * 0.1)));
+
+            transition: transform var(--transtion);
+        }
+
+        .button::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            width: 100%;
+            height: 100%;
+            background-color: var(--black-700);
+
+            border-radius: var(--border_radius);
+            box-shadow: inset 0 0.5px hsl(0, 0%, 100%), inset 0 -1px 2px 0 hsl(0, 0%, 0%),
+                0px 4px 10px -4px hsla(0 0% 0% / calc(1 - var(--active, 0))),
+                0 0 0 calc(var(--active, 0) * 0.375rem) hsl(260 97% 50% / 0.75);
+
+            transition: all var(--transtion);
+            z-index: 0;
+        }
+
+        .button::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            width: 100%;
+            height: 100%;
+            background-color: hsla(260 97% 61% / 0.75);
+            background-image: radial-gradient(
+                    at 51% 89%,
+                    hsla(266, 45%, 74%, 1) 0px,
+                    transparent 50%
+                ),
+                radial-gradient(at 100% 100%, hsla(266, 36%, 60%, 1) 0px, transparent 50%),
+                radial-gradient(at 22% 91%, hsla(266, 36%, 60%, 1) 0px, transparent 50%);
+            background-position: top;
+
+            opacity: var(--active, 0);
+            border-radius: var(--border_radius);
+            transition: opacity var(--transtion);
+            z-index: 2;
+        }
+
+        .button:is(:hover, :focus-visible) {
+            --active: 1;
+        }
+        .button:active {
+            transform: scale(1);
+        }
+
+        .button .dots_border {
+            --size_border: calc(100% + 2px);
+
+            overflow: hidden;
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            width: var(--size_border);
+            height: var(--size_border);
+            background-color: transparent;
+
+            border-radius: var(--border_radius);
+            z-index: -10;
+        }
+
+        .button .dots_border::before {
+            content: "";
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transform-origin: left;
+            transform: rotate(0deg);
+
+            width: 100%;
+            height: 2rem;
+            background-color: white;
+
+            mask: linear-gradient(transparent 0%, white 120%);
+            animation: rotate 2s linear infinite;
+        }
+
+        @keyframes rotate {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .button .sparkle {
+            position: relative;
+            z-index: 10;
+
+            width: 1.75rem;
+        }
+
+        .button .sparkle .path {
+            fill: currentColor;
+            stroke: currentColor;
+
+            transform-origin: center;
+
+            color: hsl(0, 0%, 100%);
+        }
+
+        .button:is(:hover, :focus) .sparkle .path {
+            animation: path 1.5s linear 0.5s infinite;
+        }
+
+        .button .sparkle .path:nth-child(1) {
+            --scale_path_1: 1.2;
+        }
+        .button .sparkle .path:nth-child(2) {
+            --scale_path_2: 1.2;
+        }
+        .button .sparkle .path:nth-child(3) {
+            --scale_path_3: 1.2;
+        }
+
+        @keyframes path {
+            0%,
+            34%,
+            71%,
+            100% {
+                transform: scale(1);
+            }
+            17% {
+                transform: scale(var(--scale_path_1, 1));
+            }
+            49% {
+                transform: scale(var(--scale_path_2, 1));
+            }
+            83% {
+                transform: scale(var(--scale_path_3, 1));
+            }
+        }
+
+        .button .text_button {
+            position: relative;
+            z-index: 10;
+
+            background-image: linear-gradient(
+                90deg,
+                hsla(0 0% 100% / 1) 0%,
+                hsla(0 0% 100% / var(--active, 0)) 120%
+            );
+            background-clip: text;
+
+            font-size: 1rem;
+            color: transparent;
+        }
+
+        /* Text Utility Classes - Responsive and bold */
+        .text-7xl {
+            font-size: 4.5rem;
+            line-height: 1;
+        }
+
+        .text-5xl {
+            font-size: 3rem;
+            line-height: 1;
+        }
+
+        .text-4xl {
+            font-size: 2.25rem;
+            line-height: 1;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-white {
+            color: white;
+        }
+
+        /* Responsive text sizing */
+        @media (min-width: 1024px) {
+            .text-7xl {
+                font-size: 5rem;
+            }
+        }
+
+        @media (max-width: 1023px) and (min-width: 768px) {
+            .text-7xl {
+                font-size: 4rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .text-7xl {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .text-7xl {
+                font-size: 2.5rem;
+            }
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, 
+                rgba(255, 107, 107, 0.15) 0%,
+                rgba(78, 205, 196, 0.1) 50%,
+                transparent 100%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .partner-card, .supporter-card, .investor-card, .ngo-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .partner-card:hover, .supporter-card:hover, .investor-card:hover, .ngo-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+
+
+        .nav-dots .dot {
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .nav-dots .dot:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(1.2);
+        }
+
+        .nav-dots .dot.active {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            border-color: transparent;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Enhanced Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+        }
+
+        /* Enhanced Cards */
+        .partner-category {
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .partner-category::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        }
+
+        /* Enhanced Images */
+        .partner-logo img {
+            transition: all 0.3s ease;
+            filter: brightness(1.2) contrast(1.1);
+        }
+
+        .partner-card:hover .partner-logo img {
+            transform: scale(1.1);
+            filter: brightness(1.4) contrast(1.2);
+        }
+
+        /* Enhanced Navigation */
+        .navbar {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-links a {
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+
+
+        .legal-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: #1a1a1a;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #4ECDC4;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 10px;
+            position: relative;
+            color: #fff;
+        }
+
+        .close-modal {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #4ECDC4;
+        }
+
+        .modal-body {
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        .modal-body h2 {
+            color: #4ECDC4;
+            margin-bottom: 20px;
+        }
+
+        .modal-body p {
+            margin-bottom: 15px;
+        }
+
+        .custom-cursor {
+            width: 40px;
+            height: 40px;
+            background-image: url('assets/images/sunflower.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+            transform-origin: center center;
+        }
+
+        .hero {
+            background: transparent !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+        }
+        .hero > * {
+            background: transparent !important;
+        }
+        .webgl-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background: transparent !important;
+        }
+        .hero > *:not(.webgl-bg) {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-section {
+            padding: 6rem 0 4rem 0;
+            background: linear-gradient(90deg, #f3e8ff 0%, #ede9fe 100%);
+        }
+        .main-heading {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            color: #e3d4f7;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.1;
+        }
+        .main-heading .subtitle {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #e3d4f7;
+            margin-top: 1rem;
+        }
+        @media (min-width: 768px) {
+            .main-heading {
+                font-size: 6rem;
+            }
+            .main-heading .subtitle {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Dock Navigation Styles */
+        .dock-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            align-items: flex-end;
+            height: 80px;
+            padding: 0 20px;
+            background: rgba(6, 0, 16, 0.3);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(34, 34, 34, 0.4);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dock-container.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .dock-container.hidden {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-50%) translateY(-20px);
+        }
+
+        .dock-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            margin: 0 8px;
+            border-radius: 12px;
+            background: rgba(6, 0, 16, 0.4);
+            border: 1px solid rgba(34, 34, 34, 0.3);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center bottom;
+            opacity: 0;
+            transform: scale(0.8) translateY(20px);
+        }
+
+        .dock-container.visible .dock-item {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        .dock-container.visible .dock-item:nth-child(1) { transition-delay: 0.1s; }
+        .dock-container.visible .dock-item:nth-child(2) { transition-delay: 0.2s; }
+        .dock-container.visible .dock-item:nth-child(3) { transition-delay: 0.3s; }
+        .dock-container.visible .dock-item:nth-child(4) { transition-delay: 0.4s; }
+
+        .dock-item:hover {
+            transform: scale(1.2) translateY(-10px);
+            background: rgba(6, 0, 16, 0.6);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .dock-item.active {
+            background: rgba(255, 107, 107, 0.15);
+            border-color: rgba(255, 107, 107, 0.4);
+        }
+
+        .dock-icon {
+            font-size: 20px;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .dock-item:hover .dock-icon {
+            color: #FF6B6B;
+            transform: scale(1.1);
+        }
+
+        .dock-label {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(6, 0, 16, 0.8);
+            color: #ffffff;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(34, 34, 34, 0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        .dock-item:hover .dock-label {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        .dock-item::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255, 107, 107, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .dock-item:hover::before {
+            width: 80px;
+            height: 80px;
+        }
+
+        /* Magnification effect */
+        .dock-item.magnified {
+            transform: scale(1.4) translateY(-15px);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .dock-container {
+                top: 10px;
+                padding: 0 15px;
+                height: 70px;
+            }
+
+            .dock-item {
+                width: 50px;
+                height: 50px;
+                margin: 0 6px;
+            }
+
+            .dock-icon {
+                font-size: 18px;
+            }
+
+            .dock-label {
+                font-size: 11px;
+                padding: 4px 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dock-container {
+                top: 5px;
+                padding: 0 10px;
+                height: 60px;
+            }
+
+            .dock-item {
+                width: 45px;
+                height: 45px;
+                margin: 0 4px;
+            }
+
+            .dock-icon {
+                font-size: 16px;
+            }
+        }
+
+        /* Hide old navbar */
+        .navbar {
+            display: none !important;
+        }
+
+        /* Remove all floating items and decorative elements */
+        #home .floating,
+        #home .floating-icons,
+        #home .emoji-strip,
+        #home .mechanic-icon,
+        #home .game-item-image,
+        #home canvas[id*="particles"] { 
+            display: none !important; 
+        }
+
+        /* Adjust content spacing for dock */
+        .content-wrapper {
+            padding-top: 100px;
+        }
+
+        @media (max-width: 768px) {
+            .content-wrapper {
+                padding-top: 90px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content-wrapper {
+                padding-top: 80px;
+            }
+        }
+
+        /* Growth System — Seamless Marquee */
+        .growth-section {
+            width: min(1200px, 94vw);
+            margin: 4rem auto;
+        }
+
+        .growth-title {
+            text-align: center;
+            font-weight: 800;
+            font-size: clamp(1.25rem, 2vw + 1rem, 2rem);
+            margin-bottom: 1.25rem;
+            color: #ffd24d; /* matches your orange/yellow accent */
+            text-shadow: 0 2px 12px rgba(0,0,0,0.35);
+        }
+
+        .growth-marquee {
+            position: relative;
+            overflow: hidden;            /* No scrollbars */
+            border-radius: 28px;
+            background: transparent;     /* Show silk backdrop */
+            padding: clamp(10px, 2vh, 18px);
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: pan-x;          /* Allow horizontal drags */
+            cursor: grab;
+        }
+
+        .growth-marquee.dragging { cursor: grabbing; }
+
+        .growth-track {
+            display: flex;
+            align-items: center;
+            gap: clamp(16px, 3vw, 40px);
+            will-change: transform;
+            transform: translate3d(0,0,0);
+        }
+
+        .growth-card {
+            flex: 0 0 auto;
+        }
+
+        .growth-card img {
+            height: clamp(180px, 38vh, 520px);
+            width: auto;
+            aspect-ratio: 9 / 19.5;  /* tall phone ratio */
+            object-fit: cover;
+            border-radius: 22px;
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.35),
+                inset 0 1px 0 rgba(255,255,255,0.06);
+            pointer-events: none; /* so drag hits container */
+            -webkit-user-drag: none;
+            user-select: none;
+            transition: transform 220ms ease;
+        }
+
+        @media (hover:hover) {
+            .growth-card img:hover {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Accessibility: respect reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .growth-card img { transition: none; }
+        }
+    </style>
 </head>
 <body>
-    <!-- Silk Background -->
-    <div id="silk-background" aria-hidden="true"></div>
     
-    <!-- Custom Cursor (desktop only) -->
-    <div class="custom-cursor" aria-hidden="true"></div>
+    <!-- Silk Background Container -->
+    <div id="silk-background"></div>
     
-    <!-- Loading Screen -->
-    <div class="loading-screen" role="status" aria-label="Loading FlowerBTC">
-        <img src="assets/images/sunflower-logo.png" alt="" width="128" height="128" loading="eager">
-        <span class="sr-only">Loading...</span>
-    </div>
+    <!-- Remove old navigation -->
+    <!-- <nav class="navbar">...</nav> -->
     
-    <!-- Navigation Dots -->
-    <nav class="nav-dots" aria-label="Section navigation">
-        <button class="dot active" data-target="home" aria-label="Go to Home section" aria-current="true"></button>
-        <button class="dot" data-target="coin" aria-label="Go to Coin section"></button>
-        <button class="dot" data-target="ecosystem" aria-label="Go to Ecosystem section"></button>
-        <button class="dot" data-target="growth" aria-label="Go to Growth section"></button>
-        <button class="dot" data-target="mechanics" aria-label="Go to Mechanics section"></button>
-        <button class="dot" data-target="community" aria-label="Go to Community section"></button>
-        <button class="dot" data-target="affiliate" aria-label="Go to Affiliate section"></button>
-    </nav>
-    
-    <!-- Main Content -->
-    <main id="main-content">
-        <!-- Hero Section -->
-        <section id="home" class="section" aria-labelledby="hero-title">
-            <div class="hero">
-                <h1 id="hero-title" class="hero-title">FlowerBTC</h1>
-                <p class="hero-subtitle">Revolutionary Crypto Experience</p>
-                <div class="hero-buttons">
-                    <a href="https://t.me/FlowerBTC_bot" class="cta-button primary" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-telegram" aria-hidden="true"></i>
-                        Explore The Game Now
-                    </a>
-                    <a href="#ecosystem" class="cta-button secondary">
-                        View Ecosystem
-                    </a>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Coin Section -->
-        <section id="coin" class="section" aria-labelledby="coin-title">
-            <div class="coin-showcase">
-                <h2 id="coin-title" class="gradient-text">The FlowerBTC Coin</h2>
-                <div class="coin-content">
-                    <div class="coin-left">
-                        <img src="assets/images/coin.png" alt="FlowerBTC Coin" class="coin-image" loading="lazy" width="420" height="420">
+    <div class="content-wrapper">
+        <!-- Remove existing video background -->
+        <!-- <div class="video-background">...</div> -->
+
+        <!-- Custom Cursor -->
+        <div class="custom-cursor"></div>
+
+        <!-- Loading Screen -->
+        <div class="loading-screen">
+            <img src="Untitled design (23).png" alt="Sunflower" class="w-32 h-32 rounded-full object-cover animate-pulse-slow" />
+        </div>
+
+        <!-- Navigation Dots -->
+        <div class="nav-dots">
+            <div class="dot active" data-target="home"></div>
+            <div class="dot" data-target="coin"></div>
+            <div class="dot" data-target="ecosystem"></div>
+            <div class="dot" data-target="growth"></div>
+            <div class="dot" data-target="mechanics"></div>
+            <div class="dot" data-target="community"></div>
+            <div class="dot" data-target="affiliate"></div>
+        </div>
+
+        <!-- Horizontal Scrolling Sections -->
+        <div class="horizontal-scroll">
+            <!-- Home Section -->
+            <section id="home" class="section">
+                <div class="hero">
+                    <div class="webgl-bg"></div>
+                    
+                    <!-- Hero Title -->
+                    <div id="hero-title-container" class="hero-title-container"></div>
+                    <!-- Hero Subtitle -->
+                    <div id="hero-subtitle-container" class="hero-subtitle-container"></div>
+                    
+                    <!-- Hero Buttons -->
+                    <div class="hero-buttons">
+                        <a href="https://t.me/FlowerBTC_bot" class="cta-button primary">Explore The Game Now</a>
+                        <a href="#ecosystem" class="cta-button secondary">View Ecosystem</a>
                     </div>
-                    <div class="coin-right">
-                        <div class="coin-text-container">
-                            <div class="coin-section">
-                                <h3 class="coin-subheading">$FBTC – The Heart of FlowerBTC</h3>
-                                <p>FlowerBTC's native coin, $FBTC, represents growth, resilience, and innovation. Just like a sunflower follows the sun, $FBTC is designed to follow opportunity.</p>
+                    
+
+                </div>
+            </section>
+
+            <!-- Coin Section -->
+            <section id="coin" class="section">
+                <div class="coin-showcase">
+                    <h2 class="gradient-text">The FlowerBTC Coin</h2>
+                    <div class="coin-content">
+                        <div class="coin-left">
+                            <img src="Untitled design (1) (1).png" alt="FlowerBTC Coin" class="coin-image">
+                        </div>
+                        <div class="coin-right">
+                            <div class="coin-text-container">
+                                <div class="coin-section">
+                                    <h3 class="coin-subheading">$FBTC – The Heart of FlowerBTC</h3>
+                                    <p>FlowerBTC's native coin, $FBTC, represents growth, resilience, and innovation. Just like a sunflower follows the sun, $FBTC is designed to follow opportunity — rewarding our community and powering the entire FlowerBTC ecosystem.</p>
+                                </div>
+                                
+                                <div class="coin-section">
+                                    <h3 class="coin-subheading">🔑 What is $FBTC?</h3>
+                                    <p>$FBTC is the utility and governance token at the core of FlowerBTC. It fuels our GameFi mechanics, reward farming, and AI-powered trading bots, while creating real-world value through staking, farming, and community-driven growth.</p>
+                                </div>
+                                
+                                <div class="coin-section">
+                                    <h3 class="coin-subheading">🌟 Why $FBTC Matters</h3>
+                                    <ul class="coin-list">
+                                        <li><strong>Play-to-Earn Rewards:</strong> Use $FBTC to unlock upgrades like Magical Potions and Red Suns, boosting your Sunflower's growth in the FlowerBTC game.</li>
+                                        <li><strong>Governance Power:</strong> $FBTC holders help shape the roadmap and vote on key ecosystem decisions.</li>
+                                        <li><strong>Crypto Mining-as-a-Service:</strong> Access advanced AI trading and mining bots with exclusive $FBTC benefits.</li>
+                                        <li><strong>Staking & Farming:</strong> Stake $FBTC to earn passive income and extra Yellow Suns.</li>
+                                        <li><strong>Ecosystem Utility:</strong> From in-game assets to marketplace transactions, $FBTC is the lifeblood of FlowerBTC.</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="coin-section">
+                                    <h3 class="coin-subheading">📈 Our Vision with $FBTC</h3>
+                                    <p>We believe $FBTC is more than just a token — it's a movement. A movement towards decentralized opportunity, gamified finance, and community empowerment. By combining play, earn, and invest, $FBTC bridges the gap between fun and finance.</p>
+                                </div>
                             </div>
-                            
-                            <div class="coin-section">
-                                <h3 class="coin-subheading">What is $FBTC?</h3>
-                                <p>$FBTC is the utility and governance token at the core of FlowerBTC. It fuels our GameFi mechanics, reward farming, and AI-powered trading bots.</p>
+                        </div>
+                    </div>
+                    <div class="coin-footer">
+                        <p>(Powered by FlowerBTC Corporation – All copyrights obtained from 2019)</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Vertical Scrolling Sections -->
+        <div class="vertical-scroll">
+            <!-- Ecosystem Section -->
+            <section id="ecosystem" class="section">
+                <div class="content">
+                    <h2 class="gradient-text">Our Ecosystem</h2>
+                    <div class="ecosystem-grid">
+                        <div class="eco-card" data-tilt>
+                            <div class="eco-icon">🌱</div>
+                            <h3>Seed Phase</h3>
+                            <p>Initial growth and development stage</p>
+                            <div class="eco-progress">
+                                <div class="progress-bar" style="width: 5%"></div>
                             </div>
-                            
-                            <div class="coin-section">
-                                <h3 class="coin-subheading">Why $FBTC Matters</h3>
-                                <ul class="coin-list">
-                                    <li><strong>Play-to-Earn Rewards:</strong> Use $FBTC to unlock upgrades and boost your Sunflower's growth</li>
-                                    <li><strong>Governance Power:</strong> $FBTC holders help shape the roadmap and vote on key decisions</li>
-                                    <li><strong>Staking & Farming:</strong> Stake $FBTC to earn passive income</li>
-                                    <li><strong>Ecosystem Utility:</strong> From in-game assets to marketplace transactions</li>
+                        </div>
+                        <div class="eco-card" data-tilt>
+                            <div class="eco-icon">🌿</div>
+                            <h3>Growth Phase</h3>
+                            <p>Expansion and market penetration</p>
+                            <div class="eco-progress">
+                                <div class="progress-bar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="eco-card" data-tilt>
+                            <div class="eco-icon">🌻</div>
+                            <h3>Bloom Phase</h3>
+                            <p>Full market maturity and stability</p>
+                            <div class="eco-progress">
+                                <div class="progress-bar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Growth Section -->
+            <section id="growth-system" class="growth-section">
+                <h2 class="growth-title">🌻 Growth System: Levels 1–10</h2>
+                <div id="growthMarquee" class="growth-marquee" aria-label="Sunflower growth levels carousel">
+                    <div id="growthTrack" class="growth-track" role="list"></div>
+                </div>
+            </section>
+
+            <!-- Mechanics Section -->
+            <section id="mechanics" class="section">
+                <div class="content">
+                    <h2 class="gradient-text">Game Mechanics</h2>
+                    <div class="mechanics-container">
+                        <div class="mechanic-card" data-tilt>
+                            <div class="card-front">
+                                <div class="mechanic-icon">
+                                    <img src="Mechanics/Yellow Sun.png" alt="Yellow Sun" class="game-item-image">
+                                </div>
+                                <h3>Yellow Sun</h3>
+                                <p>Main reward currency in the game</p>
+                            </div>
+                            <div class="card-back">
+                                <h4>How it works</h4>
+                                <ul>
+                                    <li>Main reward for players</li>
+                                    <li>Used to buy potions and red sun</li>
+                                    <li>Upgrades sunflower levels</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mechanic-card" data-tilt>
+                            <div class="card-front">
+                                <div class="mechanic-icon">
+                                    <img src="Mechanics/Potion.png" alt="Magical Potion" class="game-item-image">
+                                </div>
+                                <h3>Magical Potion</h3>
+                                <p>Booster for sunflower growth</p>
+                            </div>
+                            <div class="card-back">
+                                <h4>Benefits</h4>
+                                <ul>
+                                    <li>Upgrades sunflower level</li>
+                                    <li>Purchased with yellow sun</li>
+                                    <li>Boosts growth rate</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mechanic-card" data-tilt>
+                            <div class="card-front">
+                                <div class="mechanic-icon">
+                                    <img src="Mechanics/Red Sun.png" alt="Red Sun" class="game-item-image">
+                                </div>
+                                <h3>Red Sun</h3>
+                                <p>Most powerful growth item</p>
+                            </div>
+                            <div class="card-back">
+                                <h4>Features</h4>
+                                <ul>
+                                    <li>Most powerful upgrade item</li>
+                                    <li>Purchased with yellow sun</li>
+                                    <li>Significant growth boost</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mechanic-card" data-tilt>
+                            <div class="card-front">
+                                <div class="mechanic-icon">
+                                    <img src="Mechanics/Leaderboard.png" alt="Leaderboard" class="game-item-image">
+                                </div>
+                                <h3>Leaderboard</h3>
+                                <p>Global ranking system</p>
+                            </div>
+                            <div class="card-back">
+                                <h4>How it works</h4>
+                                <ul>
+                                    <li>Ranked by total Yellow Suns collected</li>
+                                    <li>Top players get special rewards</li>
+                                    <li>All-time rankings</li>
+                                    <li>Compete with players worldwide</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mechanic-card" data-tilt>
+                            <div class="card-front">
+                                <div class="mechanic-icon">
+                                    <img src="Mechanics/Sack.png" alt="Yellow Sun Sack" class="game-item-image">
+                                </div>
+                                <h3>Yellow Sun Sack</h3>
+                                <p>Special storage for Yellow Suns</p>
+                            </div>
+                            <div class="card-back">
+                                <h4>Features</h4>
+                                <ul>
+                                    <li>Store extra Yellow Suns safely</li>
+                                    <li>Prevents loss of collected suns</li>
+                                    <li>Increases storage capacity</li>
+                                    <li>Upgradeable with game progress</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mechanic-card" data-tilt>
+                            <div class="card-front">
+                                <div class="mechanic-icon">
+                                    <img src="Mechanics/Store.png" alt="Store" class="game-item-image">
+                                </div>
+                                <h3>Premium Store</h3>
+                                <p>Fast-track your growth</p>
+                            </div>
+                            <div class="card-back">
+                                <h4>Available Items</h4>
+                                <ul>
+                                    <li>Buy Potion with TON/ TelegramStars</li>
+                                    <li>Purchase Red Suns TON/Telegram Stars</li>
+                                    <li>Instant level 10 upgrade</li>
+                                    <li>Special boosters and items</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        
-        <!-- Ecosystem Section -->
-        <section id="ecosystem" class="section" aria-labelledby="ecosystem-title">
-            <div class="content">
-                <h2 id="ecosystem-title" class="gradient-text">Our Ecosystem</h2>
-                <div class="ecosystem-grid">
-                    <article class="eco-card">
-                        <div class="eco-icon" aria-hidden="true">🌱</div>
-                        <h3>Seed Phase</h3>
-                        <p>Initial growth and development stage</p>
-                        <div class="eco-progress" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100">
-                            <div class="progress-bar" style="width: 5%"></div>
-                        </div>
-                    </article>
-                    
-                    <article class="eco-card">
-                        <div class="eco-icon" aria-hidden="true">🌿</div>
-                        <h3>Growth Phase</h3>
-                        <p>Expansion and market penetration</p>
-                        <div class="eco-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                            <div class="progress-bar" style="width: 0%"></div>
-                        </div>
-                    </article>
-                    
-                    <article class="eco-card">
-                        <div class="eco-icon" aria-hidden="true">🌻</div>
-                        <h3>Bloom Phase</h3>
-                        <p>Full market maturity and stability</p>
-                        <div class="eco-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                            <div class="progress-bar" style="width: 0%"></div>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Growth Section -->
-        <section id="growth" class="growth-section" aria-labelledby="growth-title">
-            <h2 id="growth-title" class="growth-title">Growth System: Levels 1–10</h2>
-            <div id="growthMarquee" class="growth-marquee" role="region" aria-label="Sunflower growth levels carousel">
-                <div id="growthTrack" class="growth-track" role="list"></div>
-            </div>
-        </section>
-        
-        <!-- Mechanics Section -->
-        <section id="mechanics" class="section" aria-labelledby="mechanics-title">
-            <div class="content">
-                <h2 id="mechanics-title" class="gradient-text">Game Mechanics</h2>
-                <div class="mechanics-container">
-                    <article class="mechanic-card" tabindex="0" role="button" aria-label="Yellow Sun - Main reward currency">
-                        <div class="card-front">
-                            <div class="mechanic-icon">
-                                <img src="assets/images/yellow-sun.png" alt="" loading="lazy" width="80" height="80">
+            </section>
+
+            <!-- Community Section -->
+            <section id="community" class="section">
+                <div class="content">
+                    <h2 class="gradient-text">Join Our Community</h2>
+                    <div class="community-container">
+                        <div class="community-stats">
+                            <div class="stat-card" data-tilt>
+                                <div class="stat-icon">👥</div>
+                                <div class="stat-value" id="memberCount">5000</div>
+                                <div class="stat-label">Community Members</div>
                             </div>
-                            <h3>Yellow Sun</h3>
-                            <p>Main reward currency in the game</p>
+                            <div class="stat-card" data-tilt>
+                                <div class="stat-icon">💬</div>
+                                <div class="stat-value">5000+</div>
+                                <div class="stat-label">Daily Active Users</div>
+                            </div>
+                            <div class="stat-card" data-tilt>
+                                <div class="stat-icon">🌍</div>
+                                <div class="stat-value">120+</div>
+                                <div class="stat-label">Countries</div>
+                            </div>
                         </div>
-                        <div class="card-back">
-                            <h4>How it works</h4>
-                            <ul>
-                                <li>Main reward for players</li>
-                                <li>Used to buy potions and red sun</li>
-                                <li>Upgrades sunflower levels</li>
+                        <div class="social-links">
+                            <a href="https://discord.gg/Xfv5bt3M7y" class="social-link" data-tilt target="_blank">
+                                <i class="fab fa-discord"></i>
+                                <span>Join Discord</span>
+                            </a>
+                            <a href="https://t.me/FlowerBTC_community" class="social-link" data-tilt target="_blank">
+                                <i class="fab fa-telegram"></i>
+                                <span>Join Telegram</span>
+                            </a>
+                            <a href="https://x.com/FlowerBTC_?t=5VLToLA7tXBe3gqgIdNDGg&s=09" class="social-link" data-tilt target="_blank">
+                                <i class="fab fa-twitter"></i>
+                                <span>Follow X</span>
+                            </a>
+                            <a href="https://youtube.com/@flowerbtc?si=FLyk1fknuv_PUbYf" class="social-link" data-tilt target="_blank">
+                                <i class="fab fa-youtube"></i>
+                                <span>Subscribe YouTube</span>
+                            </a>
+                            <a href="https://www.instagram.com/flowerbtc.io?igsh=MWRxNW1vazd2dm51Zw==" class="social-link" data-tilt target="_blank">
+                                <i class="fab fa-instagram"></i>
+                                <span>Follow Instagram</span>
+                            </a>
+                            <a href="https://www.facebook.com/share/1EnYpFPz2E/" class="social-link" data-tilt target="_blank">
+                                <i class="fab fa-facebook"></i>
+                                <span>Follow Facebook</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <!-- Coming Soon Section -->
+            <section id="ComingSoonSection" class="section coming-soon">
+                <div class="content coming-card">
+                    <!-- Hanging Board -->
+                    <div class="coming-board" aria-hidden="true">
+                        <img src="Coming Soon/Untitled design.svg" alt="COMING SOON" class="board-image">
+                    </div>
+
+                    <!-- Two-column Layout -->
+                    <div class="coming-layout">
+                        <!-- Left: Text Content -->
+                        <div class="coming-text">
+                            <h3 class="coming-heading">🌻 The Future of Trading is Growing…</h3>
+                            <p class="coming-intro">Get ready for the launch of FlowerBTC Exchange and our AI Sniper Bot — where Wall Street algorithms meet DeFi speed, powered by nature.</p>
+
+                            <ul class="coming-highlights">
+                                <li>🚀 <strong>FlowerBTC Exchange</strong> – Multi-market platform (Crypto, Forex, Meme Coins, Stocks)</li>
+                                <li>🤖 <strong>AI Sniper Bot</strong> – Millisecond trades, 92% accuracy, memecoin dominance</li>
+                                <li>🔒 <strong>Risk-Managed Trading</strong> – Automated stop-loss, whale tracking, arbitrage hunting</li>
+                                <li>🌍 <strong>Eco-Impact</strong> – Every trade plants a tree 🌱</li>
+                                <li>📝 <strong>Exclusive Access</strong> – Available to Sunflower Level 10 users first</li>
+                            </ul>
+
+                            <p class="coming-note">Those who reach their Sunflower level 10 in the FlowerBTC mini app will get a 1-year free subscription to AI Sniper Bots.</p>
+                            <p class="coming-cta">Join the waitlist today. Be among the first to trade smarter.</p>
+                        </div>
+
+                        <!-- Right: Visual Mockups -->
+                        <div class="coming-visuals">
+                            <div class="device-mockups">
+                                <div class="mockup bot tilt-left" data-tilt>
+                                    <img src="Coming Soon/Untitled design (2).svg" alt="AI Sniper Bot" loading="lazy">
+                                    <div class="mockup-label">AI Sniper Bot</div>
+                                </div>
+                                <div class="mockup exchange tilt-right" data-tilt>
+                                    <img src="Coming Soon/Untitled design (1).svg" alt="FlowerBTC Exchange" loading="lazy">
+                                    <div class="mockup-label">FlowerBTC Exchange</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Affiliate Programs Section -->
+            <section id="affiliate-program" class="section dark-theme">
+                <div class="content">
+                    <div class="section-header">
+                        <h2 class="gradient-text">🌻 Earn Rewards by Promoting FlowerBTC</h2>
+                        <p class="section-description">Join our Affiliate Program and start earning TON, Telegram Stars, and exclusive in-game bonuses by referring others to our game and ecosystem.</p>
+                    </div>
+
+                    <div class="cards-grid">
+                        <!-- How It Works Card -->
+                        <div class="info-card" data-tilt>
+                            <h3>How It Works</h3>
+                            <ul class="steps-list">
+                                <li>
+                                    <span class="step-icon">📝</span>
+                                    <strong>Sign Up:</strong> Create your affiliate account
+                                </li>
+                                <li>
+                                    <span class="step-icon">🔗</span>
+                                    <strong>Get Link:</strong> Receive your unique referral code
+                                </li>
+                                <li>
+                                    <span class="step-icon">📢</span>
+                                    <strong>Share:</strong> Promote to your network
+                                </li>
+                                <li>
+                                    <span class="step-icon">💰</span>
+                                    <strong>Earn:</strong> Get rewards automatically
+                                </li>
                             </ul>
                         </div>
-                    </article>
-                    
-                    <article class="mechanic-card" tabindex="0" role="button" aria-label="Magical Potion - Booster for growth">
-                        <div class="card-front">
-                            <div class="mechanic-icon">
-                                <img src="assets/images/potion.png" alt="" loading="lazy" width="80" height="80">
+
+                        <!-- FAQ Card -->
+                        <div class="info-card" data-tilt>
+                            <h3>Affiliate FAQ</h3>
+                            <div class="faq-list">
+                                <div class="faq-item">
+                                    <h4>How do I get paid?</h4>
+                                    <p>Earn in TON, Telegram Stars, or in-game bonuses - paid weekly with instant achievements!</p>
+                                </div>
+                                <div class="faq-item">
+                                    <h4>What's the minimum payout?</h4>
+                                    <p>Only 0.5 TON for crypto rewards, no minimum for in-game rewards!</p>
+                                </div>
                             </div>
-                            <h3>Magical Potion</h3>
-                            <p>Booster for sunflower growth</p>
                         </div>
-                        <div class="card-back">
-                            <h4>Benefits</h4>
-                            <ul>
-                                <li>Upgrades sunflower level</li>
-                                <li>Purchased with yellow sun</li>
-                                <li>Boosts growth rate</li>
+
+                        <!-- VIP Perks Card -->
+                        <div class="info-card highlight" data-tilt>
+                            <h3>⭐️ VIP Affiliate Perks</h3>
+                            <ul class="vip-benefits">
+                                <li>10% extra commission on all referrals</li>
+                                <li>Priority support & early access</li>
+                                <li>Exclusive promotional materials</li>
+                                <li>Monthly bonus rewards</li>
+                                <li>Special VIP events access</li>
                             </ul>
                         </div>
-                    </article>
-                    
-                    <article class="mechanic-card" tabindex="0" role="button" aria-label="Red Sun - Most powerful item">
-                        <div class="card-front">
-                            <div class="mechanic-icon">
-                                <img src="assets/images/red-sun.png" alt="" loading="lazy" width="80" height="80">
+
+                        <!-- Testimonials Card -->
+                        <div class="info-card" data-tilt>
+                            <h3>Testimonials</h3>
+                            <div class="testimonial">
+                                <blockquote>
+                                    "I've earned over 100 TON in just my first month. The automatic payments and tracking system make it incredibly easy to manage my referrals!"
+                                </blockquote>
+                                <cite>— Alex K., Top Affiliate</cite>
                             </div>
-                            <h3>Red Sun</h3>
-                            <p>Most powerful growth item</p>
                         </div>
-                        <div class="card-back">
-                            <h4>Features</h4>
-                            <ul>
-                                <li>Most powerful upgrade item</li>
-                                <li>Purchased with yellow sun</li>
-                                <li>Significant growth boost</li>
-                            </ul>
-                        </div>
-                    </article>
+                    </div>
+
+                    <div class="cta-container">
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLScVxhOjnmBCGxATZdY9B732C4AUbHhDOVqBRtYiE-if4bpexQ/viewform?usp=header" class="cta-button primary" target="_blank">Join Affiliate Program</a>
+                    </div>
                 </div>
-            </div>
-        </section>
-        
-        <!-- Community Section -->
-        <section id="community" class="section" aria-labelledby="community-title">
-            <div class="content">
-                <h2 id="community-title" class="gradient-text">Join Our Community</h2>
-                <div class="community-stats">
-                    <article class="stat-card">
-                        <div class="stat-icon" aria-hidden="true">👥</div>
-                        <div class="stat-value" id="memberCount" aria-live="polite">0</div>
-                        <div class="stat-label">Community Members</div>
-                    </article>
-                    
-                    <article class="stat-card">
-                        <div class="stat-icon" aria-hidden="true">💬</div>
-                        <div class="stat-value">5000+</div>
-                        <div class="stat-label">Daily Active Users</div>
-                    </article>
-                    
-                    <article class="stat-card">
-                        <div class="stat-icon" aria-hidden="true">🌍</div>
-                        <div class="stat-value">120+</div>
-                        <div class="stat-label">Countries</div>
-                    </article>
-                </div>
-                
-                <nav class="social-links" aria-label="Social media links">
-                    <a href="https://discord.gg/Xfv5bt3M7y" class="social-link" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-discord" aria-hidden="true"></i>
-                        <span>Join Discord</span>
-                    </a>
-                    <a href="https://t.me/FlowerBTC_community" class="social-link" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-telegram" aria-hidden="true"></i>
-                        <span>Join Telegram</span>
-                    </a>
-                    <a href="https://x.com/FlowerBTC_" class="social-link" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-twitter" aria-hidden="true"></i>
-                        <span>Follow X</span>
-                    </a>
-                </nav>
-            </div>
-        </section>
-        
-        <!-- Affiliate Section -->
-        <section id="affiliate" class="section" aria-labelledby="affiliate-title">
-            <div class="content">
-                <h2 id="affiliate-title" class="gradient-text">Earn Rewards by Promoting FlowerBTC</h2>
-                <p class="text-center" style="margin-bottom: var(--space-lg);">Join our Affiliate Program and start earning by referring others to our ecosystem.</p>
-                
-                <div class="cards-grid">
-                    <article class="info-card">
-                        <h3>How It Works</h3>
-                        <ol class="steps-list">
-                            <li><span class="step-icon" aria-hidden="true">📝</span> <strong>Sign Up:</strong> Create your affiliate account</li>
-                            <li><span class="step-icon" aria-hidden="true">🔗</span> <strong>Get Link:</strong> Receive your unique referral code</li>
-                            <li><span class="step-icon" aria-hidden="true">📢</span> <strong>Share:</strong> Promote to your network</li>
-                            <li><span class="step-icon" aria-hidden="true">💰</span> <strong>Earn:</strong> Get rewards automatically</li>
-                        </ol>
-                    </article>
-                    
-                    <article class="info-card highlight">
-                        <h3>VIP Affiliate Perks</h3>
-                        <ul class="vip-benefits">
-                            <li>10% extra commission on all referrals</li>
-                            <li>Priority support & early access</li>
-                            <li>Exclusive promotional materials</li>
-                            <li>Monthly bonus rewards</li>
-                        </ul>
-                    </article>
-                </div>
-                
-                <div class="text-center" style="margin-top: var(--space-lg);">
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScVxhOjnmBCGxATZdY9B732C4AUbHhDOVqBRtYiE-if4bpexQ/viewform" 
-                       class="cta-button primary" target="_blank" rel="noopener noreferrer">
-                        Join Affiliate Program
-                    </a>
-                </div>
-            </div>
-        </section>
-    </main>
-    
+            </section>
+        </div>
+    </div>
+
     <!-- Footer -->
-    <footer role="contentinfo">
+    <footer>
         <div class="footer-content">
             <div class="footer-logo">
-                <img src="assets/images/logo-small.png" alt="" width="40" height="40" loading="lazy">
+                <img src="FlowerBTC Logo.png" alt="FlowerBTC Logo" class="logo-img" onclick="showLogoMessage()">
                 <span>FlowerBTC</span>
             </div>
-            
-            <nav class="footer-links" aria-label="Footer navigation">
+            <div class="footer-links">
                 <div class="link-group">
                     <h4>Quick Links</h4>
                     <a href="#home">Home</a>
                     <a href="#coin">Coin</a>
                     <a href="#ecosystem">Ecosystem</a>
-                    <a href="inquiry.html">Contact</a>
+                    <a href="inquiry.html#contactForm">Contact</a>
                 </div>
-                
                 <div class="link-group">
                     <h4>Resources</h4>
-                    <a href="about.html">About</a>
-                    <a href="faq.html">FAQ</a>
-                    <a href="#" onclick="alert('Coming soon!'); return false;">Whitepaper</a>
+                    <a href="javascript:void(0)" onclick="alert('Whitepaper coming soon!')">Whitepaper</a>
+                    <a href="javascript:void(0)" onclick="alert('Documentation coming soon!')">Documentation</a>
+                    <a href="javascript:void(0)" onclick="alert('Press Kit coming soon!')">Press Kit</a>
                 </div>
-                
                 <div class="link-group">
                     <h4>Legal</h4>
-                    <a href="#" onclick="openLegalModal('privacy'); return false;">Privacy Policy</a>
-                    <a href="#" onclick="openLegalModal('terms'); return false;">Terms of Service</a>
-                    <a href="#" onclick="openLegalModal('disclaimer'); return false;">Disclaimer</a>
+                    <a href="javascript:void(0)" onclick="openLegalModal('privacy')">Privacy Policy</a>
+                    <a href="javascript:void(0)" onclick="openLegalModal('terms')">Terms of Service</a>
+                    <a href="javascript:void(0)" onclick="openLegalModal('disclaimer')">Disclaimer</a>
                 </div>
-            </nav>
-            
-            <nav class="footer-social" aria-label="Social media">
-                <a href="https://x.com/FlowerBTC_" target="_blank" rel="noopener noreferrer" aria-label="Follow us on X">
-                    <i class="fab fa-twitter" aria-hidden="true"></i>
-                </a>
-                <a href="https://discord.gg/Xfv5bt3M7y" target="_blank" rel="noopener noreferrer" aria-label="Join our Discord">
-                    <i class="fab fa-discord" aria-hidden="true"></i>
-                </a>
-                <a href="https://t.me/FlowerBTC_community" target="_blank" rel="noopener noreferrer" aria-label="Join our Telegram">
-                    <i class="fab fa-telegram" aria-hidden="true"></i>
-                </a>
-            </nav>
+            </div>
+            <div class="footer-social">
+                <a href="https://x.com/FlowerBTC_?t=5VLToLA7tXBe3gqgIdNDGg&s=09" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://discord.gg/Xfv5bt3M7y" target="_blank"><i class="fab fa-discord"></i></a>
+                <a href="https://t.me/FlowerBTC_community" target="_blank"><i class="fab fa-telegram"></i></a>
+                <a href="https://youtube.com/@flowerbtc?si=FLyk1fknuv_PUbYf" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.instagram.com/flowerbtc.io?igsh=MWRxNW1vazd2dm51Zw==" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/share/1EnYpFPz2E/" target="_blank"><i class="fab fa-facebook"></i></a>
+            </div>
         </div>
-        
         <div class="footer-bottom">
             <p>&copy; 2024 FlowerBTC. All rights reserved.</p>
         </div>
     </footer>
-    
-    <!-- Legal Modals -->
-    <div id="privacyModal" class="legal-modal" role="dialog" aria-labelledby="privacy-title" aria-modal="true">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeLegalModal('privacy')" aria-label="Close privacy policy">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <div class="modal-body">
-                <h2 id="privacy-title">Privacy Policy</h2>
-                <p><strong>Effective Date:</strong> 2024</p>
-                <p>Your privacy is important to us. This policy explains how we collect, use, and protect your personal information.</p>
-                
-                <h3>Information We Collect</h3>
-                <ul>
-                    <li>Personal information (name, email) when you contact us</li>
-                    <li>Usage data and analytics</li>
-                    <li>Blockchain transaction data (public addresses only)</li>
-                </ul>
-                
-                <h3>How We Use Your Information</h3>
-                <ul>
-                    <li>To provide and improve our services</li>
-                    <li>To communicate with you</li>
-                    <li>To ensure security and prevent fraud</li>
-                </ul>
-                
-                <h3>Data Security</h3>
-                <p>We implement industry-standard security measures to protect your data.</p>
-            </div>
-        </div>
-    </div>
-    
-    <div id="termsModal" class="legal-modal" role="dialog" aria-labelledby="terms-title" aria-modal="true">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeLegalModal('terms')" aria-label="Close terms of service">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <div class="modal-body">
-                <h2 id="terms-title">Terms of Service</h2>
-                <p><strong>Effective Date:</strong> 2024</p>
-                <p>By using FlowerBTC services, you agree to these terms.</p>
-                
-                <h3>Acceptance of Terms</h3>
-                <p>By accessing or using our services, you agree to be bound by these terms.</p>
-                
-                <h3>Use of Services</h3>
-                <ul>
-                    <li>You must be of legal age in your jurisdiction</li>
-                    <li>You agree to use services only for lawful purposes</li>
-                    <li>You are responsible for securing your wallet and credentials</li>
-                </ul>
-                
-                <h3>Risk Disclosure</h3>
-                <p>Cryptocurrency investments carry significant risk. Only invest what you can afford to lose.</p>
-            </div>
-        </div>
-    </div>
-    
-    <div id="disclaimerModal" class="legal-modal" role="dialog" aria-labelledby="disclaimer-title" aria-modal="true">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeLegalModal('disclaimer')" aria-label="Close disclaimer">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <div class="modal-body">
-                <h2 id="disclaimer-title">Disclaimer</h2>
-                <p><strong>Effective Date:</strong> 2024</p>
-                
-                <h3>No Financial Advice</h3>
-                <p>Nothing on this website constitutes financial, investment, or legal advice. Always do your own research.</p>
-                
-                <h3>Risk Warning</h3>
-                <p>Cryptocurrencies are highly volatile. Past performance does not guarantee future results.</p>
-                
-                <h3>Third-Party Services</h3>
-                <p>We are not responsible for third-party services or platforms linked from our website.</p>
-            </div>
-        </div>
-    </div>
-    
+
     <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dY3iPGz1h3Bz6uXmY0QrYb0DbZ1Tl+4uV3Q2lJ/4y4+O6S2Wz5aT2z4z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js" integrity="sha512-Kf5LcyGdP52z+0/R8Y9O6C3Z8I0j8y8z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
-    <!-- Main Application Script (Module) -->
-    <script type="module" src="js/main.js"></script>
-    
-    <!-- Fallback for non-module browsers -->
-    <script nomodule>
-        console.warn('Your browser does not support ES modules. Please upgrade to a modern browser for the best experience.');
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Growth Section Slider Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const stages = document.querySelectorAll('.growth-stages .stage');
+            const prevButton = document.querySelector('.slider-button.prev');
+            const nextButton = document.querySelector('.slider-button.next');
+            const indicators = document.querySelectorAll('.stage-indicators .indicator');
+            let currentStage = 0;
+
+            function updateSlider() {
+                stages.forEach((stage, index) => {
+                    if (index === currentStage) {
+                        stage.classList.add('active');
+                        indicators[index].classList.add('active');
+                    } else {
+                        stage.classList.remove('active');
+                        indicators[index].classList.remove('active');
+                    }
+                });
+            }
+
+            prevButton.addEventListener('click', () => {
+                currentStage = (currentStage - 1 + stages.length) % stages.length;
+                updateSlider();
+            });
+
+            nextButton.addEventListener('click', () => {
+                currentStage = (currentStage + 1) % stages.length;
+                updateSlider();
+            });
+
+            // Initialize the slider
+            updateSlider();
+        });
     </script>
+    <script src="script.js"></script>
+
+    <!-- Sticky Footer -->
+    <div class="footer-container">
+        <p class="footer-copyright">(Powered by FlowerBTC Corporation - All copyrights obtained from 2019)</p>
+    </div>
+
+    <script>
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 80,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: '#ffffff'
+                },
+                shape: {
+                    type: 'circle'
+                },
+                opacity: {
+                    value: 0.5,
+                    random: false,
+                    anim: {
+                        enable: false
+                    }
+                },
+                size: {
+                    value: 3,
+                    random: true,
+                    anim: {
+                        enable: false
+                    }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#ffffff',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false,
+                    attract: {
+                        enable: false
+                    }
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'grab'
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: 'push'
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 140,
+                        line_linked: {
+                            opacity: 1
+                        }
+                    },
+                    push: {
+                        particles_nb: 4
+                    }
+                }
+            },
+            retina_detect: true
+        });
+    </script>
+
+    <!-- Legal Document Modals -->
+    <div id="privacyModal" class="legal-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeLegalModal('privacy')">&times;</span>
+            <div class="modal-body">
+                <h2>📜 PRIVACY POLICY</h2>
+                <p><strong>[Effective Date:</strong> 16 May 2025</p>
+                <p>Welcome to <strong>FlowerBTC</strong>, herein referred to as <strong>the FlowerBTC Telegram mini app user</strong>, herein known as "<strong>the Policy</strong>," is formulated with the primary objective of delineating, in a comprehensive, albeit non-exhaustive manner, the multifaceted modalities by which we collect, process, retain, utilize, disseminate, disclose, archive, secure, encrypt, pseudonymize, anonymize, and/or otherwise engage with your personal, semi-personal, device-based, transactional, behavioral, and/or metadata-derived information through our <strong>Web3 | GameFi | DeFi | Play-to-Earn | Tokenized Rewards Ecosystem | Crypto Mining-as-a-Service | Community-Driven Ecosystem Telegram Mini Application</strong>, hereafter collectively referred to as "<strong>the Services</strong>."</p>
+
+                <h3>1️⃣ DATA COLLECTION METHODOLOGIES AND INFORMATION ACQUISITION PROTOCOLS</h3>
+                <p>The Application, by virtue of its decentralized, distributed, blockchain-enabled architecture and ancillary integrated services, reserves the unqualified and irrevocable right to collect, capture, retrieve, and store a wide-ranging array of personal, quasi-personal, and anonymized data categories, including but not limited to:</p>
+                <ul>
+                    <li><strong>Personally Identifiable Information (PII):</strong> Full name, email address, wallet public keys, Telegram username, social media identifiers, device-specific unique identifiers, encrypted IP addresses.</li>
+                    <li><strong>Non-Personally Identifiable Information (Non-PII):</strong> Browser metadata, device model specifications, operating system iterations, app usage logs, session timestamps, referring pages, and transactional hash values.</li>
+                    <li><strong>Crypto Transactional Data:</strong> Wallet interactions, token balances, staking amounts, DeFi protocol engagements, NFT minting events, GameFi reward transactions, and cryptographically signed smart contract interactions.</li>
+                    <li><strong>Community Interaction Metrics:</strong> Participation logs, leaderboard rankings, reward accrual events, referral codes, voting results, and governance activity logs.</li>
+                </ul>
+
+                <h3>2️⃣ DATA UTILIZATION AND PROCESSING FRAMEWORK</h3>
+                <p>The Application processes and utilizes acquired data, both in its raw and derived forms, for a multiplicity of operational, analytical, developmental, and compliance-related purposes, including but not limited to:</p>
+                <ul>
+                    <li>User authentication and access management.</li>
+                    <li>Facilitation of tokenized in-app and on-chain transactions.</li>
+                    <li>Tracking mining rewards, staking bonuses, and Play-to-Earn activity logs.</li>
+                    <li>Deployment of customized community engagement campaigns.</li>
+                    <li>Calculation of token distributions and airdrop eligibility.</li>
+                    <li>Integration with decentralized finance (DeFi) protocols for yield farming, liquidity provisioning, and liquidity mining.</li>
+                    <li>Real-time data aggregation for community governance mechanisms.</li>
+                    <li>Fulfillment of legal, regulatory, and audit-related obligations across jurisdictions, both known and unforeseeable.</li>
+                </ul>
+
+                <h3>3️⃣ THIRD-PARTY DATA SHARING, INTEROPERABILITY, AND CROSS-CHAIN INTEGRATION</h3>
+                <p>By engaging with the Application, you explicitly authorize the sharing, replication, and cross-jurisdictional transmission of your data to and between decentralized and centralized entities including, but not limited to:</p>
+                <ul>
+                    <li>Blockchain node operators.</li>
+                    <li>Distributed Oracle networks.</li>
+                    <li>KYC/AML compliance service providers.</li>
+                    <li>Third-party DeFi protocol interfaces.</li>
+                    <li>Community moderators, ecosystem partners, and affiliate projects.</li>
+                    <li>External custodial services.</li>
+                    <li>Decentralized Identity (DID) verification providers.</li>
+                </ul>
+
+                <h3>4️⃣ COOKIES, BEACONS, TRACKING SCRIPTS, AND ALGORITHMIC INTERFACES</h3>
+                <p>In order to enhance operational efficacy, analytics depth, and marketing precision, the Application employs a complex schema of persistent and session-based cookies, pixel beacons, server-side log aggregators, hashed device fingerprints, and telemetry tracking scripts.</p>
+
+                <h3>5️⃣ DATA RETENTION, STORAGE, AND IMMUTABILITY</h3>
+                <p>In alignment with decentralized ledger principles, certain data elements (e.g., transactional hashes, wallet addresses, smart contract interactions) are permanently recorded on immutable blockchains. Off-chain data elements shall be retained for indefinite or undefined durations, subject to platform discretion, legal obligations, and infrastructural limitations.</p>
+
+                <h3>6️⃣ DATA SECURITY, ENCRYPTION STANDARDS, AND BREACH DISCLAIMER</h3>
+                <p>The Application deploys enterprise-grade, industry-compliant, and decentralized infrastructure-enhanced security protocols including, but not limited to:</p>
+                <ul>
+                    <li>AES-256 encryption for off-chain storage.</li>
+                    <li>TLS 1.3 transport layer security.</li>
+                    <li>Multi-signature administrative access.</li>
+                    <li>Hardware wallet storage for operational tokens.</li>
+                    <li>Zero-knowledge proof integration for sensitive data processing.</li>
+                </ul>
+
+                <h3>7️⃣ USER RIGHTS, DATA ACCESS REQUESTS, AND CONSENT WITHDRAWAL</h3>
+                <p>To the extent applicable under relevant jurisdictional statutes and only where technologically feasible, users may request access to, rectification of, or deletion of their non-permanently recorded data. Such requests may require identity verification, zero-knowledge proof submission, and manual administrative validation.</p>
+
+                <h3>8️⃣ AMENDMENTS, ADDENDA, AND POLICY MODIFICATIONS</h3>
+                <p>This Privacy Policy is subject to unilateral amendment, expansion, contraction, or redefinition at the discretion of the Application without prior notification. Continued use of the Services constitutes de facto acceptance of any and all modifications, regardless of user acknowledgment or comprehension.</p>
+
+                <h3>9️⃣ JURISDICTION, GOVERNING LAW, AND LEGAL COMPLIANCE</h3>
+                <p>This Policy shall be construed in accordance with decentralized governance principles and the applicable laws of multiple overlapping jurisdictions, both terrestrial and digital, as they relate to the provision of Web3, DeFi, GameFi, Play-to-Earn, Tokenized Rewards, and Crypto Mining services.</p>
+
+                <h3>📩 CONTACT INFORMATION</h3>
+                <p>For any inquiries, grievances, or procedural clarifications regarding this Policy (which may not result in a satisfactory resolution), please direct your correspondence to our primary Telegram community channel <strong>[@FlowerBTCCommunity]</strong>.</p>
+
+                <p><strong>By accessing, utilizing, or otherwise engaging with the Services, you acknowledge full comprehension, understanding, and voluntary acceptance of the terms outlined in this Privacy Policy, notwithstanding the possibility of ambiguity, complexity, or interpretative difficulty.</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="termsModal" class="legal-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeLegalModal('terms')">&times;</span>
+            <div class="modal-body">
+                <h2>📜 TERMS OF SERVICE</h2>
+                <p><strong>[Effective Date:</strong> 16 May 2025</p>
+                <p>Welcome to <strong>FlowerBTC</strong>, herein referred to as <strong>the FlowerBTC Telegram mini app user</strong>. These Terms of Service ("Terms") govern your access to and use of the <strong>Web3 | GameFi | DeFi | Play-to-Earn | Tokenized Rewards Ecosystem | Crypto Mining-as-a-Service | Community-Driven Ecosystem Telegram Mini Application</strong> provided by <strong>FlowerBTC</strong> (collectively referred to as "the Services").</p>
+
+                <h3>1️⃣ ACCEPTANCE OF TERMS</h3>
+                <p>By accessing or using the Services, you affirm that you are of legal age in your jurisdiction, possess the legal capacity to enter into these Terms, and voluntarily accept all conditions herein.</p>
+
+                <h3>2️⃣ MODIFICATIONS TO TERMS</h3>
+                <p>FlowerBTC reserves the unilateral and unrestricted right to modify, amend, alter, suspend, or discontinue any aspect of these Terms without prior notice. Continued use of the Services following any changes constitutes your acceptance of such changes.</p>
+
+                <h3>3️⃣ USE OF SERVICES</h3>
+                <p>You agree to use the Services solely for lawful purposes and in compliance with applicable laws, regulations, and these Terms. Prohibited uses include, but are not limited to:</p>
+                <ul>
+                    <li>Engaging in fraudulent, deceptive, or harmful activities.</li>
+                    <li>Disrupting, overloading, or impairing any part of the Services.</li>
+                    <li>Using bots, scripts, or other automated tools to interact with the Services without express written permission.</li>
+                    <li>Engaging in unauthorized token mining, airdrop farming, or reward manipulation schemes.</li>
+                </ul>
+
+                <h3>4️⃣ ACCOUNT AND DATA RESPONSIBILITY</h3>
+                <p>You are solely responsible for maintaining the confidentiality and security of your wallet addresses, account credentials, private keys, and access devices. FlowerBTC shall not be held liable for any unauthorized access, loss of funds, or data breaches resulting from your negligence.</p>
+
+                <h3>5️⃣ THIRD-PARTY SERVICES AND LINKS</h3>
+                <p>The Services may incorporate, reference, or interact with third-party applications, smart contracts, APIs, and platforms. FlowerBTC holds no responsibility for the availability, accuracy, or legality of third-party content and services.</p>
+
+                <h3>6️⃣ INTELLECTUAL PROPERTY</h3>
+                <p>All logos, trademarks, proprietary content, smart contract code, and gamified reward mechanics associated with FlowerBTC remain the exclusive intellectual property of FlowerBTC or its licensors. Unauthorized use, reproduction, or distribution is strictly prohibited.</p>
+
+                <h3>7️⃣ TERMINATION OF ACCESS</h3>
+                <p>FlowerBTC may, at its sole discretion and without prior notice, terminate or suspend your access to the Services for violations of these Terms, suspected fraudulent activity, legal compliance, or other operational considerations.</p>
+
+                <h3>8️⃣ DISCLAIMER OF WARRANTIES</h3>
+                <p>The Services are provided on an "as-is" and "as-available" basis. FlowerBTC makes no warranties or representations, express or implied, regarding the accuracy, reliability, security, or availability of the Services.</p>
+
+                <h3>9️⃣ LIMITATION OF LIABILITY</h3>
+                <p>To the maximum extent permitted by applicable law, FlowerBTC disclaims all liability for any indirect, incidental, consequential, or punitive damages arising from your use of the Services, including but not limited to data loss, lost profits, service interruptions, or security breaches.</p>
+
+                <h3>🔟 GOVERNING LAW AND JURISDICTION</h3>
+                <p>These Terms shall be governed by and construed in accordance with decentralized governance principles and applicable digital and terrestrial laws. Disputes arising from these Terms shall be resolved through binding arbitration or community-governed dispute resolution protocols where available.</p>
+
+                <h3>📩 CONTACT INFORMATION</h3>
+                <p>For questions, clarifications, or support related to these Terms, please contact our primary Telegram community channel <strong>[@FlowerBTCCommunity]</strong>.</p>
+
+                <p><strong>By using the Services, you acknowledge full understanding, comprehension, and acceptance of these Terms of Service.</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="disclaimerModal" class="legal-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeLegalModal('disclaimer')">&times;</span>
+            <div class="modal-body">
+                <h2>📜 DISCLAIMER</h2>
+                <p><strong>[Effective Date:</strong> 16 May 2025</p>
+                <p>The information, services, content, and functionalities provided by <strong>FlowerBTC</strong> through its <strong>Web3 | GameFi | DeFi | Play-to-Earn | Tokenized Rewards Ecosystem | Crypto Mining-as-a-Service | Community-Driven Ecosystem Telegram Mini Application</strong> (collectively referred to as "the Services") are intended for informational, entertainment, and community engagement purposes only.</p>
+
+                <h3>1️⃣ NO FINANCIAL OR INVESTMENT ADVICE</h3>
+                <p>Nothing contained within the Services constitutes financial, investment, trading, legal, or tax advice. You are solely responsible for conducting your own due diligence and consulting with independent financial, legal, or tax professionals before engaging in any cryptocurrency transactions, token acquisitions, or decentralized finance (DeFi) activities.</p>
+
+                <h3>2️⃣ VOLATILITY AND MARKET RISKS</h3>
+                <p>Cryptocurrencies, tokens, NFTs, and blockchain-based assets are inherently volatile and speculative. The value of any tokenized rewards or digital assets within the FlowerBTC ecosystem may fluctuate unpredictably. FlowerBTC disclaims any responsibility for financial losses, asset devaluation, or market-driven outcomes resulting from your participation in its Services.</p>
+
+                <h3>3️⃣ NO GUARANTEE OF EARNINGS OR OUTCOMES</h3>
+                <p>Participation in Play-to-Earn, staking, mining, yield farming, airdrops, or reward programs through FlowerBTC provides no guaranteed earnings, token allocations, or financial returns. All in-game and on-chain rewards are subject to availability, platform discretion, and community governance mechanisms.</p>
+
+                <h3>4️⃣ THIRD-PARTY AND BLOCKCHAIN INTERACTIONS</h3>
+                <p>The Services may interface with third-party platforms, smart contracts, or decentralized networks. FlowerBTC holds no liability for the security, functionality, legality, or outcomes associated with external services, including any loss of assets, failed transactions, or contract vulnerabilities.</p>
+
+                <h3>5️⃣ TECHNOLOGICAL AND OPERATIONAL RISKS</h3>
+                <p>Decentralized applications, smart contracts, or crypto assets are subject to technical failures, bugs, exploits, network downtime, and operational disruptions. FlowerBTC offers no warranty against such occurrences and disclaims liability for any direct, indirect, or consequential damages resulting therefrom.</p>
+
+                <h3>6️⃣ USER RESPONSIBILITY AND DUE DILIGENCE</h3>
+                <p>You are solely responsible for securing your wallet credentials, private keys, device access, and transactional authorizations. FlowerBTC will never request sensitive personal keys or passwords. Engage with caution and verify all interactions.</p>
+
+                <h3>7️⃣ REGULATORY CONSIDERATIONS</h3>
+                <p>The legal status of cryptocurrencies and decentralized applications varies across jurisdictions. You are responsible for understanding and complying with local laws, tax obligations, and regulatory requirements applicable to your participation in FlowerBTC's Services.</p>
+
+                <h3>📩 CONTACT INFORMATION</h3>
+                <p>For clarifications regarding this Disclaimer, please reach out via our official Telegram community channel <strong>[@FlowerBTCCommunity]</strong>.</p>
+
+                <p><strong>By using the Services, you acknowledge full comprehension, voluntary acceptance, and understanding of this Disclaimer.</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openLegalModal(type) {
+            document.getElementById(type + 'Modal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLegalModal(type) {
+            document.getElementById(type + 'Modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('legal-modal')) {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+    </script>
+
+    <script>
+        function showLogoMessage() {
+            alert("Why are you tapping on the logo brother, it won't be of any use, instead go to Telegram and play the FlowerBTC game and win lots of rewards and crypto tokens and help Mother Nature to grow and move towards a better tomorrow");
+        }
+    </script>
+
+    <!-- Dock Navigation JavaScript -->
+    <script src="dock-nav.js"></script>
+
+    <!-- Silk Background Script -->
+    <script>
+        class SilkBackground {
+            constructor(container) {
+                this.container = container;
+                this.scene = null;
+                this.camera = null;
+                this.renderer = null;
+                this.mesh = null;
+                this.uniforms = null;
+                this.clock = new THREE.Clock();
+                
+                this.init();
+                this.animate();
+                this.handleResize();
+            }
+
+            hexToNormalizedRGB(hex) {
+                hex = hex.replace("#", "");
+                return [
+                    parseInt(hex.slice(0, 2), 16) / 255,
+                    parseInt(hex.slice(2, 4), 16) / 255,
+                    parseInt(hex.slice(4, 6), 16) / 255,
+                ];
+            }
+
+            init() {
+                // Scene setup
+                this.scene = new THREE.Scene();
+                
+                // Camera setup
+                this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+                
+                // Renderer setup
+                this.renderer = new THREE.WebGLRenderer({ 
+                    alpha: true,
+                    antialias: true 
+                });
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+                this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                this.container.appendChild(this.renderer.domElement);
+                
+                // Shader uniforms
+                this.uniforms = {
+                    uTime: { value: 0 },
+                    uColor: { value: new THREE.Color(...this.hexToNormalizedRGB("#7B7481")) },
+                    uSpeed: { value: 5 },
+                    uScale: { value: 1 },
+                    uRotation: { value: 0 },
+                    uNoiseIntensity: { value: 1.5 }
+                };
+                
+                // Create mesh with shaders
+                const geometry = new THREE.PlaneGeometry(2, 2);
+                const material = new THREE.ShaderMaterial({
+                    uniforms: this.uniforms,
+                    vertexShader: this.vertexShader,
+                    fragmentShader: this.fragmentShader,
+                    transparent: true
+                });
+                
+                this.mesh = new THREE.Mesh(geometry, material);
+                this.scene.add(this.mesh);
+            }
+
+            get vertexShader() {
+                return `
+                    varying vec2 vUv;
+                    varying vec3 vPosition;
+
+                    void main() {
+                        vPosition = position;
+                        vUv = uv;
+                        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                    }
+                `;
+            }
+
+            get fragmentShader() {
+                return `
+                    varying vec2 vUv;
+                    varying vec3 vPosition;
+
+                    uniform float uTime;
+                    uniform vec3 uColor;
+                    uniform float uSpeed;
+                    uniform float uScale;
+                    uniform float uRotation;
+                    uniform float uNoiseIntensity;
+
+                    const float e = 2.71828182845904523536;
+
+                    float noise(vec2 texCoord) {
+                        float G = e;
+                        vec2 r = (G * sin(G * texCoord));
+                        return fract(r.x * r.y * (1.0 + texCoord.x));
+                    }
+
+                    vec2 rotateUvs(vec2 uv, float angle) {
+                        float c = cos(angle);
+                        float s = sin(angle);
+                        mat2 rot = mat2(c, -s, s, c);
+                        return rot * uv;
+                    }
+
+                    void main() {
+                        float rnd = noise(gl_FragCoord.xy);
+                        vec2 uv = rotateUvs(vUv * uScale, uRotation);
+                        vec2 tex = uv * uScale;
+                        float tOffset = uSpeed * uTime;
+
+                        tex.y += 0.03 * sin(8.0 * tex.x - tOffset);
+
+                        float pattern = 0.6 +
+                            0.4 * sin(5.0 * (tex.x + tex.y +
+                                cos(3.0 * tex.x + 5.0 * tex.y) +
+                                0.02 * tOffset) +
+                            sin(20.0 * (tex.x + tex.y - 0.1 * tOffset)));
+
+                        vec4 col = vec4(uColor, 1.0) * vec4(pattern) - rnd / 15.0 * uNoiseIntensity;
+                        col.a = 1.0;
+                        gl_FragColor = col;
+                    }
+                `;
+            }
+
+            animate() {
+                requestAnimationFrame(() => this.animate());
+                
+                const delta = this.clock.getDelta();
+                this.uniforms.uTime.value += 0.1 * delta;
+                
+                this.renderer.render(this.scene, this.camera);
+            }
+
+            handleResize() {
+                window.addEventListener('resize', () => {
+                    this.renderer.setSize(window.innerWidth, window.innerHeight);
+                });
+            }
+
+            updateColor(color) {
+                this.uniforms.uColor.value.set(...this.hexToNormalizedRGB(color));
+            }
+
+            updateSpeed(speed) {
+                this.uniforms.uSpeed.value = speed;
+            }
+
+            updateScale(scale) {
+                this.uniforms.uScale.value = scale;
+            }
+
+            updateNoiseIntensity(intensity) {
+                this.uniforms.uNoiseIntensity.value = intensity;
+            }
+
+            updateRotation(rotation) {
+                this.uniforms.uRotation.value = rotation;
+            }
+        }
+
+        // Initialize silk background when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Register GSAP plugins
+            gsap.registerPlugin(ScrollTrigger);
+            
+            const silkContainer = document.getElementById('silk-background');
+            const silkBackground = new SilkBackground(silkContainer);
+            
+            // Initialize SplitText animations for hero headings
+            const heroTitleContainer = document.getElementById('hero-title-container');
+            const heroSubtitleContainer = document.getElementById('hero-subtitle-container');
+            
+            if (heroTitleContainer && heroSubtitleContainer) {
+                console.log("Initializing SplitText animations...");
+                
+                // Animate main title
+                const titleSplitText = new SplitText({
+                    text: "Introducing FlowerBTC",
+                    className: "hero-title",
+                    delay: 100,
+                    duration: 0.6,
+                    ease: "power3.out",
+                    splitType: "chars",
+                    from: { opacity: 0, y: 40 },
+                    to: { opacity: 1, y: 0 },
+                    threshold: 0.1,
+                    rootMargin: "-100px",
+                    textAlign: "center",
+                    onLetterAnimationComplete: () => console.log("Title animation complete")
+                });
+
+                // Animate subtitle
+                const subtitleSplitText = new SplitText({
+                    text: "Where Cryptocurrency Blooms into Reality",
+                    className: "hero-subtitle",
+                    delay: 80,
+                    duration: 0.5,
+                    ease: "power3.out",
+                    splitType: "chars",
+                    from: { opacity: 0, y: 30 },
+                    to: { opacity: 1, y: 0 },
+                    threshold: 0.1,
+                    rootMargin: "-100px",
+                    textAlign: "center",
+                    onLetterAnimationComplete: () => console.log("Subtitle animation complete")
+                });
+
+                // Append animated elements
+                heroTitleContainer.appendChild(titleSplitText.getElement());
+                heroSubtitleContainer.appendChild(subtitleSplitText.getElement());
+                
+                console.log("SplitText animations initialized successfully");
+            } else {
+                console.error("Could not find hero title or subtitle containers");
+            }
+        });
+    </script>
+
+    <div class="bg-blob yellow"></div>
+    <div class="bg-blob green"></div>
+
+    <!-- Growth System Marquee JavaScript -->
+    <script src="js/growth-carousel.js"></script>
 </body>
 </html>

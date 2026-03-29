@@ -1,358 +1,279 @@
-# FlowerBTC Web - Production-Grade Overhaul
+# FlowerBTC Website - Growth System
 
-## Version 2.0.0
+## Overview
+The FlowerBTC website features an interactive Growth System section that showcases the 10 levels of sunflower growth with a seamless auto-scrolling marquee featuring requestAnimationFrame-based motion, manual drag control, and intelligent interaction handling.
 
-This document outlines the comprehensive overhaul of the FlowerBTC website, implementing Fortune 500 company standards for performance, security, accessibility, and code quality.
+## Features
 
----
+### 🌻 Growth System Section
+- **10 Sunflower Levels**: Displays all growth stages from Level 1 to Level 10
+- **Seamless Auto-Scroll**: Smooth, continuous scrolling at 80px/sec using requestAnimationFrame
+- **Infinite Loop**: Perfect looping with dynamic cloning to cover 2× container width
+- **Manual Control**: Users can drag/swipe to manually control the marquee
+- **Smart Interaction**: Auto-scroll pauses on interaction and resumes after 200ms
+- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
+- **Interactive Elements**: Hover effects with scale animation (1.05x)
+- **Accessibility**: Respects prefers-reduced-motion user preference
 
-## 🚀 Quick Start
+### 🚀 Advanced Marquee Implementation
+- **requestAnimationFrame**: Smooth 60fps animation with precise timing
+- **Dynamic Cloning**: Automatically clones content to ensure seamless looping
+- **Touch & Pointer Support**: Full mobile touch and desktop mouse drag functionality
+- **Performance Optimized**: Hardware acceleration with translate3d transforms
+- **Resilient**: Rebuilds on resize and handles image loading gracefully
 
-```bash
-# Clone the repository
-git clone https://github.com/ishaan-582bot/flowerBTC_web.git
-
-# Navigate to project
-cd flowerBTC_web
-
-# For local development, use a local server
-php -S localhost:8000
-# or
-python3 -m http.server 8000
-```
-
----
-
-## 📋 Summary of Changes
-
-### Critical Fixes Made
-
-#### 1. **Security Enhancements**
-- ✅ CSRF token implementation for all forms
-- ✅ Input sanitization using `filter_var()` and `htmlspecialchars()`
-- ✅ Prepared statements for all database operations
-- ✅ Rate limiting to prevent abuse (10 requests/minute)
-- ✅ Honeypot fields for spam protection
-- ✅ Secure session configuration (HttpOnly, Secure, SameSite)
-- ✅ Security event logging
-- ✅ Output escaping with `htmlspecialchars()`
-- ✅ Database credentials moved to environment variables
-
-#### 2. **Performance Optimizations**
-- ✅ IntersectionObserver for pausing animations when not visible
-- ✅ Passive event listeners for scroll/touch events
-- ✅ Debounced resize handlers
-- ✅ Throttled scroll events
-- ✅ Lazy loading for images below the fold
-- ✅ Preconnect/dns-prefetch for external resources
-- ✅ Proper cleanup of RAF loops and event listeners
-- ✅ GPU-accelerated transforms (translate3d)
-- ✅ will-change used strategically
-
-#### 3. **Accessibility Improvements (WCAG 2.1 AA)**
-- ✅ Semantic HTML5 elements (header, nav, main, section, article, footer)
-- ✅ ARIA labels and roles throughout
-- ✅ Skip-to-content link for keyboard navigation
-- ✅ Focus indicators for keyboard users
-- ✅ Reduced motion support (`prefers-reduced-motion`)
-- ✅ ARIA live regions for dynamic content
-- ✅ Proper heading hierarchy
-- ✅ Alt text for all images
-- ✅ Focus trapping in modals
-- ✅ Keyboard navigation support (Tab, Enter, Escape)
-
-#### 4. **Code Architecture**
-- ✅ ES6+ modular JavaScript architecture
-- ✅ Class-based components with proper encapsulation
-- ✅ Event delegation pattern
-- ✅ Singleton pattern for shared resources (SilkBackground)
-- ✅ Centralized event bus for decoupled communication
-- ✅ JSDoc comments for all functions
-- ✅ No global namespace pollution
-- ✅ Proper error boundaries and graceful degradation
-
-#### 5. **CSS Modernization**
-- ✅ CSS custom properties (variables) for theming
-- ✅ Mobile-first responsive design
-- ✅ BEM-like naming convention
-- ✅ clamp() for fluid typography and spacing
-- ✅ Container queries where appropriate
-- ✅ Strategic will-change usage
-- ✅ Reduced motion media query support
-
----
-
-## 📁 File Structure
+## File Structure
 
 ```
-flowerBTC_web/
-├── index.html              # Main page with semantic HTML
-├── about.html              # About page
-├── inquiry.html            # Contact form page
-├── faq.html                # FAQ page
-├── css/
-│   └── styles.css          # Modern, modular CSS with variables
+website/
+├── index.html              # Main HTML file with Growth System section
 ├── js/
-│   ├── main.js             # Application entry point
-│   ├── core/
-│   │   ├── App.js          # Main application controller (singleton)
-│   │   ├── EventBus.js     # Centralized event management
-│   │   ├── PerformanceMonitor.js  # Performance optimization
-│   │   └── AccessibilityManager.js # WCAG 2.1 AA compliance
-│   └── modules/
-│       ├── SilkBackground.js      # WebGL background (singleton)
-│       ├── DockNavigation.js      # Mac-style dock navigation
-│       └── GrowthCarousel.js      # Optimized infinite marquee
-├── php/
-│   ├── config.php          # Centralized configuration
-│   ├── save_message.php    # Secure form handler with CSRF
-│   ├── send_email.php      # Secure email handler
-│   └── view_messages.php   # Admin message viewer
-└── assets/
-    └── images/             # Optimized images
+│   └── growth-carousel.js  # Marquee implementation
+├── package.json            # Dependencies
+├── README.md              # This documentation
+└── sunflower levels/      # Sunflower level images
+    ├── Level 1.png
+    ├── Level 2.png
+    ├── ...
+    └── Level 10.png
 ```
 
----
+## Installation
 
-## 🔒 Security Configuration
+1. **Start Development Server**:
+   ```bash
+   npm start
+   # or
+   python -m http.server 8000
+   ```
 
-### Environment Variables
+2. **Open in Browser**:
+   Navigate to `http://localhost:8000`
 
-Create a `.env` file or set these environment variables:
+## Implementation Details
 
-```bash
-DB_HOST=localhost
-DB_NAME=flowerbtc
-DB_USER=your_db_user
-DB_PASS=your_secure_password
+### HTML Structure
+The Growth System uses a clean, semantic HTML structure:
+
+```html
+<section id="growth-system" class="growth-section">
+    <h2 class="growth-title">🌻 Growth System: Levels 1–10</h2>
+    <div id="growthMarquee" class="growth-marquee" aria-label="Sunflower growth levels carousel">
+        <div id="growthTrack" class="growth-track" role="list"></div>
+    </div>
+</section>
 ```
 
-### Database Setup
+### CSS Styling
+The marquee uses modern CSS with responsive design:
 
-```sql
-CREATE DATABASE flowerbtc CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```css
+.growth-marquee {
+    position: relative;
+    overflow: hidden;            /* No scrollbars */
+    border-radius: 28px;
+    background: transparent;     /* Show silk backdrop */
+    padding: clamp(10px, 2vh, 18px);
+    user-select: none;
+    touch-action: pan-x;          /* Allow horizontal drags */
+    cursor: grab;
+}
 
-CREATE TABLE messages (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    phone VARCHAR(50),
-    company VARCHAR(100),
-    subject VARCHAR(200) NOT NULL,
-    message TEXT NOT NULL,
-    newsletter BOOLEAN DEFAULT FALSE,
-    ip_address VARCHAR(45),
-    user_agent TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
-
----
-
-## ♿ Accessibility Features
-
-### Keyboard Navigation
-- **Tab**: Navigate through interactive elements
-- **Enter/Space**: Activate buttons and links
-- **Escape**: Close modals
-- **Skip Link**: Jump to main content (visible on focus)
-
-### Screen Reader Support
-- Semantic HTML5 elements
-- ARIA labels and roles
-- Live regions for dynamic content
-- Proper heading hierarchy
-- Alt text for all images
-
-### Motion Preferences
-- Respects `prefers-reduced-motion: reduce`
-- Animations disabled when preferred
-- Essential motion preserved
-
----
-
-## ⚡ Performance Features
-
-### Loading Optimizations
-- Preconnect to external domains
-- Lazy loading for images
-- Async/defer for scripts
-- Critical CSS inline
-
-### Runtime Optimizations
-- IntersectionObserver for visibility
-- Passive event listeners
-- Debounced resize handlers
-- Throttled scroll events
-- RAF cleanup on destroy
-
----
-
-## 🌐 Browser Compatibility
-
-| Browser | Version | Support |
-|---------|---------|---------|
-| Chrome | 80+ | ✅ Full |
-| Firefox | 75+ | ✅ Full |
-| Safari | 13+ | ✅ Full |
-| Edge | 80+ | ✅ Full |
-| IE | 11 | ⚠️ Graceful degradation |
-
----
-
-## 🛠️ Development
-
-### Code Style
-- ES6+ JavaScript with modules
-- JSDoc for documentation
-- BEM-like CSS naming
-- Semantic HTML5
-
-### Testing
-```bash
-# Validate HTML
-npx html-validate index.html
-
-# Audit performance
-npx lighthouse http://localhost:8000
-
-# Check accessibility
-npx pa11y http://localhost:8000
-```
-
----
-
-## 📝 API Documentation
-
-### App Core
-
-```javascript
-import { app } from './js/core/App.js';
-
-// Register a module
-app.registerModule('myModule', new MyModule());
-
-// Get a module
-const myModule = app.getModule('myModule');
-
-// Check if animations should run
-if (app.shouldAnimate()) {
-    // Run animation
+.growth-card img {
+    height: clamp(180px, 38vh, 520px);
+    width: auto;
+    aspect-ratio: 9 / 19.5;  /* tall phone ratio */
+    object-fit: cover;
+    border-radius: 22px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    pointer-events: none; /* so drag hits container */
 }
 ```
 
-### Event Bus
+### JavaScript Animation
+The seamless scrolling uses requestAnimationFrame for smooth 60fps motion:
 
 ```javascript
-import { app } from './js/core/App.js';
+function frame(ts) {
+    const dt = Math.min(64, ts - lastTs) / 1000;
+    lastTs = ts;
 
-// Subscribe to event
-const unsubscribe = app.eventBus.on('event:name', (data) => {
-    console.log(data);
-});
-
-// Emit event
-app.eventBus.emit('event:name', { key: 'value' });
-
-// Unsubscribe
-unsubscribe();
+    if (auto && !dragging && logicalSetWidth > 0) {
+        pos -= SPEED_PX_PER_SEC * dt;
+        pos = wrapWithinSet(pos);
+        track.style.transform = `translate3d(${pos}px,0,0)`;
+    }
+    requestAnimationFrame(frame);
+}
 ```
 
-### Growth Carousel
+### Dynamic Cloning
+Content is dynamically cloned to ensure seamless looping:
 
 ```javascript
-import { GrowthCarousel } from './js/modules/GrowthCarousel.js';
-
-const carousel = new GrowthCarousel(container, {
-    folder: 'sunflower-levels',
-    count: 10,
-    speedPxPerSec: 80
-});
-
-// Control carousel
-carousel.pause();
-carousel.resume();
-carousel.setSpeed(100);
-
-// Cleanup
-carousel.destroy();
+function ensureClones() {
+    const minWidth = marquee.clientWidth * 2;
+    while (track.scrollWidth < minWidth) {
+        IMAGES.forEach((src, i) => track.appendChild(createCard(src, i)));
+    }
+}
 ```
 
----
+## Responsive Design
 
-## 🔧 Configuration
+### Desktop
+- Images: clamp(180px, 38vh, 520px) height
+- Smooth 80px/sec auto-scrolling animation
+- Hover effects with scale (1.05x)
+- clamp(16px, 3vw, 40px) gap between images
+- Full manual drag control with grab/grabbing cursors
 
-### Growth Carousel
+### Tablet (768px and below)
+- Responsive image sizing with clamp()
+- Touch-friendly scrolling with touch-action: pan-x
+- Optimized spacing for medium screens
+- Maintains aspect ratio 9:19.5 (phone mockup)
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| folder | string | 'sunflower-levels' | Image folder path |
-| count | number | 10 | Number of images |
-| speedPxPerSec | number | 80 | Auto-scroll speed |
-| resumeDelayMs | number | 200 | Delay before resuming after drag |
+### Mobile (480px and below)
+- Responsive image sizing with clamp()
+- Full touch/swipe support
+- Show 2–3 images at a time
+- Optimized for mobile interaction
 
-### Silk Background
+## Browser Support
+- Modern browsers with CSS3 animation support
+- CSS Grid and Flexbox support
+- Hardware acceleration support
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| color | string | '#7B7481' | Base color |
-| speed | number | 5 | Animation speed |
-| scale | number | 1 | Pattern scale |
-| noiseIntensity | number | 1.5 | Noise amount |
+## Performance Features
+- **requestAnimationFrame**: Smooth 60fps animation with precise timing control
+- **Hardware Acceleration**: Uses translate3d for optimal GPU acceleration
+- **Dynamic Cloning**: Intelligent content duplication for seamless looping
+- **Touch Optimization**: touch-action: pan-x for smooth mobile interaction
+- **Resilient Design**: Rebuilds on resize and handles image loading gracefully
+- **Accessibility**: Respects prefers-reduced-motion user preference
 
----
+## Customization
 
-## 📊 Performance Metrics
+### Animation Speed
+Adjust the scroll speed in JavaScript:
+```javascript
+const SPEED_PX_PER_SEC = 80; // Change to desired speed in pixels per second
+```
 
-### Before Overhaul
-- Lighthouse Performance: ~45
-- First Contentful Paint: ~3.5s
-- Time to Interactive: ~8s
-- Accessibility: ~60
+### Image Sizing
+Modify image heights using CSS clamp():
+```css
+.growth-card img {
+    height: clamp(180px, 38vh, 520px); /* min, preferred, max */
+}
+```
 
-### After Overhaul
-- Lighthouse Performance: ~95+
-- First Contentful Paint: ~1.2s
-- Time to Interactive: ~3s
-- Accessibility: ~100
+### Spacing & Gaps
+Adjust gaps between images:
+```css
+.growth-track {
+    gap: clamp(16px, 3vw, 40px); /* min, preferred, max */
+}
+```
 
----
+### Resume Delay
+Adjust how quickly auto-scroll resumes after interaction:
+```javascript
+const RESUME_DELAY_MS = 200; // Change to desired delay in milliseconds
+```
 
-## 🐛 Known Issues
+### Folder Configuration
+Update the image folder path:
+```javascript
+const FOLDER = "sunflower levels"; // Change to your folder name
+```
 
-1. **IE11**: ES modules not supported (graceful degradation with nomodule fallback)
-2. **WebGL**: Silk background disabled if WebGL unavailable
-3. **Touch**: Custom cursor hidden on touch devices
+## JavaScript Functionality
 
----
+### requestAnimationFrame Loop
+The marquee uses a smooth animation loop for consistent 60fps motion:
 
-## 📄 License
+```javascript
+function frame(ts) {
+    const dt = Math.min(64, ts - lastTs) / 1000; // clamp delta for safety
+    lastTs = ts;
 
-Copyright © 2024 FlowerBTC. All rights reserved.
+    if (auto && !dragging && logicalSetWidth > 0) {
+        pos -= SPEED_PX_PER_SEC * dt;
+        pos = wrapWithinSet(pos);
+        track.style.transform = `translate3d(${pos}px,0,0)`;
+    }
+    requestAnimationFrame(frame);
+}
+```
 
----
+### Pointer & Touch Support
+Full mobile and desktop interaction support:
 
-## 🤝 Contributing
+```javascript
+function onPointerDown(e) {
+    dragging = true;
+    auto = false;
+    marquee.classList.add("dragging");
+    dragStartX = e.clientX ?? (e.touches && e.touches[0]?.clientX) ?? 0;
+    dragStartPos = pos;
+}
 
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+function onPointerMove(e) {
+    const x = e.clientX ?? (e.touches && e.touches[0]?.clientX) ?? 0;
+    const dx = x - dragStartX;
+    pos = wrapWithinSet(dragStartPos + dx);
+    track.style.transform = `translate3d(${pos}px,0,0)`;
+}
+```
 
----
+### Smart Resume & Accessibility
+Animation automatically resumes and respects user preferences:
 
-## 📞 Support
+```javascript
+function onPointerUp() {
+    dragging = false;
+    marquee.classList.remove("dragging");
 
-- Email: support@flowerbtc.io
-- Telegram: [@FlowerBTC_community](https://t.me/FlowerBTC_community)
-- Discord: [FlowerBTC](https://discord.gg/Xfv5bt3M7y)
+    // Respect reduced motion: don't resume if user prefers no motion
+    const rm = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (!rm.matches) {
+        setTimeout(() => (auto = true), RESUME_DELAY_MS);
+    }
+}
+```
 
----
+### Dynamic Cloning
+Content is automatically cloned to ensure seamless looping:
 
-## 🙏 Acknowledgments
+```javascript
+function ensureClones() {
+    const minWidth = marquee.clientWidth * 2;
+    while (track.scrollWidth < minWidth) {
+        IMAGES.forEach((src, i) => track.appendChild(createCard(src, i)));
+    }
+}
+```
 
-- Three.js for WebGL rendering
-- GSAP for animations (optional enhancement)
-- Font Awesome for icons
-- Google Fonts for typography
+## Troubleshooting
+
+### Common Issues
+1. **Images not loading**: Check file paths in `sunflower levels/` folder
+2. **Animation not smooth**: Ensure browser supports CSS animations
+3. **Responsive issues**: Check media query breakpoints
+
+### Performance Tips
+- Keep image file sizes optimized
+- Use appropriate image formats (PNG for transparency, WebP for better compression)
+- Ensure images are properly sized for their display dimensions
+
+## Contributing
+1. Follow the existing code style
+2. Test on multiple devices and browsers
+3. Ensure responsive design works correctly
+4. Update documentation for any changes
+5. Keep CSS animations performant
+
+## License
+MIT License - see package.json for details

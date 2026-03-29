@@ -1,0 +1,197 @@
+/* Dock Navigation Styles */
+.dock-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: flex;
+    align-items: flex-end;
+    height: 80px;
+    padding: 0 20px;
+    background: rgba(6, 0, 16, 0.3);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(34, 34, 34, 0.4);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dock-container.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.dock-container.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(-20px);
+}
+
+.dock-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    margin: 0 8px;
+    border-radius: 12px;
+    background: rgba(6, 0, 16, 0.4);
+    border: 1px solid rgba(34, 34, 34, 0.3);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center bottom;
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+}
+
+.dock-container.visible .dock-item {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+.dock-container.visible .dock-item:nth-child(1) { transition-delay: 0.1s; }
+.dock-container.visible .dock-item:nth-child(2) { transition-delay: 0.2s; }
+.dock-container.visible .dock-item:nth-child(3) { transition-delay: 0.3s; }
+.dock-container.visible .dock-item:nth-child(4) { transition-delay: 0.4s; }
+
+.dock-item:hover {
+    transform: scale(1.2) translateY(-10px);
+    background: rgba(6, 0, 16, 0.6);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.dock-item.active {
+    background: rgba(255, 107, 107, 0.15);
+    border-color: rgba(255, 107, 107, 0.4);
+}
+
+.dock-icon {
+    font-size: 20px;
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.dock-item:hover .dock-icon {
+    color: #FF6B6B;
+    transform: scale(1.1);
+}
+
+.dock-label {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(6, 0, 16, 0.8);
+    color: #ffffff;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(34, 34, 34, 0.6);
+    backdrop-filter: blur(10px);
+}
+
+.dock-item:hover .dock-label {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-5px);
+}
+
+.dock-item::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 107, 107, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+    z-index: -1;
+}
+
+.dock-item:hover::before {
+    width: 80px;
+    height: 80px;
+}
+
+/* Magnification effect */
+.dock-item.magnified {
+    transform: scale(1.4) translateY(-15px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .dock-container {
+        top: 10px;
+        padding: 0 15px;
+        height: 70px;
+    }
+
+    .dock-item {
+        width: 50px;
+        height: 50px;
+        margin: 0 6px;
+    }
+
+    .dock-icon {
+        font-size: 18px;
+    }
+
+    .dock-label {
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dock-container {
+        top: 5px;
+        padding: 0 10px;
+        height: 60px;
+    }
+
+    .dock-item {
+        width: 45px;
+        height: 45px;
+        margin: 0 4px;
+    }
+
+    .dock-icon {
+        font-size: 16px;
+    }
+}
+
+/* Hide old navbar */
+.navbar {
+    display: none !important;
+}
+
+/* Adjust content spacing for dock */
+.content-wrapper {
+    padding-top: 100px;
+}
+
+@media (max-width: 768px) {
+    .content-wrapper {
+        padding-top: 90px;
+    }
+}
+
+@media (max-width: 480px) {
+    .content-wrapper {
+        padding-top: 80px;
+    }
+} 

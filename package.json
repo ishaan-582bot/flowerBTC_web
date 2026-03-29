@@ -1,0 +1,23 @@
+{
+  "name": "flowerbtc-website",
+  "version": "1.0.0",
+  "description": "FlowerBTC official website with interactive growth system",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "python -m http.server 8000"
+  },
+  "dependencies": {
+    "motion": "^10.16.2"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "flowerbtc",
+    "cryptocurrency",
+    "gamefi",
+    "defi",
+    "web3"
+  ],
+  "author": "FlowerBTC Corporation",
+  "license": "MIT"
+}

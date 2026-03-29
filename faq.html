@@ -1,399 +1,483 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="FlowerBTC FAQ - Frequently Asked Questions about our crypto ecosystem, GameFi, DeFi, and more.">
-    <meta name="keywords" content="FlowerBTC, FAQ, questions, help, crypto, GameFi, DeFi">
-    <meta name="author" content="FlowerBTC">
-    <meta name="theme-color" content="#0a0a0a">
-    
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://flowerbtc.io/faq.html">
-    <meta property="og:title" content="FlowerBTC FAQ">
-    <meta property="og:description" content="Find answers to frequently asked questions about FlowerBTC.">
-    <meta property="og:image" content="https://flowerbtc.io/assets/images/og-image.jpg">
-    
-    <!-- Preconnect -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    
-    <title>FlowerBTC FAQ - Frequently Asked Questions</title>
-    
-    <!-- Fonts -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" as="style">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
-    
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    
-    <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/faq.css">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ - FlowerBTC</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="dock-nav.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <style>
+    /* Silk background container */
+    #silk-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      position: relative;
+      overflow-x: hidden;
+      background-color: transparent !important;
+      background-image: none !important;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+    }
+    .navbar {
+      background: transparent !important;
+      backdrop-filter: blur(10px);
+    }
+    .section, .section.dark-theme {
+      background: transparent !important;
+    }
+    .faq-section {
+      max-width: 700px;
+      margin: 100px auto 40px auto;
+      background: rgba(10,10,10,0.85);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+      padding: 2.5rem 2rem 2rem 2rem;
+      backdrop-filter: blur(10px);
+    }
+    .faq-section h2 {
+      text-align: center;
+      font-size: 2.2em;
+      margin-bottom: 2rem;
+      background: linear-gradient(45deg, #4ECDC4, #FF6B6B);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .faq-item {
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 0.5rem;
+      transition: background 0.2s;
+    }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      color: #fff;
+      text-align: left;
+      font-size: 1.15em;
+      font-weight: 600;
+      padding: 1.1em 2.5em 1.1em 0.7em;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.2s;
+      border-radius: 10px;
+    }
+    .faq-question:hover, .faq-item.active .faq-question {
+      background: rgba(78,205,196,0.08);
+    }
+    .faq-question .chevron {
+      position: absolute;
+      right: 1.2em;
+      top: 50%;
+      transform: translateY(-50%) rotate(0deg);
+      transition: transform 0.3s;
+      font-size: 1.1em;
+      color: #4ECDC4;
+    }
+    .faq-item.active .faq-question .chevron {
+      transform: translateY(-50%) rotate(90deg);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      background: none;
+      padding: 0 1.2em;
+    }
+    .faq-item.active .faq-answer {
+      max-height: 200px;
+      padding: 0.7em 1.2em 1.2em 1.2em;
+    }
+    .faq-support {
+      text-align: center;
+      margin-top: 2.5rem;
+      font-size: 1.1em;
+    }
+    .faq-support a {
+      color: #4ECDC4;
+      text-decoration: underline;
+    }
+    @media (max-width: 500px) {
+      .faq-section {
+        padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+      }
+      .faq-question {
+        font-size: 1em;
+        padding: 1em 2em 1em 0.5em;
+      }
+    }
+    .hero {
+        background: rgba(0,0,0,0.4) !important;
+        border-radius: 24px;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.10);
+        padding: 32px 0;
+    }
+    .hero > * {
+        background: transparent !important;
+    }
+
+    /* Luxury Text Styling for Hero Section */
+    .hero h1 {
+        background: linear-gradient(135deg, 
+            #f4e4bc 0%, 
+            #d4af37 25%, 
+            #b8860b 50%, 
+            #8b4513 75%, 
+            #2c1810 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 
+            0 0 40px rgba(244, 228, 188, 0.3),
+            0 0 80px rgba(212, 175, 55, 0.2),
+            0 0 120px rgba(184, 134, 11, 0.1);
+        font-family: 'Playfair Display', 'Times New Roman', serif;
+        font-weight: 700;
+        font-size: 3.5rem;
+        letter-spacing: 0.05em;
+        margin-bottom: 1.5rem;
+        animation: luxuryGlow 3s ease-in-out infinite alternate;
+    }
+
+    .hero p {
+        background: linear-gradient(135deg, 
+            #e8f4fd 0%, 
+            #b8d4f0 25%, 
+            #7ba7d9 50%, 
+            #4a7bc8 75%, 
+            #2c5aa0 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 
+            0 0 30px rgba(232, 244, 253, 0.4),
+            0 0 60px rgba(184, 212, 240, 0.2),
+            0 0 90px rgba(123, 167, 217, 0.1);
+        font-family: 'Cormorant Garamond', 'Georgia', serif;
+        font-weight: 400;
+        font-size: 1.4rem;
+        letter-spacing: 0.03em;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        animation: luxuryGlow 3s ease-in-out infinite alternate-reverse;
+    }
+
+    .hero .cta-button {
+        background: linear-gradient(135deg, 
+            #d4af37 0%, 
+            #b8860b 50%, 
+            #8b4513 100%);
+        border: 2px solid rgba(212, 175, 55, 0.3);
+        color: #fff;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        font-family: 'Playfair Display', 'Times New Roman', serif;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        box-shadow: 
+            0 8px 32px rgba(212, 175, 55, 0.3),
+            0 0 20px rgba(212, 175, 55, 0.2);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .hero .cta-button:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 
+            0 15px 45px rgba(212, 175, 55, 0.4),
+            0 0 30px rgba(212, 175, 55, 0.3),
+            0 0 50px rgba(212, 175, 55, 0.2);
+        border-color: rgba(212, 175, 55, 0.6);
+    }
+
+    @keyframes luxuryGlow {
+        0% {
+            text-shadow: 
+                0 0 40px rgba(244, 228, 188, 0.3),
+                0 0 80px rgba(212, 175, 55, 0.2),
+                0 0 120px rgba(184, 134, 11, 0.1);
+        }
+        100% {
+            text-shadow: 
+                0 0 50px rgba(244, 228, 188, 0.4),
+                0 0 100px rgba(212, 175, 55, 0.3),
+                0 0 150px rgba(184, 134, 11, 0.2);
+        }
+    }
+
+    /* Import luxury fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;500;600&display=swap');
+  </style>
 </head>
 <body>
-    <!-- Silk Background -->
-    <div id="silk-background" aria-hidden="true"></div>
-    
-    <!-- Custom Cursor -->
-    <div class="custom-cursor" aria-hidden="true"></div>
-    
-    <!-- Loading Screen -->
-    <div class="loading-screen" role="status" aria-label="Loading">
-        <img src="assets/images/sunflower-logo.png" alt="" width="128" height="128" loading="eager">
-        <span class="sr-only">Loading...</span>
+  <!-- Silk Background Container -->
+  <div id="silk-background"></div>
+  
+  <!-- Navigation/Header (reuse from other pages) -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="FlowerBTC Logo.png" alt="FlowerBTC Logo" class="logo-img" onclick="showLogoMessage()">
+      <span class="logo-text">FlowerBTC</span>
     </div>
-    
-    <!-- Main Content -->
-    <main id="main-content">
-        <!-- Hero Section -->
-        <section class="section faq-hero" aria-labelledby="faq-title">
-            <div class="hero">
-                <h1 id="faq-title" class="hero-title">Frequently Asked Questions</h1>
-                <p class="hero-subtitle">Find answers to common questions about FlowerBTC</p>
-                
-                <!-- Search -->
-                <div class="faq-search">
-                    <label for="faqSearch" class="sr-only">Search FAQ</label>
-                    <input type="search" id="faqSearch" placeholder="Search questions..." aria-label="Search FAQ">
-                    <i class="fas fa-search" aria-hidden="true"></i>
-                </div>
-            </div>
-        </section>
-        
-        <!-- FAQ Categories -->
-        <section class="section faq-section" aria-labelledby="faq-categories">
-            <div class="content">
-                <h2 id="faq-categories" class="sr-only">FAQ Categories</h2>
-                
-                <!-- Category Tabs -->
-                <nav class="faq-tabs" role="tablist" aria-label="FAQ categories">
-                    <button class="faq-tab active" role="tab" aria-selected="true" aria-controls="general-panel" id="general-tab">
-                        <i class="fas fa-info-circle" aria-hidden="true"></i>
-                        General
-                    </button>
-                    <button class="faq-tab" role="tab" aria-selected="false" aria-controls="game-panel" id="game-tab">
-                        <i class="fas fa-gamepad" aria-hidden="true"></i>
-                        Game
-                    </button>
-                    <button class="faq-tab" role="tab" aria-selected="false" aria-controls="token-panel" id="token-tab">
-                        <i class="fas fa-coins" aria-hidden="true"></i>
-                        Token
-                    </button>
-                    <button class="faq-tab" role="tab" aria-selected="false" aria-controls="technical-panel" id="technical-tab">
-                        <i class="fas fa-cog" aria-hidden="true"></i>
-                        Technical
-                    </button>
-                </nav>
-                
-                <!-- General FAQ -->
-                <div id="general-panel" class="faq-panel active" role="tabpanel" aria-labelledby="general-tab">
-                    <div class="faq-list">
-                        <details class="faq-item">
-                            <summary class="faq-question">
-                                <span>What is FlowerBTC?</span>
-                                <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                            </summary>
-                            <div class="faq-answer">
-                                <p>FlowerBTC is a revolutionary crypto ecosystem that combines GameFi, DeFi, and AI-powered trading. Our platform features a unique sunflower growth game where users can earn rewards, trade tokens, and participate in a vibrant community.</p>
-                            </div>
-                        </details>
-                        
-                        <details class="faq-item">
-                            <summary class="faq-question">
-                                <span>How do I get started with FlowerBTC?</span>
-                                <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                            </summary>
-                            <div class="faq-answer">
-                                <p>Getting started is easy:</p>
-                                <ol>
-                                    <li>Join our <a href="https://t.me/FlowerBTC_bot" target="_blank" rel="noopener noreferrer">Telegram bot</a></li>
-                                    <li>Connect your wallet</li>
-                                    <li>Start growing your sunflower</li>
-                                    <li>Earn rewards and trade $FBTC</li>
-                                </ol>
-                            </div>
-                        </details>
-                        
-                        <details class="faq-item">
-                            <summary class="faq-question">
-                                <span>Is FlowerBTC safe and secure?</span>
-                                <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                            </summary>
-                            <div class="faq-answer">
-                                <p>Yes! Security is our top priority. We use industry-standard encryption, secure smart contracts audited by third parties, and follow best practices for data protection. Your assets are always under your control.</p>
-                            </div>
-                        </details>
-                        
-                        <details class="faq-item">
-                            <summary class="faq-question">
-                                <span>How can I contact support?</span>
-                                <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                            </summary>
-                            <div class="faq-answer">
-                                <p>You can reach our support team through:</p>
-                                <ul>
-                                    <li>Email: <a href="mailto:support@flowerbtc.io">support@flowerbtc.io</a></li>
-                                    <li>Telegram: <a href="https://t.me/FlowerBTC_community" target="_blank" rel="noopener noreferrer">@FlowerBTC_community</a></li>
-                                    <li>Discord: <a href="https://discord.gg/Xfv5bt3M7y" target="_blank" rel="noopener noreferrer">FlowerBTC Server</a></li>
-                                </ul>
-                            </div>
-                        </details>
-                    </div>
-                </div>
-                
-                <!-- Game FAQ -->
-                <div id="game-panel" class="faq-panel" role="tabpanel" aria-labelledby="game-tab" hidden>
-                    <div class="faq-list">
-                        <details class="faq-item">
-                            <summary class="faq-question">
-                                <span>How does the sunflower growth game work?</span>
-                                <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                            </summary>
-                            <div class="faq-answer">
-                                <p>Your sunflower grows through 10 levels as you play. Collect Yellow Sun tokens, use Magical Potions to boost growth, and Red Sun items for maximum upgrades. Higher levels unlock better rewards and features.</p>
-                            </div>
-                        </details>
-                        
-                        <details class="faq-item">
-                            <summary class="faq-question">
-                                <span>What are Yellow Sun tokens?</span>
-                                <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                            </summary>
-                            <div class="faq-answer">
-                                <p>Yellow Sun is the main in-game currency. You earn it by playing the game, completing tasks, and participating in community events. Use it to buy potions, upgrade your sunflower, and trade for other items.</p>
-                            </div>
-                        </details>
-                        
-                        <details class="faq-item">
-                            <summary class="faq-question">
-                                <span>How do I level up my sunflower?</span>
-                                <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                            </summary>
-                            <div class="faq-answer">
-                                <p>Level up by:</p>
-                                <ul>
-                                    <li>Collecting Yellow Sun tokens</li>
-                                    <li>Using Magical Potions (purchased with Yellow Sun)</li>
-                                    <li>Using Red Sun items for major upgrades</li>
-                                    <li>Completing daily tasks and challenges</li>
-                                </ul>
-                            </div>
-                        </details>
-                        
-                        <details class="faq-item">
-                            <summary class="faq-question">
-                                <span>What rewards can I earn?</span>
-                                <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                            </summary>
-                            <div class="faq-answer">
-                                <p>Rewards include:</p>
-                                <ul>
-                                    <li>Yellow Sun tokens</li>
-                                    <li>$FBTC tokens</li>
-                                    <li>NFT collectibles</li>
-                                    <li>Exclusive badges and achievements</li>
-                                    <li>Bonus multipliers for staking</li>
-                                </ul>
-                            </div>
-                        </details>
-                    </div>
-                </div>
-                
-                <!-- Token FAQ -->
-                <div id="token-panel" class="faq-panel" role="tabpanel" aria-labelledby="token-tab" hidden>
-                    <div class="faq-list">
-                        <details class="faq-item">
-                            <summary class="faq-question">
-                                <span>What is $FBTC?</span>
-                                <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                            </summary>
-                            <div class="faq-answer">
-                                <p>$FBTC is the native utility and governance token of the FlowerBTC ecosystem. It powers our GameFi mechanics, reward farming, and AI-powered trading bots. Holders can stake, vote on proposals, and earn passive income.</p>
-                            </div>
-                        </details>
-                        
-                        <details class="faq-item">
-                            <summary class="faq-question">
-                                <span>How can I buy $FBTC?</span>
-                                <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                            </summary>
-                            <div class="faq-answer">
-                                <p>$FBTC will be available on major decentralized exchanges. You can also earn $FBTC through:</p>
-                                <ul>
-                                    <li>Playing the sunflower game</li>
-                                    <li>Staking rewards</li>
-                                    <li>Community airdrops</li>
-                                    <li>Referral bonuses</li>
-                                </ul>
-                            </div>
-                        </details>
-                        
-                        <details class="faq-item">
-                            <summary class="faq-question">
-                                <span>Can I stake $FBTC?</span>
-                                <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                            </summary>
-                            <div class="faq-answer">
-                                <p>Yes! Staking $FBTC allows you to earn passive income while supporting the ecosystem. Different staking tiers offer varying rewards and benefits. Check the staking dashboard for current APY rates.</p>
-                            </div>
-                        </details>
-                        
-                        <details class="faq-item">
-                            <summary class="faq-question">
-                                <span>What are the tokenomics?</span>
-                                <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                            </summary>
-                            <div class="faq-answer">
-                                <p>Token distribution:</p>
-                                <ul>
-                                    <li>40% - Community rewards & airdrops</li>
-                                    <li>25% - Ecosystem development</li>
-                                    <li>15% - Team & advisors (vested)</li>
-                                    <li>10% - Liquidity provision</li>
-                                    <li>10% - Marketing & partnerships</li>
-                                </ul>
-                            </div>
-                        </details>
-                    </div>
-                </div>
-                
-                <!-- Technical FAQ -->
-                <div id="technical-panel" class="faq-panel" role="tabpanel" aria-labelledby="technical-tab" hidden>
-                    <div class="faq-list">
-                        <details class="faq-item">
-                            <summary class="faq-question">
-                                <span>Which wallets are supported?</span>
-                                <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                            </summary>
-                            <div class="faq-answer">
-                                <p>We support major Web3 wallets including:</p>
-                                <ul>
-                                    <li>MetaMask</li>
-                                    <li>WalletConnect</li>
-                                    <li>Trust Wallet</li>
-                                    <li>Coinbase Wallet</li>
-                                    <li>Rainbow</li>
-                                </ul>
-                            </div>
-                        </details>
-                        
-                        <details class="faq-item">
-                            <summary class="faq-question">
-                                <span>Which blockchain does FlowerBTC use?</span>
-                                <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                            </summary>
-                            <div class="faq-answer">
-                                <p>FlowerBTC is built on multiple blockchains for optimal performance and accessibility. Our primary chain is Ethereum (Layer 2 for lower fees), with cross-chain expansion planned for Phase 4.</p>
-                            </div>
-                        </details>
-                        
-                        <details class="faq-item">
-                            <summary class="faq-question">
-                                <span>Are the smart contracts audited?</span>
-                                <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                            </summary>
-                            <div class="faq-answer">
-                                <p>Yes, all smart contracts undergo rigorous auditing by reputable third-party security firms. Audit reports are publicly available on our documentation portal.</p>
-                            </div>
-                        </details>
-                        
-                        <details class="faq-item">
-                            <summary class="faq-question">
-                                <span>How do I report a bug?</span>
-                                <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                            </summary>
-                            <div class="faq-answer">
-                                <p>Report bugs through:</p>
-                                <ul>
-                                    <li>Our <a href="https://discord.gg/Xfv5bt3M7y" target="_blank" rel="noopener noreferrer">Discord #bug-reports channel</a></li>
-                                    <li>Email: <a href="mailto:bugs@flowerbtc.io">bugs@flowerbtc.io</a></li>
-                                    <li>GitHub Issues (for technical users)</li>
-                                </ul>
-                            </div>
-                        </details>
-                    </div>
-                </div>
-                
-                <!-- Still Have Questions -->
-                <div class="faq-cta">
-                    <h3>Still have questions?</h3>
-                    <p>Can't find what you're looking for? Contact our support team.</p>
-                    <a href="inquiry.html" class="cta-button primary">
-                        <i class="fas fa-envelope" aria-hidden="true"></i>
-                        Contact Support
-                    </a>
-                </div>
-            </div>
-        </section>
-    </main>
-    
-    <!-- Footer -->
-    <footer role="contentinfo">
-        <div class="footer-content">
-            <div class="footer-logo">
-                <img src="assets/images/logo-small.png" alt="" width="40" height="40" loading="lazy">
-                <span>FlowerBTC</span>
-            </div>
-            
-            <nav class="footer-links" aria-label="Footer navigation">
-                <div class="link-group">
-                    <h4>Quick Links</h4>
-                    <a href="index.html">Home</a>
-                    <a href="about.html">About</a>
-                    <a href="inquiry.html">Contact</a>
-                </div>
-                
-                <div class="link-group">
-                    <h4>Resources</h4>
-                    <a href="faq.html">FAQ</a>
-                </div>
-                
-                <div class="link-group">
-                    <h4>Legal</h4>
-                    <a href="#" onclick="openLegalModal('privacy'); return false;">Privacy Policy</a>
-                    <a href="#" onclick="openLegalModal('terms'); return false;">Terms of Service</a>
-                </div>
-            </nav>
-            
-            <nav class="footer-social" aria-label="Social media">
-                <a href="https://x.com/FlowerBTC_" target="_blank" rel="noopener noreferrer" aria-label="Follow us on X">
-                    <i class="fab fa-twitter" aria-hidden="true"></i>
-                </a>
-                <a href="https://discord.gg/Xfv5bt3M7y" target="_blank" rel="noopener noreferrer" aria-label="Join our Discord">
-                    <i class="fab fa-discord" aria-hidden="true"></i>
-                </a>
-                <a href="https://t.me/FlowerBTC_community" target="_blank" rel="noopener noreferrer" aria-label="Join our Telegram">
-                    <i class="fab fa-telegram" aria-hidden="true"></i>
-                </a>
-            </nav>
-        </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2024 FlowerBTC. All rights reserved.</p>
-        </div>
-    </footer>
-    
-    <!-- Legal Modals -->
-    <div id="privacyModal" class="legal-modal" role="dialog" aria-labelledby="privacy-title" aria-modal="true">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeLegalModal('privacy')" aria-label="Close privacy policy">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <div class="modal-body">
-                <h2 id="privacy-title">Privacy Policy</h2>
-                <p>Your privacy is important to us.</p>
-            </div>
-        </div>
+    <div class="header-nav">
+      <a href="index.html" class="nav-item">Home</a>
+      <a href="about.html" class="nav-item">About</a>
+      <a href="inquiry.html" class="nav-item">Inquiry</a>
+      <a href="faq.html" class="nav-item active">FAQ</a>
     </div>
-    
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="module" src="js/main.js"></script>
-    <script type="module" src="js/modules/FAQ.js"></script>
+    <div class="nav-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
+  </nav>
+  <div class="content-wrapper">
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <button class="faq-question">How does FlowerBTC work? <span class="chevron"><i class="fas fa-chevron-right"></i></span></button>
+        <div class="faq-answer">
+          <p>FlowerBTC is a Telegram-based crypto farming bot. You earn Bitcoin (BTC) by interacting with the bot daily, completing tasks, and inviting friends via referrals.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Is FlowerBTC free to use? <span class="chevron"><i class="fas fa-chevron-right"></i></span></button>
+        <div class="faq-answer">
+          <p>Yes! FlowerBTC is 100% free—no upfront costs. Earnings depend on activity level and referrals.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">How do I withdraw my Bitcoin? <span class="chevron"><i class="fas fa-chevron-right"></i></span></button>
+        <div class="faq-answer">
+          <p>Go to the "Withdraw" section in the bot, enter your wallet address, and confirm. Minimum withdrawal is 0.0001 BTC.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Is FlowerBTC legit or a scam? <span class="chevron"><i class="fas fa-chevron-right"></i></span></button>
+        <div class="faq-answer">
+          <p>FlowerBTC is a legitimate earning platform. Check our <a href="#testimonials">user withdrawal proofs</a> and Telegram community for verification.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">What's the best strategy to maximize earnings? <span class="chevron"><i class="fas fa-chevron-right"></i></span></button>
+        <div class="faq-answer">
+          <p>1. Log in daily for bonuses. 2. Invite friends using your referral code. 3. Complete all bot tasks.</p>
+        </div>
+      </div>
+      <p class="faq-support">Still have questions? <a href="inquiry.html#contactForm">Contact support</a>.</p>
+    </section>
+  </div>
+  <!-- Footer (reuse from other pages) -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="FlowerBTC Logo.png" alt="FlowerBTC Logo" class="logo-img">
+        <span>FlowerBTC</span>
+      </div>
+      <div class="footer-social">
+        <a href="https://x.com/FlowerBTC_?t=5VLToLA7tXBe3gqgIdNDGg&s=09" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://discord.gg/Xfv5bt3M7y" target="_blank"><i class="fab fa-discord"></i></a>
+        <a href="https://t.me/FlowerBTC_community" target="_blank"><i class="fab fa-telegram"></i></a>
+        <a href="https://youtube.com/@flowerbtc?si=FLyk1fknuv_PUbYf" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.instagram.com/flowerbtc.io?igsh=MWRxNW1vazd2dm51Zw==" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/share/1EnYpFPz2E/" target="_blank"><i class="fab fa-facebook"></i></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 FlowerBTC. All rights reserved.</p>
+    </div>
+  </footer>
+  <script>
+    // Accordion functionality
+    document.querySelectorAll('.faq-question').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = btn.closest('.faq-item');
+        var wasActive = item.classList.contains('active');
+        document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('active'); });
+        if (!wasActive) item.classList.add('active');
+      });
+    });
+  </script>
+
+  <!-- Silk Background Script -->
+  <script>
+    class SilkBackground {
+      constructor(container) {
+        this.container = container;
+        this.scene = null;
+        this.camera = null;
+        this.renderer = null;
+        this.mesh = null;
+        this.uniforms = null;
+        this.clock = new THREE.Clock();
+        
+        this.init();
+        this.animate();
+        this.handleResize();
+      }
+
+      hexToNormalizedRGB(hex) {
+        hex = hex.replace("#", "");
+        return [
+          parseInt(hex.slice(0, 2), 16) / 255,
+          parseInt(hex.slice(2, 4), 16) / 255,
+          parseInt(hex.slice(4, 6), 16) / 255,
+        ];
+      }
+
+      init() {
+        // Scene setup
+        this.scene = new THREE.Scene();
+        
+        // Camera setup
+        this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+        
+        // Renderer setup
+        this.renderer = new THREE.WebGLRenderer({ 
+          alpha: true,
+          antialias: true 
+        });
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        this.container.appendChild(this.renderer.domElement);
+        
+        // Shader uniforms
+        this.uniforms = {
+          uTime: { value: 0 },
+          uColor: { value: new THREE.Color(...this.hexToNormalizedRGB("#7B7481")) },
+          uSpeed: { value: 5 },
+          uScale: { value: 1 },
+          uRotation: { value: 0 },
+          uNoiseIntensity: { value: 1.5 }
+        };
+        
+        // Create mesh with shaders
+        const geometry = new THREE.PlaneGeometry(2, 2);
+        const material = new THREE.ShaderMaterial({
+          uniforms: this.uniforms,
+          vertexShader: this.vertexShader,
+          fragmentShader: this.fragmentShader,
+          transparent: true
+        });
+        
+        this.mesh = new THREE.Mesh(geometry, material);
+        this.scene.add(this.mesh);
+      }
+
+      get vertexShader() {
+        return `
+          varying vec2 vUv;
+          varying vec3 vPosition;
+
+          void main() {
+            vPosition = position;
+            vUv = uv;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `;
+      }
+
+      get fragmentShader() {
+        return `
+          varying vec2 vUv;
+          varying vec3 vPosition;
+
+          uniform float uTime;
+          uniform vec3 uColor;
+          uniform float uSpeed;
+          uniform float uScale;
+          uniform float uRotation;
+          uniform float uNoiseIntensity;
+
+          const float e = 2.71828182845904523536;
+
+          float noise(vec2 texCoord) {
+            float G = e;
+            vec2 r = (G * sin(G * texCoord));
+            return fract(r.x * r.y * (1.0 + texCoord.x));
+          }
+
+          vec2 rotateUvs(vec2 uv, float angle) {
+            float c = cos(angle);
+            float s = sin(angle);
+            mat2 rot = mat2(c, -s, s, c);
+            return rot * uv;
+          }
+
+          void main() {
+            float rnd = noise(gl_FragCoord.xy);
+            vec2 uv = rotateUvs(vUv * uScale, uRotation);
+            vec2 tex = uv * uScale;
+            float tOffset = uSpeed * uTime;
+
+            tex.y += 0.03 * sin(8.0 * tex.x - tOffset);
+
+            float pattern = 0.6 +
+                0.4 * sin(5.0 * (tex.x + tex.y +
+                    cos(3.0 * tex.x + 5.0 * tex.y) +
+                    0.02 * tOffset) +
+                sin(20.0 * (tex.x + tex.y - 0.1 * tOffset)));
+
+            vec4 col = vec4(uColor, 1.0) * vec4(pattern) - rnd / 15.0 * uNoiseIntensity;
+            col.a = 1.0;
+            gl_FragColor = col;
+          }
+        `;
+      }
+
+      animate() {
+        requestAnimationFrame(() => this.animate());
+        
+        const delta = this.clock.getDelta();
+        this.uniforms.uTime.value += 0.1 * delta;
+        
+        this.renderer.render(this.scene, this.camera);
+      }
+
+      handleResize() {
+        window.addEventListener('resize', () => {
+          this.renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+      }
+
+      updateColor(color) {
+        this.uniforms.uColor.value.set(...this.hexToNormalizedRGB(color));
+      }
+
+      updateSpeed(speed) {
+        this.uniforms.uSpeed.value = speed;
+      }
+
+      updateScale(scale) {
+        this.uniforms.uScale.value = scale;
+      }
+
+      updateNoiseIntensity(intensity) {
+        this.uniforms.uNoiseIntensity.value = intensity;
+      }
+
+      updateRotation(rotation) {
+        this.uniforms.uRotation.value = rotation;
+      }
+    }
+
+    // Initialize silk background when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      const silkContainer = document.getElementById('silk-background');
+      const silkBackground = new SilkBackground(silkContainer);
+    });
+  </script>
+
+  <!-- Dock Navigation Script -->
+  <script src="dock-nav.js"></script>
 </body>
-</html>
+</html> 

@@ -3,272 +3,574 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Contact FlowerBTC - Get in touch with our team for support, partnerships, or general inquiries.">
-    <meta name="keywords" content="FlowerBTC, contact, support, inquiry, help">
-    <meta name="author" content="FlowerBTC">
-    <meta name="theme-color" content="#0a0a0a">
-    
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://flowerbtc.io/inquiry.html">
-    <meta property="og:title" content="Contact FlowerBTC">
-    <meta property="og:description" content="Get in touch with the FlowerBTC team.">
-    <meta property="og:image" content="https://flowerbtc.io/assets/images/og-image.jpg">
-    
-    <!-- Preconnect -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    
-    <title>Contact FlowerBTC - Get in Touch</title>
-    
-    <!-- Fonts -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" as="style">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
-    
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    
-    <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/inquiry.css">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <title>Inquiry - FlowerBTC</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dock-nav.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Reset and full-screen setup */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Silk background container */
+        #silk-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Content wrapper */
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+        }
+
+        /* Inquiry Page Specific Styles */
+        .inquiry-section {
+            padding: 80px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            position: relative;
+            overflow-x: hidden;
+            /* Set transparent background for silk shader */
+            background-color: transparent !important;
+            background-image: none !important;
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+        }
+        
+        .contact-form, .contact-info {
+            background: rgba(10,10,10,0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+        }
+        
+        .submit-button, .cta-button {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-button:hover, .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .contact-info a:hover {
+            color: #FF6B6B !important;
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .contact-form, .contact-info {
+                padding: 20px;
+            }
+        }
+        
+        .navbar {
+            background: transparent !important;
+            backdrop-filter: blur(10px);
+        }
+        
+        .section, .section.dark-theme {
+            background: transparent !important;
+        }
+        
+        .hero {
+            background: rgba(0,0,0,0.4) !important;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.10);
+            padding: 32px 0;
+        }
+        
+        .hero > * {
+            background: transparent !important;
+        }
+
+        /* Luxury Text Styling for Hero Section */
+        .hero h1 {
+            background: linear-gradient(135deg, 
+                #f4e4bc 0%, 
+                #d4af37 25%, 
+                #b8860b 50%, 
+                #8b4513 75%, 
+                #2c1810 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 
+                0 0 40px rgba(244, 228, 188, 0.3),
+                0 0 80px rgba(212, 175, 55, 0.2),
+                0 0 120px rgba(184, 134, 11, 0.1);
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            font-weight: 700;
+            font-size: 3.5rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+            animation: luxuryGlow 3s ease-in-out infinite alternate;
+        }
+
+        .hero p {
+            background: linear-gradient(135deg, 
+                #e8f4fd 0%, 
+                #b8d4f0 25%, 
+                #7ba7d9 50%, 
+                #4a7bc8 75%, 
+                #2c5aa0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 
+                0 0 30px rgba(232, 244, 253, 0.4),
+                0 0 60px rgba(184, 212, 240, 0.2),
+                0 0 90px rgba(123, 167, 217, 0.1);
+            font-family: 'Cormorant Garamond', 'Georgia', serif;
+            font-weight: 400;
+            font-size: 1.4rem;
+            letter-spacing: 0.03em;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            animation: luxuryGlow 3s ease-in-out infinite alternate-reverse;
+        }
+
+        .hero .cta-button {
+            background: linear-gradient(135deg, 
+                #d4af37 0%, 
+                #b8860b 50%, 
+                #8b4513 100%);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            box-shadow: 
+                0 8px 32px rgba(212, 175, 55, 0.3),
+                0 0 20px rgba(212, 175, 55, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hero .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 15px 45px rgba(212, 175, 55, 0.4),
+                0 0 30px rgba(212, 175, 55, 0.3),
+                0 0 50px rgba(212, 175, 55, 0.2);
+            border-color: rgba(212, 175, 55, 0.6);
+        }
+
+        @keyframes luxuryGlow {
+            0% {
+                text-shadow: 
+                    0 0 40px rgba(244, 228, 188, 0.3),
+                    0 0 80px rgba(212, 175, 55, 0.2),
+                    0 0 120px rgba(184, 134, 11, 0.1);
+            }
+            100% {
+                text-shadow: 
+                    0 0 50px rgba(244, 228, 188, 0.4),
+                    0 0 100px rgba(212, 175, 55, 0.3),
+                    0 0 150px rgba(184, 134, 11, 0.2);
+            }
+        }
+
+        /* Import luxury fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;500;600&display=swap');
+    </style>
 </head>
 <body>
-    <!-- Silk Background -->
-    <div id="silk-background" aria-hidden="true"></div>
+    <!-- Silk Background Container -->
+    <div id="silk-background"></div>
     
-    <!-- Custom Cursor -->
-    <div class="custom-cursor" aria-hidden="true"></div>
+    <!-- Remove old navigation -->
+    <!-- <nav class="navbar">...</nav> -->
     
-    <!-- Loading Screen -->
-    <div class="loading-screen" role="status" aria-label="Loading">
-        <img src="assets/images/sunflower-logo.png" alt="" width="128" height="128" loading="eager">
-        <span class="sr-only">Loading...</span>
-    </div>
-    
-    <!-- Main Content -->
-    <main id="main-content">
-        <!-- Hero Section -->
-        <section class="section contact-hero" aria-labelledby="contact-title">
-            <div class="hero">
-                <h1 id="contact-title" class="hero-title">Contact Us</h1>
-                <p class="hero-subtitle">We'd love to hear from you</p>
-            </div>
-        </section>
-        
-        <!-- Contact Form Section -->
-        <section class="section contact-section" aria-labelledby="form-title">
-            <div class="content">
-                <div class="contact-grid">
-                    <!-- Contact Info -->
-                    <div class="contact-info">
-                        <h2 id="form-title">Get in Touch</h2>
-                        <p>Have questions, feedback, or partnership inquiries? Fill out the form and we'll get back to you as soon as possible.</p>
-                        
-                        <div class="contact-methods">
-                            <div class="contact-method">
-                                <i class="fas fa-envelope" aria-hidden="true"></i>
-                                <div>
-                                    <h3>Email</h3>
-                                    <a href="mailto:support@flowerbtc.io">support@flowerbtc.io</a>
-                                </div>
-                            </div>
-                            
-                            <div class="contact-method">
-                                <i class="fab fa-telegram" aria-hidden="true"></i>
-                                <div>
-                                    <h3>Telegram</h3>
-                                    <a href="https://t.me/FlowerBTC_community" target="_blank" rel="noopener noreferrer">@FlowerBTC_community</a>
-                                </div>
-                            </div>
-                            
-                            <div class="contact-method">
-                                <i class="fab fa-discord" aria-hidden="true"></i>
-                                <div>
-                                    <h3>Discord</h3>
-                                    <a href="https://discord.gg/Xfv5bt3M7y" target="_blank" rel="noopener noreferrer">Join our server</a>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="social-cta">
-                            <p>Follow us on social media</p>
-                            <nav class="social-links" aria-label="Social media">
-                                <a href="https://x.com/FlowerBTC_" target="_blank" rel="noopener noreferrer" aria-label="Follow us on X">
-                                    <i class="fab fa-twitter" aria-hidden="true"></i>
-                                </a>
-                                <a href="https://discord.gg/Xfv5bt3M7y" target="_blank" rel="noopener noreferrer" aria-label="Join our Discord">
-                                    <i class="fab fa-discord" aria-hidden="true"></i>
-                                </a>
-                                <a href="https://t.me/FlowerBTC_community" target="_blank" rel="noopener noreferrer" aria-label="Join our Telegram">
-                                    <i class="fab fa-telegram" aria-hidden="true"></i>
-                                </a>
-                            </nav>
-                        </div>
-                    </div>
-                    
-                    <!-- Contact Form -->
-                    <div class="contact-form-container">
-                        <form id="contactForm" class="contact-form" action="php/save_message.php" method="POST" novalidate>
-                            <!-- CSRF Token -->
-                            <input type="hidden" name="csrf_token" value="<?php echo generateCsrfToken(); ?>">
-                            
-                            <!-- Honeypot field (anti-spam) -->
-                            <div class="honeypot" aria-hidden="true">
-                                <input type="text" name="website" tabindex="-1" autocomplete="off">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="name">Full Name <span aria-label="required">*</span></label>
-                                <input type="text" id="name" name="name" required 
-                                       aria-required="true" 
-                                       aria-describedby="name-error"
-                                       placeholder="Enter your full name">
-                                <span id="name-error" class="error-message" role="alert" aria-live="polite"></span>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="email">Email Address <span aria-label="required">*</span></label>
-                                <input type="email" id="email" name="email" required 
-                                       aria-required="true"
-                                       aria-describedby="email-error"
-                                       placeholder="Enter your email address">
-                                <span id="email-error" class="error-message" role="alert" aria-live="polite"></span>
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="phone">Phone Number</label>
-                                    <input type="tel" id="phone" name="phone" 
-                                           placeholder="Enter your phone number">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="company">Company/Organization</label>
-                                    <input type="text" id="company" name="company" 
-                                           placeholder="Enter your company name">
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="subject">Subject <span aria-label="required">*</span></label>
-                                <select id="subject" name="subject" required 
-                                        aria-required="true"
-                                        aria-describedby="subject-error">
-                                    <option value="">Select a subject</option>
-                                    <option value="general">General Inquiry</option>
-                                    <option value="support">Technical Support</option>
-                                    <option value="partnership">Partnership</option>
-                                    <option value="media">Media Inquiry</option>
-                                    <option value="other">Other</option>
-                                </select>
-                                <span id="subject-error" class="error-message" role="alert" aria-live="polite"></span>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="message">Message <span aria-label="required">*</span></label>
-                                <textarea id="message" name="message" rows="5" required 
-                                          aria-required="true"
-                                          aria-describedby="message-error"
-                                          placeholder="Enter your message"></textarea>
-                                <span id="message-error" class="error-message" role="alert" aria-live="polite"></span>
-                            </div>
-                            
-                            <div class="form-group checkbox-group">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="newsletter" value="1">
-                                    <span class="checkmark" aria-hidden="true"></span>
-                                    Subscribe to our newsletter for updates
-                                </label>
-                            </div>
-                            
-                            <div class="form-group checkbox-group">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="privacy" required 
-                                           aria-required="true">
-                                    <span class="checkmark" aria-hidden="true"></span>
-                                    I agree to the <a href="#" onclick="openLegalModal('privacy'); return false;">Privacy Policy</a> <span aria-label="required">*</span>
-                                </label>
-                            </div>
-                            
-                            <button type="submit" class="cta-button primary">
-                                <i class="fas fa-paper-plane" aria-hidden="true"></i>
-                                Send Message
-                            </button>
-                        </form>
-                        
-                        <!-- Success/Error Messages -->
-                        <div id="formMessage" class="form-message" role="status" aria-live="polite"></div>
-                    </div>
+    <div class="content-wrapper">
+        <div class="inquiry-section">
+            <h2 class="gradient-text">Contact FlowerBTC Support</h2>
+            <div class="contact-info" style="margin-bottom: 2.5rem; background: rgba(0,0,0,0.7); border-radius: 16px; padding: 2rem; color: #fff;">
+                <p>Have questions, feedback, or partnership inquiries? Reach out to our team!</p>
+                <ul style="list-style:none; padding-left:0;">
+                    <li><strong>🔹 General Support & FAQs</strong><br>
+                        For quick answers, check our <a href="faq.html" target="_blank" style="color:#4ECDC4; text-decoration:underline;">FAQ Page</a> or Telegram bot's <code>/help</code> command.
+                    </li>
+                    <li style="margin-top:1rem;"><strong>🔹 Customer Support</strong><br>
+                        📧 Email: <a href="mailto:support@flowerbtc.io" style="color:#4ECDC4;">support@flowerbtc.io</a><br>
+                        📢 Official Telegram: <a href="https://t.me/+iK0ypla9KYA5ZDRl" style="color:#4ECDC4; text-decoration:underline;" target="_blank">FlowerBTC Support Group</a>
+                    </li>
+                    <li style="margin-top:1rem;"><strong>🔹 Business & Partnership Inquiries</strong><br>
+                        Interested in collaborations, integrations, or promotions?<br>
+                        📧 Email: <a href="mailto:partners@flowerbtc.io" style="color:#4ECDC4;">partners@flowerbtc.io</a><br>
+                    </li>
+                    <li style="margin-top:1rem;"><strong>🔹 Media & Press</strong><br>
+                        For interviews, PR, or media requests:<br>
+                        📧 Email: <a href="mailto:press@flowerbtc.io" style="color:#4ECDC4;">press@flowerbtc.io</a>
+                    </li>
+                    <li style="margin-top:1rem;"><strong>🔹 Security & Scam Reports</strong><br>
+                        ⚠️ Only use official links! Beware of fake groups/scams.<br>
+                        🔐 Report suspicious activity: <a href="mailto:security@flowerbtc.io" style="color:#4ECDC4;">security@flowerbtc.io</a>
+                    </li>
+                </ul>
+                <p style="margin-top:1.5rem;"><strong>📌 Response Time</strong><br>
+                    General inquiries: 24–48 hours<br>
+                    Urgent/security issues: 12–24 hours
+                </p>
+                <p style="margin-top:1.5rem;"><strong>🚀 Join Our Community</strong><br>
+                    Stay updated with the latest news:<br>
+                    🔹 <a href="https://t.me/FlowerBTC_community" style="color:#4ECDC4; text-decoration:underline;" target="_blank">Official Telegram Channel</a><br>
+                    🔹 <a href="https://x.com/FlowerBTC_?t=5VLToLA7tXBe3gqgIdNDGg&s=09" style="color:#4ECDC4; text-decoration:underline;" target="_blank">Twitter (X)</a><br>
+                    🔹 <a href="https://discord.gg/Xfv5bt3M7y" style="color:#4ECDC4; text-decoration:underline;" target="_blank">Discord</a>
+                </p>
+                <div style="text-align:center; margin: 2rem 0;">
+                  <a href="faq.html" target="_blank" class="cta-button primary" style="font-size:1.1em; padding: 14px 36px; border-radius: 30px; display:inline-block;">View FAQ</a>
                 </div>
             </div>
-        </section>
-    </main>
-    
+            <!-- Insert Send Message form here -->
+            <div class="contact-container">
+                <form class="contact-form" id="contactForm">
+                    <!-- Honeypot field for spam protection -->
+                    <input type="text" name="website" style="display: none;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name <span class="required">*</span></label>
+                            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                            <div class="error-message" id="nameError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                            <div class="error-message" id="emailError"></div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number <span class="optional">(Optional)</span></label>
+                            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Company/Organization <span class="optional">(Optional)</span></label>
+                            <input type="text" id="company" name="company" placeholder="Enter your company name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject <span class="required">*</span></label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Select a topic</option>
+                            <optgroup label="General Topics">
+                                <option value="general">General Inquiry</option>
+                                <option value="feedback">Feedback / Suggestions</option>
+                                <option value="bug">Report a Bug / Technical Issue</option>
+                                <option value="partnership">Partnership / Collaboration</option>
+                                <option value="media">Media / Press Inquiry</option>
+                                <option value="investment">Investment Opportunities</option>
+                                <option value="community">Community Support</option>
+                                <option value="account">Account / Login Issues</option>
+                            </optgroup>
+                            <optgroup label="Crypto/Token Related">
+                                <option value="token-purchase">Token Purchase Help</option>
+                                <option value="mining-bot">Mining Bot Queries</option>
+                                <option value="wallet">Wallet Connection Issues</option>
+                                <option value="airdrop">Airdrop / Rewards Related</option>
+                                <option value="listing">Token Listing / Exchange Query</option>
+                            </optgroup>
+                            <optgroup label="Game Related">
+                                <option value="game-feedback">Game Feedback</option>
+                                <option value="growth-help">Sunflower Growth Help</option>
+                                <option value="sun-potion">Yellow Sun / Potion Issues</option>
+                                <option value="game-bug">Game Bug / Glitch Report</option>
+                                <option value="upgrade">Upgrade Timing Help</option>
+                            </optgroup>
+                            <optgroup label="Business & Legal">
+                                <option value="business">Business Proposal</option>
+                                <option value="legal">Legal Inquiry</option>
+                                <option value="advertising">Advertising / Promotion Request</option>
+                            </optgroup>
+                        </select>
+                        <div class="error-message" id="subjectError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message <span class="required">*</span></label>
+                        <textarea id="message" name="message" placeholder="Type your message here..." required></textarea>
+                        <div class="error-message" id="messageError"></div>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="newsletter" name="newsletter">
+                        <label for="newsletter">Subscribe to our newsletter for updates</label>
+                    </div>
+                    <div class="form-actions">
+                        <button type="reset" class="reset-button">Clear Form</button>
+                        <button type="submit" class="submit-button">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
-    <footer role="contentinfo">
+    <footer>
         <div class="footer-content">
             <div class="footer-logo">
-                <img src="assets/images/logo-small.png" alt="" width="40" height="40" loading="lazy">
+                <img src="FlowerBTC Logo.png" alt="FlowerBTC Logo" class="logo-img">
                 <span>FlowerBTC</span>
             </div>
-            
-            <nav class="footer-links" aria-label="Footer navigation">
-                <div class="link-group">
-                    <h4>Quick Links</h4>
-                    <a href="index.html">Home</a>
-                    <a href="about.html">About</a>
-                    <a href="inquiry.html">Contact</a>
-                </div>
-                
-                <div class="link-group">
-                    <h4>Resources</h4>
-                    <a href="faq.html">FAQ</a>
-                </div>
-                
-                <div class="link-group">
-                    <h4>Legal</h4>
-                    <a href="#" onclick="openLegalModal('privacy'); return false;">Privacy Policy</a>
-                    <a href="#" onclick="openLegalModal('terms'); return false;">Terms of Service</a>
-                </div>
-            </nav>
-            
-            <nav class="footer-social" aria-label="Social media">
-                <a href="https://x.com/FlowerBTC_" target="_blank" rel="noopener noreferrer" aria-label="Follow us on X">
-                    <i class="fab fa-twitter" aria-hidden="true"></i>
-                </a>
-                <a href="https://discord.gg/Xfv5bt3M7y" target="_blank" rel="noopener noreferrer" aria-label="Join our Discord">
-                    <i class="fab fa-discord" aria-hidden="true"></i>
-                </a>
-                <a href="https://t.me/FlowerBTC_community" target="_blank" rel="noopener noreferrer" aria-label="Join our Telegram">
-                    <i class="fab fa-telegram" aria-hidden="true"></i>
-                </a>
-            </nav>
+            <div class="footer-social">
+                <a href="https://x.com/FlowerBTC_?t=5VLToLA7tXBe3gqgIdNDGg&s=09" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://discord.gg/Xfv5bt3M7y" target="_blank"><i class="fab fa-discord"></i></a>
+                <a href="https://t.me/FlowerBTC_community" target="_blank"><i class="fab fa-telegram"></i></a>
+                <a href="https://youtube.com/@flowerbtc?si=FLyk1fknuv_PUbYf" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.instagram.com/flowerbtc.io?igsh=MWRxNW1vazd2dm51Zw==" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/share/1EnYpFPz2E/" target="_blank"><i class="fab fa-facebook"></i></a>
+            </div>
         </div>
-        
         <div class="footer-bottom">
             <p>&copy; 2024 FlowerBTC. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+        const formData = new FormData(this);
+        fetch('php/save_message.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                this.reset();
+            } else {
+                if (data.errors) {
+                    Object.keys(data.errors).forEach(field => {
+                        const errorElement = document.getElementById(field + 'Error');
+                        if (errorElement) {
+                            errorElement.textContent = data.errors[field];
+                        }
+                    });
+                } else {
+                    alert(data.message);
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while sending your message. Please try again later.');
+        });
+    });
+    </script>
+    <script>
+    // Smooth scroll to contactForm if anchor is present in URL or clicked
+    document.addEventListener('DOMContentLoaded', function() {
+        function scrollToContactForm() {
+            var form = document.getElementById('contactForm');
+            if (form) {
+                form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+        if (window.location.hash === '#contactForm') {
+            setTimeout(scrollToContactForm, 200);
+        }
+        document.querySelectorAll('a[href="#contactForm"]').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                history.replaceState(null, '', '#contactForm');
+                scrollToContactForm();
+            });
+        });
+    });
+    </script>
+
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     
-    <!-- Legal Modals -->
-    <div id="privacyModal" class="legal-modal" role="dialog" aria-labelledby="privacy-title" aria-modal="true">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeLegalModal('privacy')" aria-label="Close privacy policy">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <div class="modal-body">
-                <h2 id="privacy-title">Privacy Policy</h2>
-                <p>Your privacy is important to us. This policy explains how we collect, use, and protect your personal information.</p>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="module" src="js/main.js"></script>
-    <script type="module" src="js/modules/ContactForm.js"></script>
+    <!-- Silk Background Script -->
+    <script>
+        class SilkBackground {
+            constructor(container) {
+                this.container = container;
+                this.scene = null;
+                this.camera = null;
+                this.renderer = null;
+                this.mesh = null;
+                this.uniforms = null;
+                this.clock = new THREE.Clock();
+                
+                this.init();
+                this.animate();
+                this.handleResize();
+            }
+
+            hexToNormalizedRGB(hex) {
+                hex = hex.replace("#", "");
+                return [
+                    parseInt(hex.slice(0, 2), 16) / 255,
+                    parseInt(hex.slice(2, 4), 16) / 255,
+                    parseInt(hex.slice(4, 6), 16) / 255,
+                ];
+            }
+
+            init() {
+                // Scene setup
+                this.scene = new THREE.Scene();
+                
+                // Camera setup
+                this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+                
+                // Renderer setup
+                this.renderer = new THREE.WebGLRenderer({ 
+                    alpha: true,
+                    antialias: true 
+                });
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+                this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                this.container.appendChild(this.renderer.domElement);
+                
+                // Shader uniforms
+                this.uniforms = {
+                    uTime: { value: 0 },
+                    uColor: { value: new THREE.Color(...this.hexToNormalizedRGB("#7B7481")) },
+                    uSpeed: { value: 5 },
+                    uScale: { value: 1 },
+                    uRotation: { value: 0 },
+                    uNoiseIntensity: { value: 1.5 }
+                };
+                
+                // Create mesh with shaders
+                const geometry = new THREE.PlaneGeometry(2, 2);
+                const material = new THREE.ShaderMaterial({
+                    uniforms: this.uniforms,
+                    vertexShader: this.vertexShader,
+                    fragmentShader: this.fragmentShader,
+                    transparent: true
+                });
+                
+                this.mesh = new THREE.Mesh(geometry, material);
+                this.scene.add(this.mesh);
+            }
+
+            get vertexShader() {
+                return `
+                    varying vec2 vUv;
+                    varying vec3 vPosition;
+
+                    void main() {
+                        vPosition = position;
+                        vUv = uv;
+                        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                    }
+                `;
+            }
+
+            get fragmentShader() {
+                return `
+                    varying vec2 vUv;
+                    varying vec3 vPosition;
+
+                    uniform float uTime;
+                    uniform vec3 uColor;
+                    uniform float uSpeed;
+                    uniform float uScale;
+                    uniform float uRotation;
+                    uniform float uNoiseIntensity;
+
+                    const float e = 2.71828182845904523536;
+
+                    float noise(vec2 texCoord) {
+                        float G = e;
+                        vec2 r = (G * sin(G * texCoord));
+                        return fract(r.x * r.y * (1.0 + texCoord.x));
+                    }
+
+                    vec2 rotateUvs(vec2 uv, float angle) {
+                        float c = cos(angle);
+                        float s = sin(angle);
+                        mat2 rot = mat2(c, -s, s, c);
+                        return rot * uv;
+                    }
+
+                    void main() {
+                        float rnd = noise(gl_FragCoord.xy);
+                        vec2 uv = rotateUvs(vUv * uScale, uRotation);
+                        vec2 tex = uv * uScale;
+                        float tOffset = uSpeed * uTime;
+
+                        tex.y += 0.03 * sin(8.0 * tex.x - tOffset);
+
+                        float pattern = 0.6 +
+                            0.4 * sin(5.0 * (tex.x + tex.y +
+                                cos(3.0 * tex.x + 5.0 * tex.y) +
+                                0.02 * tOffset) +
+                            sin(20.0 * (tex.x + tex.y - 0.1 * tOffset)));
+
+                        vec4 col = vec4(uColor, 1.0) * vec4(pattern) - rnd / 15.0 * uNoiseIntensity;
+                        col.a = 1.0;
+                        gl_FragColor = col;
+                    }
+                `;
+            }
+
+            animate() {
+                requestAnimationFrame(() => this.animate());
+                
+                const delta = this.clock.getDelta();
+                this.uniforms.uTime.value += 0.1 * delta;
+                
+                this.renderer.render(this.scene, this.camera);
+            }
+
+            handleResize() {
+                window.addEventListener('resize', () => {
+                    this.renderer.setSize(window.innerWidth, window.innerHeight);
+                });
+            }
+
+            updateColor(color) {
+                this.uniforms.uColor.value.set(...this.hexToNormalizedRGB(color));
+            }
+
+            updateSpeed(speed) {
+                this.uniforms.uSpeed.value = speed;
+            }
+
+            updateScale(scale) {
+                this.uniforms.uScale.value = scale;
+            }
+
+            updateNoiseIntensity(intensity) {
+                this.uniforms.uNoiseIntensity.value = intensity;
+            }
+
+            updateRotation(rotation) {
+                this.uniforms.uRotation.value = rotation;
+            }
+        }
+
+        // Initialize silk background when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const silkContainer = document.getElementById('silk-background');
+            const silkBackground = new SilkBackground(silkContainer);
+        });
+    </script>
+
+    <!-- Dock Navigation Functionality -->
+    <script src="dock-nav.js"></script>
 </body>
-</html>
+</html> 

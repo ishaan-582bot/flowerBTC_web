@@ -1,0 +1,18 @@
+# Enable caching for video files
+<Files "Untitled Design (1).mp4">
+    Header set Cache-Control "max-age=31536000, public"
+</Files>
+
+<Files "Untitled Design (1).webm">
+    Header set Cache-Control "max-age=31536000, public"
+</Files>
+
+# Enable CORS for video files
+<FilesMatch "\.(mp4|webm)$">
+    Header set Access-Control-Allow-Origin "*"
+</FilesMatch>
+
+# Enable video streaming
+<FilesMatch "\.(mp4|webm)$">
+    Header set Accept-Ranges bytes
+</FilesMatch> 
