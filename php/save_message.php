@@ -1,72 +1,127 @@
 <?php
-// Database configuration
-$db_host = 'localhost';
-$db_name = 'flowerbtc';
-$db_user = 'root';
-$db_pass = '';
+/**
+ * Save Message Handler
+ * @description Securely saves contact form messages to database
+ * @version 2.0.0
+ */
 
-// Error reporting
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+define('FLOWERBTC_SECURE', true);
+require_once __DIR__ . '/config.php';
 
-// Initialize response array
+// Initialize response
 $response = [
     'success' => false,
     'message' => '',
     'errors' => []
 ];
 
-// Check if it's a POST request
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    try {
-        // Validate honeypot field
-        if (!empty($_POST['website'])) {
-            throw new Exception('Spam detected');
+try {
+    // Check request method
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        throw new Exception('Invalid request method');
+    }
+
+    // Rate limiting
+    $clientIp = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+    if (!checkRateLimit($clientIp)) {
+        logSecurityEvent('rate_limit_exceeded', ['ip' => $clientIp]);
+        throw new Exception('Too many requests. Please try again later.');
+    }
+
+    // CSRF validation
+    $csrfToken = $_POST['csrf_token'] ?? '';
+    if (!validateCsrfToken($csrfToken)) {
+        logSecurityEvent('csrf_validation_failed', ['ip' => $clientIp]);
+        throw new Exception('Invalid security token. Please refresh the page and try again.');
+    }
+
+    // Honeypot check (anti-spam)
+    if (!empty($_POST['website'])) {
+        logSecurityEvent('honeypot_triggered', ['ip' => $clientIp]);
+        throw new Exception('Spam detected');
+    }
+
+    // Validate required fields
+    $requiredFields = ['name', 'email', 'subject', 'message'];
+    foreach ($requiredFields as $field) {
+        if (empty($_POST[$field])) {
+            $response['errors'][$field] = ucfirst($field) . ' is required';
         }
+    }
 
-        // Validate required fields
-        $required_fields = ['name', 'email', 'subject', 'message'];
-        foreach ($required_fields as $field) {
-            if (empty($_POST[$field])) {
-                $response['errors'][$field] = ucfirst($field) . ' is required';
-            }
-        }
+    if (!empty($response['errors'])) {
+        throw new Exception('Validation failed');
+    }
 
-        // Validate email format
-        if (!empty($_POST['email']) && !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-            $response['errors']['email'] = 'Invalid email format';
-        }
+    // Sanitize inputs
+    $name = sanitizeInput($_POST['name'], 100);
+    $email = sanitizeEmail($_POST['email']);
+    $phone = !empty($_POST['phone']) ? sanitizeInput($_POST['phone'], 50) : null;
+    $company = !empty($_POST['company']) ? sanitizeInput($_POST['company'], 100) : null;
+    $subject = sanitizeInput($_POST['subject'], 200);
+    $message = sanitizeInput($_POST['message'], 5000);
+    $newsletter = !empty($_POST['newsletter']);
 
-        // If there are errors, throw exception
-        if (!empty($response['errors'])) {
-            throw new Exception('Validation failed');
-        }
+    // Validate email format
+    if (!validateEmail($email)) {
+        $response['errors']['email'] = 'Invalid email format';
+        throw new Exception('Validation failed');
+    }
 
-        // Sanitize inputs
-        $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
-        $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-        $phone = !empty($_POST['phone']) ? filter_var($_POST['phone'], FILTER_SANITIZE_STRING) : null;
-        $company = !empty($_POST['company']) ? filter_var($_POST['company'], FILTER_SANITIZE_STRING) : null;
-        $subject = filter_var($_POST['subject'], FILTER_SANITIZE_STRING);
-        $message = filter_var($_POST['message'], FILTER_SANITIZE_STRING);
+    // Get database connection
+    $pdo = getDatabaseConnection();
 
-        // Connect to database
-        $pdo = new PDO("mysql:host=$db_host;dbname=$db_name;charset=utf8mb4", $db_user, $db_pass);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Prepare and execute insert statement
+    $stmt = $pdo->prepare("INSERT INTO messages (name, email, phone, company, subject, message, newsletter, ip_address, user_agent, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())");
+    
+    $stmt->execute([
+        $name,
+        $email,
+        $phone,
+        $company,
+        $subject,
+        $message,
+        $newsletter ? 1 : 0,
+        $clientIp,
+        $_SERVER['HTTP_USER_AGENT'] ?? 'unknown'
+    ]);
 
-        // Prepare and execute insert statement
-        $stmt = $pdo->prepare("INSERT INTO messages (name, email, phone, company, subject, message) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->execute([$name, $email, $phone, $company, $subject, $message]);
+    // Send notification email to admin
+    $appConfig = getAppConfig();
+    $emailSubject = "[{$appConfig['site_name']}] New Contact Form Submission";
+    $emailBody = "Name: $name\n";
+    $emailBody .= "Email: $email\n";
+    $emailBody .= "Phone: " . ($phone ?: 'N/A') . "\n";
+    $emailBody .= "Company: " . ($company ?: 'N/A') . "\n";
+    $emailBody .= "Subject: $subject\n";
+    $emailBody .= "Message:\n$message\n";
+    
+    $headers = "From: {$appConfig['site_name']} <noreply@flowerbtc.io>\r\n";
+    $headers .= "Reply-To: $email\r\n";
+    $headers .= "X-Mailer: PHP/" . phpversion();
+    
+    @mail($appConfig['admin_email'], $emailSubject, $emailBody, $headers);
 
-        // Set success response
-        $response['success'] = true;
-        $response['message'] = 'Message sent successfully!';
+    // Set success response
+    $response['success'] = true;
+    $response['message'] = 'Thank you! Your message has been sent successfully. We will get back to you soon.';
+    
+    logSecurityEvent('message_saved', [
+        'ip' => $clientIp,
+        'email' => $email
+    ]);
 
-    } catch (Exception $e) {
-        $response['message'] = 'Error: ' . $e->getMessage();
+} catch (PDOException $e) {
+    error_log("Database error in save_message.php: " . $e->getMessage());
+    $response['message'] = 'An error occurred while saving your message. Please try again later.';
+    
+} catch (Exception $e) {
+    $response['message'] = $e->getMessage();
+    
+    if (empty($response['errors'])) {
+        $response['errors']['general'] = $e->getMessage();
     }
 }
 
-// Return JSON response
-header('Content-Type: application/json');
-echo json_encode($response); 
+// Send response
+sendJsonResponse($response);
