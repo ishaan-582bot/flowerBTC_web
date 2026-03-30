@@ -21,19 +21,18 @@
     
     <title>About FlowerBTC - Our Story</title>
     
-    <!-- Fonts -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" as="style">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
+    <!-- Fonts - Space Grotesk + Inter (Unified across all pages) -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     
     <!-- Styles -->
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="css/improvements.css">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="icon" type="image/png" href="assets/images/sunflower-logo.png">
 </head>
 <body>
     <!-- Silk Background -->
@@ -44,26 +43,100 @@
     
     <!-- Loading Screen -->
     <div class="loading-screen" role="status" aria-label="Loading">
-        <img src="assets/images/sunflower-logo.png" alt="" width="128" height="128" loading="eager">
+        <div class="loading-logo">
+            <img src="assets/images/sunflower-logo.png" alt="" width="128" height="128" loading="eager">
+        </div>
+        <div class="loading-progress" aria-hidden="true"></div>
+        <span class="loading-text">Loading Experience</span>
         <span class="sr-only">Loading...</span>
     </div>
     
-    <!-- Navigation Dots -->
-    <nav class="nav-dots" aria-label="Section navigation">
-        <button class="dot" data-target="about" aria-label="Go to About section"></button>
-        <button class="dot" data-target="vision" aria-label="Go to Vision section"></button>
-        <button class="dot" data-target="mission" aria-label="Go to Mission section"></button>
-        <button class="dot" data-target="story" aria-label="Go to Story section"></button>
-        <button class="dot" data-target="values" aria-label="Go to Values section"></button>
-        <button class="dot" data-target="roadmap" aria-label="Go to Roadmap section"></button>
-        <button class="dot" data-target="team" aria-label="Go to Team section"></button>
+    <!-- Persistent Top Navbar -->
+    <nav class="top-navbar" aria-label="Main navigation">
+        <a href="index.html" class="nav-logo">
+            <img src="assets/images/sunflower-logo.png" alt="">
+            <span>FlowerBTC</span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html" class="active">About</a>
+            <a href="inquiry.html">Contact</a>
+            <a href="faq.html">FAQ</a>
+        </div>
     </nav>
+    
+    <!-- Dock Visibility Hint -->
+    <div class="dock-hint" id="dockHint">
+        <i class="fas fa-mouse-pointer"></i>
+        <span>Hover top for navigation</span>
+    </div>
+    
+    <!-- Mobile Menu Toggle -->
+    <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" role="dialog" aria-label="Mobile navigation">
+        <nav class="mobile-menu-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="inquiry.html">Contact</a>
+            <a href="faq.html">FAQ</a>
+        </nav>
+    </div>
+    
+    <!-- Navigation Dots with Labels -->
+    <nav class="nav-dots" aria-label="Section navigation">
+        <button class="dot active" data-target="about" data-label="About" aria-label="Go to About section"></button>
+        <button class="dot" data-target="vision" data-label="Vision" aria-label="Go to Vision section"></button>
+        <button class="dot" data-target="mission" data-label="Mission" aria-label="Go to Mission section"></button>
+        <button class="dot" data-target="story" data-label="Story" aria-label="Go to Story section"></button>
+        <button class="dot" data-target="values" data-label="Values" aria-label="Go to Values section"></button>
+        <button class="dot" data-target="roadmap" data-label="Roadmap" aria-label="Go to Roadmap section"></button>
+        <button class="dot" data-target="team" data-label="Team" aria-label="Go to Team section"></button>
+    </nav>
+    
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
     
     <!-- Main Content -->
     <main id="main-content">
-        <!-- Hero Section -->
+        <!-- Hero Section - Unique for About Page -->
         <section id="about" class="section" aria-labelledby="about-title">
             <div class="hero">
+                <!-- About Page Visual - Sunflower Timeline -->
+                <div class="hero-visual about-visual">
+                    <div class="about-hero-graphic">
+                        <svg viewBox="0 0 200 200" class="sunflower-timeline">
+                            <defs>
+                                <linearGradient id="sunflowerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#F2C94C"/>
+                                    <stop offset="100%" style="stop-color:#F59E0B"/>
+                                </linearGradient>
+                            </defs>
+                            <!-- Central flower -->
+                            <circle cx="100" cy="100" r="30" fill="url(#sunflowerGrad)"/>
+                            <!-- Petals -->
+                            <g class="petals">
+                                <ellipse cx="100" cy="40" rx="15" ry="30" fill="url(#sunflowerGrad)" opacity="0.9"/>
+                                <ellipse cx="160" cy="100" rx="30" ry="15" fill="url(#sunflowerGrad)" opacity="0.9"/>
+                                <ellipse cx="100" cy="160" rx="15" ry="30" fill="url(#sunflowerGrad)" opacity="0.9"/>
+                                <ellipse cx="40" cy="100" rx="30" ry="15" fill="url(#sunflowerGrad)" opacity="0.9"/>
+                                <ellipse cx="142" cy="58" rx="15" ry="25" fill="url(#sunflowerGrad)" opacity="0.8" transform="rotate(45 142 58)"/>
+                                <ellipse cx="142" cy="142" rx="15" ry="25" fill="url(#sunflowerGrad)" opacity="0.8" transform="rotate(135 142 142)"/>
+                                <ellipse cx="58" cy="142" rx="15" ry="25" fill="url(#sunflowerGrad)" opacity="0.8" transform="rotate(225 58 142)"/>
+                                <ellipse cx="58" cy="58" rx="15" ry="25" fill="url(#sunflowerGrad)" opacity="0.8" transform="rotate(315 58 58)"/>
+                            </g>
+                            <!-- Orbit rings -->
+                            <circle cx="100" cy="100" r="50" fill="none" stroke="url(#sunflowerGrad)" stroke-width="1" opacity="0.3"/>
+                            <circle cx="100" cy="100" r="70" fill="none" stroke="url(#sunflowerGrad)" stroke-width="1" opacity="0.2"/>
+                            <circle cx="100" cy="100" r="90" fill="none" stroke="url(#sunflowerGrad)" stroke-width="1" opacity="0.1"/>
+                        </svg>
+                    </div>
+                </div>
                 <h1 id="about-title" class="hero-title">About FlowerBTC</h1>
                 <p class="hero-subtitle">Growing the Future of Crypto, One Petal at a Time</p>
             </div>
@@ -86,19 +159,35 @@
                 <h2 id="mission-title" class="gradient-text">Our Mission</h2>
                 <div class="mission-grid">
                     <article class="mission-card">
-                        <div class="mission-icon" aria-hidden="true">🌱</div>
+                        <div class="mission-icon" aria-hidden="true">
+                            <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+                                <circle cx="24" cy="24" r="20" stroke="url(#iconGradient1)" stroke-width="2" fill="none"/>
+                                <path d="M24 14v20M14 24h20" stroke="url(#iconGradient1)" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
                         <h3>Grow Together</h3>
                         <p>Build a thriving community where everyone can participate and benefit from the crypto revolution.</p>
                     </article>
                     
                     <article class="mission-card">
-                        <div class="mission-icon" aria-hidden="true">🌻</div>
+                        <div class="mission-icon" aria-hidden="true">
+                            <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+                                <circle cx="24" cy="24" r="18" stroke="url(#iconGradient3)" stroke-width="2" fill="none"/>
+                                <circle cx="24" cy="24" r="8" fill="url(#iconGradient3)"/>
+                                <path d="M24 6v8M24 34v8M6 24h8M34 24h8" stroke="url(#iconGradient3)" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
                         <h3>Innovate Constantly</h3>
                         <p>Push the boundaries of what's possible with GameFi, DeFi, and AI-powered trading solutions.</p>
                     </article>
                     
                     <article class="mission-card">
-                        <div class="mission-icon" aria-hidden="true">🌍</div>
+                        <div class="mission-icon" aria-hidden="true">
+                            <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+                                <circle cx="24" cy="24" r="20" stroke="#2DD4BF" stroke-width="2" fill="none"/>
+                                <path d="M12 24c0-6 5-12 12-12s12 6 12 12-5 12-12 12" stroke="#2DD4BF" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
                         <h3>Empower Globally</h3>
                         <p>Make cryptocurrency accessible to people from all walks of life, everywhere in the world.</p>
                     </article>
@@ -126,37 +215,67 @@
                 <h2 id="values-title" class="gradient-text">Our Core Values</h2>
                 <div class="values-grid">
                     <article class="value-card">
-                        <div class="value-icon" aria-hidden="true">🌟</div>
+                        <div class="value-icon" aria-hidden="true">
+                            <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+                                <path d="M24 4l4 12h12l-10 8 4 12-10-8-10 8 4-12-10-8h12z" stroke="#F2C94C" stroke-width="2" fill="none"/>
+                            </svg>
+                        </div>
                         <h3>Transparency</h3>
                         <p>We believe in open communication and honest practices. Every decision is made with our community in mind.</p>
                     </article>
                     
                     <article class="value-card">
-                        <div class="value-icon" aria-hidden="true">🤝</div>
+                        <div class="value-icon" aria-hidden="true">
+                            <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+                                <circle cx="16" cy="20" r="8" stroke="#2DD4BF" stroke-width="2" fill="none"/>
+                                <circle cx="32" cy="20" r="8" stroke="#2DD4BF" stroke-width="2" fill="none"/>
+                                <path d="M8 40c0-8 6-12 16-12s16 4 16 12" stroke="#2DD4BF" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
                         <h3>Community First</h3>
                         <p>Our community is at the heart of everything we do. We listen, adapt, and grow together.</p>
                     </article>
                     
                     <article class="value-card">
-                        <div class="value-icon" aria-hidden="true">🔒</div>
+                        <div class="value-icon" aria-hidden="true">
+                            <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+                                <rect x="10" y="18" width="28" height="22" rx="4" stroke="#F43F5E" stroke-width="2" fill="none"/>
+                                <path d="M18 18v-4a6 6 0 0112 0v4" stroke="#F43F5E" stroke-width="2"/>
+                            </svg>
+                        </div>
                         <h3>Security</h3>
                         <p>Your assets and data are protected by industry-leading security measures and best practices.</p>
                     </article>
                     
                     <article class="value-card">
-                        <div class="value-icon" aria-hidden="true">🚀</div>
+                        <div class="value-icon" aria-hidden="true">
+                            <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+                                <path d="M24 4v40M4 24h40" stroke="#F2C94C" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="24" cy="24" r="8" stroke="#F2C94C" stroke-width="2" fill="none"/>
+                            </svg>
+                        </div>
                         <h3>Innovation</h3>
                         <p>We constantly explore new technologies and ideas to bring you the best possible experience.</p>
                     </article>
                     
                     <article class="value-card">
-                        <div class="value-icon" aria-hidden="true">♻️</div>
+                        <div class="value-icon" aria-hidden="true">
+                            <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+                                <path d="M24 4C12 4 4 12 4 24s8 20 20 20 20-8 20-20" stroke="#2DD4BF" stroke-width="2" stroke-linecap="round" fill="none"/>
+                                <path d="M24 12v12l8 8" stroke="#2DD4BF" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
                         <h3>Sustainability</h3>
                         <p>We design our ecosystem for long-term growth and sustainability, not short-term gains.</p>
                     </article>
                     
                     <article class="value-card">
-                        <div class="value-icon" aria-hidden="true">🎓</div>
+                        <div class="value-icon" aria-hidden="true">
+                            <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+                                <path d="M12 12h24v24H12z" stroke="#F2C94C" stroke-width="2" fill="none"/>
+                                <path d="M12 20h24M20 12v24" stroke="#F2C94C" stroke-width="2"/>
+                            </svg>
+                        </div>
                         <h3>Education</h3>
                         <p>We believe in empowering our users with knowledge and resources to make informed decisions.</p>
                     </article>
@@ -164,110 +283,128 @@
             </div>
         </section>
         
-        <!-- Roadmap Section -->
+        <!-- Roadmap Section with Enhanced Visuals -->
         <section id="roadmap" class="section" aria-labelledby="roadmap-title">
             <div class="content">
                 <h2 id="roadmap-title" class="gradient-text">Our Roadmap</h2>
                 <div class="roadmap-container">
-                    <div class="roadmap-item completed">
-                        <div class="roadmap-marker" aria-hidden="true">✓</div>
-                        <div class="roadmap-content">
-                            <h3>Phase 1: Seed</h3>
-                            <p>Launch Telegram bot game</p>
-                            <p>Build initial community</p>
-                            <p>Release $FBTC token</p>
+                    <div class="roadmap-timeline">
+                        <div class="roadmap-item completed">
+                            <div class="roadmap-node completed">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="roadmap-content">
+                                <h3>Phase 1: Seed</h3>
+                                <p>Launch Telegram bot game</p>
+                                <p>Build initial community</p>
+                                <p>Release $FBTC token</p>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="roadmap-item completed">
-                        <div class="roadmap-marker" aria-hidden="true">✓</div>
-                        <div class="roadmap-content">
-                            <h3>Phase 2: Sprout</h3>
-                            <p>Expand game features</p>
-                            <p>Launch staking platform</p>
-                            <p>Partner integrations</p>
+                        
+                        <div class="roadmap-item completed">
+                            <div class="roadmap-node completed">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="roadmap-content">
+                                <h3>Phase 2: Sprout</h3>
+                                <p>Expand game features</p>
+                                <p>Launch staking platform</p>
+                                <p>Partner integrations</p>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="roadmap-item active">
-                        <div class="roadmap-marker" aria-hidden="true">→</div>
-                        <div class="roadmap-content">
-                            <h3>Phase 3: Growth</h3>
-                            <p>AI trading bot beta</p>
-                            <p>NFT marketplace</p>
-                            <p>Mobile app launch</p>
+                        
+                        <div class="roadmap-item active">
+                            <div class="roadmap-node active"></div>
+                            <div class="roadmap-content">
+                                <h3>Phase 3: Growth</h3>
+                                <p>AI trading bot beta</p>
+                                <p>NFT marketplace</p>
+                                <p>Mobile app launch</p>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="roadmap-item">
-                        <div class="roadmap-marker" aria-hidden="true">○</div>
-                        <div class="roadmap-content">
-                            <h3>Phase 4: Bloom</h3>
-                            <p>Full DeFi ecosystem</p>
-                            <p>Cross-chain integration</p>
-                            <p>Global expansion</p>
+                        
+                        <div class="roadmap-item future">
+                            <div class="roadmap-node future"></div>
+                            <div class="roadmap-content">
+                                <h3>Phase 4: Bloom</h3>
+                                <p>Full DeFi ecosystem</p>
+                                <p>Cross-chain integration</p>
+                                <p>Global expansion</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- Team Section -->
+        <!-- Team Section with Illustrated Avatars -->
         <section id="team" class="section" aria-labelledby="team-title">
             <div class="content">
                 <h2 id="team-title" class="gradient-text">Meet Our Team</h2>
                 <div class="team-grid">
                     <article class="team-card">
-                        <div class="team-avatar" aria-hidden="true">👤</div>
-                        <h3>Founder & CEO</h3>
+                        <div class="team-avatar">
+                            <img src="assets/images/team-ceo.png" alt="Founder & CEO">
+                        </div>
+                        <h3>Alexander Sun</h3>
+                        <p class="role">Founder & CEO</p>
                         <p>Visionary leader with 10+ years in blockchain and fintech.</p>
                         <div class="team-social">
-                            <a href="#" aria-label="CEO Twitter" target="_blank" rel="noopener noreferrer">
+                            <a href="#" aria-label="CEO Twitter" onclick="showToast('Coming Soon', 'Social links will be available soon!', 'info'); return false;">
                                 <i class="fab fa-twitter" aria-hidden="true"></i>
                             </a>
-                            <a href="#" aria-label="CEO LinkedIn" target="_blank" rel="noopener noreferrer">
+                            <a href="#" aria-label="CEO LinkedIn" onclick="showToast('Coming Soon', 'Social links will be available soon!', 'info'); return false;">
                                 <i class="fab fa-linkedin" aria-hidden="true"></i>
                             </a>
                         </div>
                     </article>
                     
                     <article class="team-card">
-                        <div class="team-avatar" aria-hidden="true">👤</div>
-                        <h3>CTO</h3>
+                        <div class="team-avatar">
+                            <img src="assets/images/team-cto.png" alt="CTO">
+                        </div>
+                        <h3>Marcus Chen</h3>
+                        <p class="role">CTO</p>
                         <p>Technical architect specializing in smart contracts and DeFi protocols.</p>
                         <div class="team-social">
-                            <a href="#" aria-label="CTO Twitter" target="_blank" rel="noopener noreferrer">
+                            <a href="#" aria-label="CTO Twitter" onclick="showToast('Coming Soon', 'Social links will be available soon!', 'info'); return false;">
                                 <i class="fab fa-twitter" aria-hidden="true"></i>
                             </a>
-                            <a href="#" aria-label="CTO GitHub" target="_blank" rel="noopener noreferrer">
+                            <a href="#" aria-label="CTO GitHub" onclick="showToast('Coming Soon', 'Social links will be available soon!', 'info'); return false;">
                                 <i class="fab fa-github" aria-hidden="true"></i>
                             </a>
                         </div>
                     </article>
                     
                     <article class="team-card">
-                        <div class="team-avatar" aria-hidden="true">👤</div>
-                        <h3>Head of Design</h3>
+                        <div class="team-avatar">
+                            <img src="assets/images/team-designer.png" alt="Head of Design">
+                        </div>
+                        <h3>Sofia Petal</h3>
+                        <p class="role">Head of Design</p>
                         <p>Creative director bringing the sunflower vision to life.</p>
                         <div class="team-social">
-                            <a href="#" aria-label="Designer Dribbble" target="_blank" rel="noopener noreferrer">
+                            <a href="#" aria-label="Designer Dribbble" onclick="showToast('Coming Soon', 'Social links will be available soon!', 'info'); return false;">
                                 <i class="fab fa-dribbble" aria-hidden="true"></i>
                             </a>
-                            <a href="#" aria-label="Designer Behance" target="_blank" rel="noopener noreferrer">
+                            <a href="#" aria-label="Designer Behance" onclick="showToast('Coming Soon', 'Social links will be available soon!', 'info'); return false;">
                                 <i class="fab fa-behance" aria-hidden="true"></i>
                             </a>
                         </div>
                     </article>
                     
                     <article class="team-card">
-                        <div class="team-avatar" aria-hidden="true">👤</div>
-                        <h3>Community Manager</h3>
+                        <div class="team-avatar">
+                            <img src="assets/images/team-community.png" alt="Community Manager">
+                        </div>
+                        <h3>Jordan Bloom</h3>
+                        <p class="role">Community Manager</p>
                         <p>Building bridges between the team and our amazing community.</p>
                         <div class="team-social">
-                            <a href="#" aria-label="Community Manager Telegram" target="_blank" rel="noopener noreferrer">
+                            <a href="#" aria-label="Community Manager Telegram" onclick="showToast('Coming Soon', 'Social links will be available soon!', 'info'); return false;">
                                 <i class="fab fa-telegram" aria-hidden="true"></i>
                             </a>
-                            <a href="#" aria-label="Community Manager Discord" target="_blank" rel="noopener noreferrer">
+                            <a href="#" aria-label="Community Manager Discord" onclick="showToast('Coming Soon', 'Social links will be available soon!', 'info'); return false;">
                                 <i class="fab fa-discord" aria-hidden="true"></i>
                             </a>
                         </div>
@@ -280,32 +417,38 @@
     <!-- Footer -->
     <footer role="contentinfo">
         <div class="footer-content">
-            <div class="footer-logo">
-                <img src="assets/images/logo-small.png" alt="" width="40" height="40" loading="lazy">
-                <span>FlowerBTC</span>
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="assets/images/sunflower-logo.png" alt="" width="40" height="40" loading="lazy">
+                    <span>FlowerBTC</span>
+                </div>
+                <p class="footer-tagline">Growing the future of crypto, one petal at a time.</p>
             </div>
             
-            <nav class="footer-links" aria-label="Footer navigation">
-                <div class="link-group">
-                    <h4>Quick Links</h4>
-                    <a href="index.html">Home</a>
-                    <a href="about.html">About</a>
-                    <a href="inquiry.html">Contact</a>
-                </div>
-                
-                <div class="link-group">
-                    <h4>Resources</h4>
-                    <a href="faq.html">FAQ</a>
-                    <a href="#" onclick="alert('Coming soon!'); return false;">Whitepaper</a>
-                </div>
-                
-                <div class="link-group">
-                    <h4>Legal</h4>
-                    <a href="#" onclick="openLegalModal('privacy'); return false;">Privacy Policy</a>
-                    <a href="#" onclick="openLegalModal('terms'); return false;">Terms of Service</a>
-                </div>
+            <nav class="link-group" aria-label="Quick links">
+                <h4>Quick Links</h4>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="inquiry.html">Contact</a>
+                <a href="faq.html">FAQ</a>
             </nav>
             
+            <nav class="link-group" aria-label="Resources">
+                <h4>Resources</h4>
+                <a href="#" onclick="showToast('Coming Soon', 'Our whitepaper is being finalized. Stay tuned!', 'info'); return false;">Whitepaper</a>
+                <a href="#" onclick="showToast('Coming Soon', 'Documentation will be available soon!', 'info'); return false;">Documentation</a>
+            </nav>
+            
+            <nav class="link-group" aria-label="Legal">
+                <h4>Legal</h4>
+                <a href="#" onclick="openLegalModal('privacy'); return false;">Privacy Policy</a>
+                <a href="#" onclick="openLegalModal('terms'); return false;">Terms of Service</a>
+                <a href="#" onclick="openLegalModal('disclaimer'); return false;">Disclaimer</a>
+            </nav>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; <span id="copyrightYear">2026</span> FlowerBTC. All rights reserved.</p>
             <nav class="footer-social" aria-label="Social media">
                 <a href="https://x.com/FlowerBTC_" target="_blank" rel="noopener noreferrer" aria-label="Follow us on X">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
@@ -318,33 +461,56 @@
                 </a>
             </nav>
         </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2024 FlowerBTC. All rights reserved.</p>
-        </div>
     </footer>
     
     <!-- Legal Modals -->
     <div id="privacyModal" class="legal-modal" role="dialog" aria-labelledby="privacy-title" aria-modal="true">
         <div class="modal-content">
-            <button class="close-modal" onclick="closeLegalModal('privacy')" aria-label="Close privacy policy">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <div class="modal-body">
+            <div class="modal-header">
                 <h2 id="privacy-title">Privacy Policy</h2>
-                <p>Your privacy is important to us. This policy explains how we collect, use, and protect your personal information.</p>
+                <button class="close-modal" onclick="closeLegalModal('privacy')" aria-label="Close privacy policy">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="privacy-section">
+                    <h3>Information We Collect</h3>
+                    <p>Your privacy is important to us. This policy explains how we collect, use, and protect your personal information.</p>
+                </div>
             </div>
         </div>
     </div>
     
     <div id="termsModal" class="legal-modal" role="dialog" aria-labelledby="terms-title" aria-modal="true">
         <div class="modal-content">
-            <button class="close-modal" onclick="closeLegalModal('terms')" aria-label="Close terms of service">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <div class="modal-body">
+            <div class="modal-header">
                 <h2 id="terms-title">Terms of Service</h2>
-                <p>By using FlowerBTC services, you agree to these terms.</p>
+                <button class="close-modal" onclick="closeLegalModal('terms')" aria-label="Close terms of service">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="privacy-section">
+                    <h3>Acceptance of Terms</h3>
+                    <p>By using FlowerBTC services, you agree to these terms.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="disclaimerModal" class="legal-modal" role="dialog" aria-labelledby="disclaimer-title" aria-modal="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="disclaimer-title">Disclaimer</h2>
+                <button class="close-modal" onclick="closeLegalModal('disclaimer')" aria-label="Close disclaimer">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="privacy-section">
+                    <h3>No Financial Advice</h3>
+                    <p>Nothing on this website constitutes financial, investment, or legal advice.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -352,5 +518,91 @@
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="module" src="js/main.js"></script>
+    
+    <!-- Improvements Script -->
+    <script>
+        // Toast Notification System
+        function showToast(title, message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            
+            const iconMap = {
+                info: '<i class="fas fa-info-circle"></i>',
+                success: '<i class="fas fa-check-circle"></i>',
+                warning: '<i class="fas fa-exclamation-triangle"></i>',
+                error: '<i class="fas fa-times-circle"></i>'
+            };
+            
+            toast.innerHTML = `
+                <div class="toast-icon">${iconMap[type] || iconMap.info}</div>
+                <div class="toast-content">
+                    <div class="toast-title">${title}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+                <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
+            `;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.add('hiding');
+                setTimeout(() => toast.remove(), 300);
+            }, 5000);
+        }
+        
+        // Dynamic Copyright Year
+        document.getElementById('copyrightYear').textContent = new Date().getFullYear();
+        
+        // Dock Hint Visibility
+        setTimeout(() => {
+            const hint = document.getElementById('dockHint');
+            if (hint) hint.classList.add('visible');
+        }, 2000);
+        
+        setTimeout(() => {
+            const hint = document.getElementById('dockHint');
+            if (hint) hint.classList.add('hidden');
+        }, 8000);
+        
+        // Section Visibility Animation
+        const sections = document.querySelectorAll('.section');
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        sections.forEach(section => sectionObserver.observe(section));
+        
+        // Top Navbar Scroll Effect
+        const topNavbar = document.querySelector('.top-navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                topNavbar.classList.add('scrolled');
+            } else {
+                topNavbar.classList.remove('scrolled');
+            }
+        }, { passive: true });
+        
+        // Expose functions globally
+        window.showToast = showToast;
+        window.openLegalModal = function(type) {
+            const modal = document.getElementById(`${type}Modal`);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        };
+        window.closeLegalModal = function(type) {
+            const modal = document.getElementById(`${type}Modal`);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        };
+    </script>
 </body>
 </html>

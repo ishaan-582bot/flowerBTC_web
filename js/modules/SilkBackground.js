@@ -17,7 +17,7 @@ export class SilkBackground {
      * @static
      */
     static defaults = {
-        color: '#7B7481',
+        color: '#2A1F0A',
         speed: 5,
         scale: 1,
         rotation: 0,

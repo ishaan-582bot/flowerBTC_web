@@ -18,11 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const perfMonitor = new PerformanceMonitor();
     app.registerModule('performance', perfMonitor);
 
-    // Initialize Silk Background (singleton)
+    // Initialize Silk Background (singleton) - Dark Amber for Sunflower Brand
     const silkContainer = document.getElementById('silk-background');
     if (silkContainer && typeof THREE !== 'undefined') {
         const silkBackground = SilkBackground.getInstance(silkContainer, {
-            color: '#7B7481',
+            color: '#2A1F0A',
             speed: 5,
             scale: 1,
             noiseIntensity: 1.5
