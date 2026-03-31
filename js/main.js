@@ -102,7 +102,7 @@ function initLoadingScreen() {
             setTimeout(() => {
                 loadingScreen.style.display = 'none';
             }, 500);
-        }, 1500);
+        }, 300);
     });
 }
 
@@ -251,7 +251,7 @@ function initCommunityCounter() {
     const counter = document.getElementById('memberCount');
     if (!counter) return;
 
-    const target = 5000;
+    const target = 25000;
     let current = 0;
     const duration = 2000;
     let startTime = null;

@@ -27,7 +27,7 @@ html {
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Inter', 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
     background-color: transparent !important;
     background-image: none !important;
     color: var(--text-color);
@@ -55,20 +55,20 @@ body {
 
 /* Custom Cursor */
 .custom-cursor {
-    width: 40px;
-    height: 40px;
-    background-image: url('C:\Users\Sahitya Sharma\OneDrive\Desktop\New folder\image\image\sunflower.png');
-    background-size: contain;
-    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+    background: radial-gradient(circle, #F5A623 30%, transparent 70%);
+    border-radius: 50%;
     position: fixed;
     pointer-events: none;
     z-index: 9999;
     transition: transform 0.1s ease;
     transform-origin: center center;
+    mix-blend-mode: difference;
 }
 
 .custom-cursor.hover {
-    transform: scale(1.2) rotate(20deg);
+    transform: scale(1.5);
 }
 
 /* Loading Screen */

@@ -1,0 +1,797 @@
+/**
+ * FlowerBTC Final Overhaul CSS
+ * Addresses all HI + M improvement items
+ * @version 5.0.0
+ */
+
+/* ============================================
+   HI-01: TYPOGRAPHY UNIFICATION
+   Body font = Inter, Headings = Space Grotesk
+   ============================================ */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6,
+.hero-title, .gradient-text, .coin-subheading,
+.roadmap-content h3, .team-card h3, .toast-title {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+/* ============================================
+   HI-05: GRADIENT TEXT OVERUSE FIX
+   Only .hero-title gets gradient. All other H2s
+   use plain sunflower gold for hierarchy.
+   ============================================ */
+.gradient-text {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+  color: #F5A623 !important;
+  filter: none !important;
+  text-shadow: 0 0 40px rgba(245, 166, 35, 0.15);
+  font-size: clamp(2.5rem, 5vw, 3.5rem) !important;
+}
+
+/* Hero title KEEPS the gradient — it's the brand element */
+.hero-title {
+  background: linear-gradient(135deg, #F2C94C 0%, #FFD700 50%, #F59E0B 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+  filter: drop-shadow(0 0 40px rgba(242, 201, 76, 0.3));
+}
+
+/* ============================================
+   HI-07: REMOVE NAV DOTS - keep dock only
+   ============================================ */
+.nav-dots {
+  display: none !important;
+}
+
+/* ============================================
+   HI-14: LOADING SCREEN → FAST FADE
+   Show content immediately with quick brand flash
+   ============================================ */
+.loading-screen {
+  animation: loadingFadeOut 0.8s ease 0.3s forwards !important;
+}
+
+@keyframes loadingFadeOut {
+  0% { opacity: 1; visibility: visible; }
+  100% { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+
+.loading-text {
+  display: none !important;
+}
+
+/* ============================================
+   HI-15: COIN SECTION — DRAMATIC LAYOUT
+   Full-width hero treatment for the coin
+   ============================================ */
+.coin-showcase {
+  text-align: center;
+}
+
+.coin-showcase .gradient-text,
+.coin-showcase h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.coin-content {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 3rem !important;
+}
+
+.coin-left {
+  flex: none !important;
+  width: 100% !important;
+  display: flex;
+  justify-content: center;
+}
+
+.coin-image {
+  max-width: 320px !important;
+  width: 100% !important;
+  filter: drop-shadow(0 0 60px rgba(242, 201, 76, 0.4)) !important;
+  animation: coinHeroFloat 6s ease-in-out infinite;
+}
+
+@keyframes coinHeroFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-15px) scale(1.03); }
+}
+
+.coin-right {
+  flex: none !important;
+  width: 100% !important;
+  max-width: 800px;
+}
+
+/* Tokenomics stat cards from coin-list */
+.coin-list {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 1rem !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+.coin-list li {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(242, 201, 76, 0.15);
+  border-radius: 12px;
+  padding: 1.25rem !important;
+  padding-left: 1.25rem !important;
+  text-align: left;
+}
+
+.coin-list li::before {
+  content: '' !important;
+  position: absolute !important;
+  left: 1.25rem !important;
+  top: 1.5rem !important;
+  width: 8px !important;
+  height: 8px !important;
+  background: linear-gradient(135deg, #F5A623, #F2C94C) !important;
+  border-radius: 50% !important;
+  box-shadow: 0 0 12px rgba(245, 166, 35, 0.5) !important;
+}
+
+.coin-list li {
+  position: relative;
+  padding-left: 2.5rem !important;
+}
+
+/* M-09: Coin sub-heading visual hierarchy */
+.coin-section:first-child .coin-subheading {
+  font-size: 1.5rem !important;
+  color: #F5A623 !important;
+}
+
+.coin-section:nth-child(2) .coin-subheading {
+  font-size: 1.25rem !important;
+}
+
+.coin-section:nth-child(3) .coin-subheading {
+  font-size: 1.125rem !important;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ============================================
+   HI-11: ENRICHED FLIP CARD BACKS
+   ============================================ */
+.card-back {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.card-back h4 {
+  font-family: 'Space Grotesk', sans-serif !important;
+  text-transform: uppercase;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.15em;
+  color: #F5A623 !important;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.card-back ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+
+.card-back ul li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.card-back ul li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: #F5A623;
+  font-size: 0.7rem;
+}
+
+.card-back ul li:last-child {
+  border-bottom: none;
+}
+
+/* ============================================
+   HI-12: AFFILIATE SECTION REDESIGN
+   Visual energy with commission highlight
+   ============================================ */
+.cards-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 2rem !important;
+}
+
+.info-card {
+  text-align: left !important;
+}
+
+.info-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.5rem;
+  color: #F5A623;
+  margin-bottom: 1.5rem;
+}
+
+/* Steps list with branded numbered circles (M-19) */
+.steps-list {
+  list-style: none !important;
+  padding: 0 !important;
+  counter-reset: step;
+}
+
+.steps-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  position: relative;
+  padding-left: 0;
+}
+
+.step-num {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px;
+  background: linear-gradient(135deg, #F5A623, #F2C94C) !important;
+  color: #0a0a0a !important;
+  border-radius: 50% !important;
+  font-weight: 700 !important;
+  font-size: 0.875rem !important;
+}
+
+/* VIP card premium look (M-16) */
+.info-card.highlight {
+  position: relative;
+  background: linear-gradient(180deg, 
+    rgba(245, 166, 35, 0.12) 0%, 
+    rgba(20, 25, 32, 0.95) 100%) !important;
+  border: 1px solid rgba(245, 166, 35, 0.5) !important;
+  box-shadow: 
+    0 0 60px rgba(245, 166, 35, 0.15),
+    inset 0 1px 0 rgba(245, 166, 35, 0.3) !important;
+}
+
+.info-card.highlight::before {
+  content: '✦ VIP' !important;
+  background: linear-gradient(135deg, #F5A623, #D4880A) !important;
+  color: #0a0a0a !important;
+  font: 700 0.7rem 'Space Grotesk', sans-serif !important;
+  padding: 0.375rem 1.25rem !important;
+  letter-spacing: 0.15em !important;
+}
+
+.vip-benefits {
+  list-style: none !important;
+  padding: 0 !important;
+}
+
+.vip-benefits li {
+  padding: 0.625rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.vip-benefits li i {
+  color: #F5A623;
+  font-size: 1rem;
+}
+
+.vip-benefits li:last-child {
+  border-bottom: none;
+}
+
+/* ============================================
+   M-01: SUNFLOWER GOLD ACCENT COLOR
+   Primary accent = #F5A623 throughout
+   ============================================ */
+:root {
+  --color-accent-gold: #F5A623;
+}
+
+/* ============================================
+   M-02: CONSISTENT BUTTON BORDER RADIUS
+   Pill shape (50px) everywhere for modern look
+   ============================================ */
+.cta-button,
+.btn {
+  border-radius: 50px !important;
+}
+
+/* ============================================
+   M-03: SECONDARY CTA VISUAL SEPARATION
+   ============================================ */
+.cta-button.secondary {
+  opacity: 0.85;
+  font-weight: 400 !important;
+  padding: 0.875rem 2rem !important;
+}
+
+.cta-button.primary {
+  font-weight: 700 !important;
+  padding: 1rem 2.5rem !important;
+  font-size: 1rem !important;
+}
+
+/* ============================================
+   M-04: AMBIENT ORBS → VERY SUBTLE
+   ============================================ */
+.ambient-orb {
+  opacity: 0.05 !important;
+}
+
+body::before {
+  opacity: 0.06 !important;
+}
+
+body::after {
+  opacity: 0.04 !important;
+}
+
+/* ============================================
+   M-05: HERO SUBTITLE TYPOGRAPHIC TREATMENT
+   ============================================ */
+.hero-subtitle {
+  font-size: clamp(1rem, 2vw, 1.25rem) !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  font-weight: 400 !important;
+  margin-bottom: 2.5rem !important;
+}
+
+/* ============================================
+   M-06: CARD HOVER STATES — REFINED
+   ============================================ */
+.eco-card,
+.stat-card,
+.info-card,
+.mission-card,
+.value-card,
+.team-card {
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.eco-card:hover,
+.stat-card:hover,
+.info-card:hover,
+.mission-card:hover,
+.value-card:hover,
+.team-card:hover {
+  transform: translateY(-6px) !important;
+  border-color: rgba(245, 166, 35, 0.35) !important;
+  box-shadow: 
+    0 16px 40px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(245, 166, 35, 0.15) !important;
+}
+
+/* ============================================
+   M-07: VARIABLE SECTION SPACING
+   Hero & coin get more breathing room
+   ============================================ */
+#home, #coin {
+  padding-top: 8rem !important;
+  padding-bottom: 8rem !important;
+}
+
+#ecosystem, #growth, #mechanics {
+  padding-top: 5rem !important;
+  padding-bottom: 5rem !important;
+}
+
+#community, #affiliate {
+  padding-top: 4rem !important;
+  padding-bottom: 4rem !important;
+}
+
+/* ============================================
+   M-10: SOCIAL LINK ICON SIZE NORMALIZATION
+   ============================================ */
+.social-link i,
+.footer-social a i,
+.team-social a i {
+  font-size: 1.125rem !important;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ============================================
+   M-11: FOOTER TAGLINE TIGHTENED
+   ============================================ */
+.footer-tagline {
+  font-style: normal !important;
+  font-size: 0.95rem !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* ============================================
+   M-12: MODAL CLOSE BUTTON HIT AREA
+   ============================================ */
+.close-modal {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 50% !important;
+  color: white !important;
+  font-size: 1.5rem !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.close-modal:hover {
+  background: rgba(244, 63, 94, 0.3) !important;
+  border-color: rgba(244, 63, 94, 0.5) !important;
+  transform: rotate(90deg);
+}
+
+/* ============================================
+   M-14: GROWTH MARQUEE EDGE FADE MASKS
+   ============================================ */
+.growth-marquee {
+  -webkit-mask-image: linear-gradient(
+    90deg, 
+    transparent 0%, 
+    black 8%, 
+    black 92%, 
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg, 
+    transparent 0%, 
+    black 8%, 
+    black 92%, 
+    transparent 100%
+  );
+}
+
+/* ============================================
+   M-17: MECHANIC CARD IMAGES — LARGER + GLOW
+   ============================================ */
+.mechanic-icon {
+  width: 150px !important;
+  height: 150px !important;
+}
+
+.mechanic-icon img {
+  width: 140px !important;
+  height: 140px !important;
+  filter: drop-shadow(0 0 20px rgba(245, 166, 35, 0.4));
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.mechanic-card:hover .mechanic-icon img {
+  filter: drop-shadow(0 0 40px rgba(245, 166, 35, 0.7));
+  transform: scale(1.1);
+}
+
+/* ============================================
+   M-20: TELEGRAM ICON IN CTA ALIGNMENT
+   ============================================ */
+.cta-button i {
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+
+/* ============================================
+   M-21: SECTION TITLES — LARGER PRESENCE
+   ============================================ */
+.gradient-text {
+  font-size: clamp(2.5rem, 5vw, 3.5rem) !important;
+  margin-bottom: 2.5rem !important;
+}
+
+/* ============================================
+   M-22: CUSTOM CURSOR — SUNFLOWER BRAND
+   Gold dot with petal ring
+   ============================================ */
+.custom-cursor::before {
+  background: #F5A623 !important;
+}
+
+.custom-cursor::after {
+  border-color: #F5A623 !important;
+}
+
+/* ============================================
+   M-23: MOBILE MENU BACKDROP
+   ============================================ */
+.mobile-menu {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: rgba(10, 10, 10, 0.92) !important;
+  backdrop-filter: blur(30px) !important;
+  -webkit-backdrop-filter: blur(30px) !important;
+  z-index: 998 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease !important;
+}
+
+.mobile-menu.open,
+.mobile-menu.active {
+  opacity: 1 !important;
+  pointer-events: all !important;
+}
+
+.mobile-menu-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.mobile-menu-links a {
+  font: 600 1.75rem 'Space Grotesk', sans-serif;
+  color: white;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.mobile-menu-links a:hover {
+  color: #F5A623;
+}
+
+/* Menu toggle z-index */
+.menu-toggle {
+  z-index: 999 !important;
+}
+
+/* ============================================
+   M-25: VISION/MISSION TEXT FORMATTING
+   Break text, add visual anchors
+   ============================================ */
+.vision-text,
+.story-text p,
+.vision-content p,
+.mission-card p,
+.value-card p {
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.8 !important;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.vision-content,
+.story-content {
+  text-align: center;
+}
+
+/* ============================================
+   M-26: FOOTER COLUMN ALIGNMENT
+   ============================================ */
+.footer-content {
+  display: grid !important;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr !important;
+  gap: 2rem !important;
+  align-items: start !important;
+}
+
+.link-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.link-group h4 {
+  color: #F5A623 !important;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.link-group a {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  padding: 0.25rem 0;
+  transition: color 0.2s ease;
+}
+
+.link-group a:hover {
+  color: #F5A623;
+}
+
+/* Footer bottom */
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* ============================================
+   ABOUT PAGE: TEAM GRID LAYOUT
+   ============================================ */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.mission-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Value/Mission cards icon containers */
+.value-icon,
+.mission-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(245, 166, 35, 0.08);
+  border-radius: 16px;
+  border: 1px solid rgba(245, 166, 35, 0.15);
+}
+
+.value-card,
+.mission-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.value-card h3,
+.mission-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.25rem;
+  color: #F5A623;
+  margin-bottom: 0.75rem;
+}
+
+/* ============================================
+   ABOUT PAGE: ROADMAP ACTIVE LIVE BADGE (M-24)
+   ============================================ */
+.roadmap-item.active .roadmap-node::after {
+  content: 'LIVE';
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font: 700 0.6rem 'Space Grotesk', sans-serif;
+  color: #F5A623;
+  background: rgba(245, 166, 35, 0.15);
+  border: 1px solid rgba(245, 166, 35, 0.4);
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+/* ============================================
+   COMMUNITY STATS GRID
+   ============================================ */
+.community-stats {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 1.5rem !important;
+}
+
+.stat-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(245, 166, 35, 0.08);
+  border-radius: 14px;
+}
+
+.stat-label {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================
+   RESPONSIVE OVERRIDES
+   ============================================ */
+@media (max-width: 768px) {
+  .coin-list {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .cards-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .community-stats {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .footer-content {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .gradient-text {
+    font-size: clamp(1.75rem, 6vw, 2.5rem) !important;
+  }
+  
+  .mechanic-icon {
+    width: 120px !important;
+    height: 120px !important;
+  }
+  
+  .mechanic-icon img {
+    width: 110px !important;
+    height: 110px !important;
+  }
+  
+  .hero-subtitle {
+    font-size: 0.875rem !important;
+    letter-spacing: 0.1em !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .coin-list li {
+    padding: 1rem !important;
+    padding-left: 2.25rem !important;
+  }
+}
