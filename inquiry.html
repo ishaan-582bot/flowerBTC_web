@@ -21,9 +21,8 @@
     
     <title>Contact FlowerBTC - Get in Touch</title>
     
-    <!-- Fonts -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" as="style">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
+    <!-- Fonts - Space Grotesk + Inter (Unified across all pages) -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -33,7 +32,7 @@
     <link rel="stylesheet" href="css/inquiry.css">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="icon" type="image/png" href="assets/images/sunflower-logo.png">
 </head>
 <body>
     <!-- Silk Background -->
@@ -43,10 +42,54 @@
     <div class="custom-cursor" aria-hidden="true"></div>
     
     <!-- Loading Screen -->
-    <div class="loading-screen" role="status" aria-label="Loading">
-        <img src="assets/images/sunflower-logo.png" alt="" width="128" height="128" loading="eager">
+    <div class="loading-screen" role="status" aria-label="Loading FlowerBTC">
+        <div class="loading-logo">
+            <img src="assets/images/sunflower-logo.png" alt="" width="120" height="120" loading="eager">
+        </div>
+        <div class="loading-progress" aria-hidden="true"></div>
+        <span class="loading-text">Loading Experience</span>
         <span class="sr-only">Loading...</span>
     </div>
+    
+    <!-- Persistent Top Navbar -->
+    <nav class="top-navbar" aria-label="Main navigation">
+        <a href="index.html" class="nav-logo">
+            <img src="assets/images/sunflower-logo.png" alt="">
+            <span>FlowerBTC</span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="inquiry.html" class="active">Contact</a>
+            <a href="faq.html">FAQ</a>
+        </div>
+    </nav>
+    
+    <!-- Dock Visibility Hint -->
+    <div class="dock-hint" id="dockHint">
+        <i class="fas fa-mouse-pointer"></i>
+        <span>Hover top for navigation</span>
+    </div>
+    
+    <!-- Mobile Menu Toggle -->
+    <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" role="dialog" aria-label="Mobile navigation">
+        <nav class="mobile-menu-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="inquiry.html">Contact</a>
+            <a href="faq.html">FAQ</a>
+        </nav>
+    </div>
+    
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
     
     <!-- Main Content -->
     <main id="main-content">
@@ -211,7 +254,7 @@
     <footer role="contentinfo">
         <div class="footer-content">
             <div class="footer-logo">
-                <img src="assets/images/logo-small.png" alt="" width="40" height="40" loading="lazy">
+                <img src="assets/images/sunflower-logo.png" alt="" width="40" height="40" loading="lazy">
                 <span>FlowerBTC</span>
             </div>
             
@@ -249,19 +292,92 @@
         </div>
         
         <div class="footer-bottom">
-            <p>&copy; 2024 FlowerBTC. All rights reserved.</p>
+            <p>&copy; <span id="copyrightYear">2026</span> FlowerBTC. All rights reserved.</p>
         </div>
     </footer>
     
     <!-- Legal Modals -->
     <div id="privacyModal" class="legal-modal" role="dialog" aria-labelledby="privacy-title" aria-modal="true">
         <div class="modal-content">
-            <button class="close-modal" onclick="closeLegalModal('privacy')" aria-label="Close privacy policy">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <div class="modal-body">
+            <div class="modal-header">
                 <h2 id="privacy-title">Privacy Policy</h2>
-                <p>Your privacy is important to us. This policy explains how we collect, use, and protect your personal information.</p>
+                <button class="close-modal" onclick="closeLegalModal('privacy')" aria-label="Close privacy policy">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="privacy-section">
+                    <div class="privacy-header">
+                        <p><strong>Effective Date:</strong> January 2026</p>
+                    </div>
+                    
+                    <nav class="privacy-toc" aria-label="Privacy policy sections">
+                        <a href="#p-section1" class="toc-item" data-num="01">Information</a>
+                        <a href="#p-section2" class="toc-item" data-num="02">Usage</a>
+                        <a href="#p-section3" class="toc-item" data-num="03">Security</a>
+                        <a href="#p-section4" class="toc-item" data-num="04">Cookies</a>
+                        <a href="#p-section5" class="toc-item" data-num="05">Rights</a>
+                        <a href="#p-section6" class="toc-item" data-num="06">Contact</a>
+                    </nav>
+                    
+                    <h3 id="p-section1" data-num="01">Information We Collect</h3>
+                    <p>Your privacy is important to us. This policy explains how we collect, use, and protect your personal information.</p>
+                    <ul>
+                        <li>Personal information (name, email) when you contact us</li>
+                        <li>Usage data and analytics</li>
+                        <li>Blockchain transaction data (public addresses only)</li>
+                    </ul>
+                    
+                    <h3 id="p-section2" data-num="02">How We Use Your Information</h3>
+                    <ul>
+                        <li>To provide and improve our services</li>
+                        <li>To communicate with you</li>
+                        <li>To ensure security and prevent fraud</li>
+                    </ul>
+                    
+                    <h3 id="p-section3" data-num="03">Data Security</h3>
+                    <p>We implement industry-standard security measures to protect your data.</p>
+                    
+                    <h3 id="p-section4" data-num="04">Cookies</h3>
+                    <p>We use cookies to enhance your browsing experience and analyze site traffic.</p>
+                    
+                    <h3 id="p-section5" data-num="05">Your Rights</h3>
+                    <p>You have the right to access, modify, or delete your personal information.</p>
+                    
+                    <h3 id="p-section6" data-num="06">Contact Us</h3>
+                    <p>For privacy-related inquiries, contact us at privacy@flowerbtc.io</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="termsModal" class="legal-modal" role="dialog" aria-labelledby="terms-title" aria-modal="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="terms-title">Terms of Service</h2>
+                <button class="close-modal" onclick="closeLegalModal('terms')" aria-label="Close terms of service">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="privacy-section">
+                    <div class="privacy-header">
+                        <p><strong>Effective Date:</strong> January 2026</p>
+                    </div>
+                    
+                    <h3 data-num="01">Acceptance of Terms</h3>
+                    <p>By using FlowerBTC services, you agree to be bound by these terms.</p>
+                    
+                    <h3 data-num="02">Use of Services</h3>
+                    <ul>
+                        <li>You must be of legal age in your jurisdiction</li>
+                        <li>You agree to use services only for lawful purposes</li>
+                        <li>You are responsible for securing your wallet and credentials</li>
+                    </ul>
+                    
+                    <h3 data-num="03">Risk Disclosure</h3>
+                    <p>Cryptocurrency investments carry significant risk. Only invest what you can afford to lose.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -270,5 +386,60 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="module" src="js/main.js"></script>
     <script type="module" src="js/modules/ContactForm.js"></script>
+    
+    <!-- Improvements Script -->
+    <script>
+        // Dynamic Copyright Year
+        document.getElementById('copyrightYear').textContent = new Date().getFullYear();
+        
+        // Dock Hint Visibility
+        setTimeout(() => {
+            const hint = document.getElementById('dockHint');
+            if (hint) hint.classList.add('visible');
+        }, 2000);
+        
+        setTimeout(() => {
+            const hint = document.getElementById('dockHint');
+            if (hint) hint.classList.add('hidden');
+        }, 8000);
+        
+        // Top Navbar Scroll Effect
+        const topNavbar = document.querySelector('.top-navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                topNavbar.classList.add('scrolled');
+            } else {
+                topNavbar.classList.remove('scrolled');
+            }
+        }, { passive: true });
+        
+        // Mobile Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        
+        if (menuToggle && mobileMenu) {
+            menuToggle.addEventListener('click', () => {
+                const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+                menuToggle.setAttribute('aria-expanded', !isExpanded);
+                mobileMenu.classList.toggle('active');
+            });
+        }
+        
+        // Expose functions globally
+        window.openLegalModal = function(type) {
+            const modal = document.getElementById(`${type}Modal`);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        };
+        window.closeLegalModal = function(type) {
+            const modal = document.getElementById(`${type}Modal`);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        };
+    </script>
 </body>
 </html>
